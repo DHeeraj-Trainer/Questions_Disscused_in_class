@@ -1,0 +1,101 @@
+customer_id,customer_name,age,product_name,category,price,sale_date
+101,Eshani Vyas,53,Washing Powder,Uncategorized,257.4468656716418,2025-10-03
+102,Yakshit Apte,8,Face Wash,Uncategorized,307.73,
+103,Vedika Bajwa,35,Green Tea,Uncategorized,148.2,2024-09-04
+104,Shalv Chopra,49,Green Tea,Uncategorized,470.78,
+105,Ehsaan Jani,116,Butter,Uncategorized,463.05,2024-05-11
+106,Hunar Sidhu,48,Milk,Dairy,215.54,
+107,Miraya Saini,50,Chips Packets,Uncategorized,467.7,
+108,Krish Rout,27,Toothpaste,Uncategorized,65.81,
+109,Mehul Contractor,13,Soap,Personal Care,72.18,2024-03-08
+110,Bhamini Sha,70,Apple Juice,Uncategorized,308.94,
+111,Rhea Yogi,25,Corn Flakes,Uncategorized,311.52,
+112,Jivin Sidhu,20,Milk,Dairy,354.1,
+113,Vanya Bansal,71,Washing Powder,Uncategorized,430.8,
+114,Alisha Gade,29,Mango Juice,Uncategorized,257.4468656716418,
+115,Elakshi Tara,110,Apple Juice,Uncategorized,257.4468656716418,
+116,Armaan Sangha,70,Apple Juice,Uncategorized,411.02,
+117,Mohanlal Kashyap,38,Washing Powder,Uncategorized,76.77,
+118,Pari Shah,6,Mango Juice,Uncategorized,142.92,
+119,Manjari Chopra,75,Apple Juice,Uncategorized,229.33,2024-11-08
+120,Shaan Raj,81,Milk,Dairy,180.55,
+121,Romil Kata,120,Milk,Dairy,21.36,2025-02-21
+122,Dhanush Bhatti,88,Chocolate Cake,Uncategorized,384.33,
+123,Amani Manda,69,Biscuits,Snacks,264.04,2024-03-04
+124,Ahana  Ravi,103,Milk,Dairy,233.78,
+125,Badal Sachar,68,Milk,Dairy,458.88,2025-03-01
+126,Mahika Balakrishnan,73,Apple Juice,Uncategorized,253.98,
+127,Heer Gara,56,Green Tea,Uncategorized,46.31,2024-04-15
+128,Anya Borra,63,Butter,Uncategorized,272.05,
+129,Zaina Swaminathan,16,Corn Flakes,Uncategorized,257.4468656716418,
+130,Rania Dar,94,Biscuits,Snacks,23.92,
+131,Romil Kothari,95,Green Tea,Uncategorized,281.62,
+132,Shamik Choudhary,7,Butter,Uncategorized,252.39,
+133,Dhanush Warrior,108,Milk,Dairy,81.93,
+134,Miraan Lalla,8,Toothpaste,Uncategorized,197.75,
+135,Romil Chokshi,60,Soap,Personal Care,220.84,2024-04-11
+136,Jayant Taneja,111,Green Tea,Uncategorized,50.08,2024-09-19
+137,Anaya Mahal,6,Washing Powder,Uncategorized,298.1,
+138,Sumer Srivastava,106,Green Tea,Uncategorized,253.29,
+139,Uthkarsh Shan,73,Face Wash,Uncategorized,131.12,
+140,Kimaya Bhargava,36,Bread,Uncategorized,336.17,
+141,Ela Biswas,118,Corn Flakes,Uncategorized,418.4,2024-04-10
+142,Sumer Subramaniam,81,Corn Flakes,Uncategorized,64.19,2024-04-14
+143,Zoya Basu,46,Bread,Uncategorized,408.85,
+144,Advik Jha,47,Biscuits,Snacks,303.64,
+145,Kartik Grewal,104,Soap,Personal Care,230.57333333333335,
+146,Samaira Shetty,94,Toothpaste,Uncategorized,485.98,
+147,Anika Kashyap,39,Mango Juice,Uncategorized,383.12,
+148,Aarush Bakshi,76,Herbal Shampoo,Uncategorized,60.21,
+149,Tanya Srinivas,35,Biscuits,Snacks,243.77,
+150,Baiju Agrawal,94,Butter,Uncategorized,34.41,2024-03-04
+151,Vritika Tara,70,Biscuits,Snacks,165.37,2025-03-17
+152,Rati Yogi,116,Herbal Shampoo,Uncategorized,56.19,
+153,Indrans Garde,15,Butter,Uncategorized,454.23,2024-12-12
+154,Chirag Balay,38,Corn Flakes,Uncategorized,90.29,2024-06-19
+155,Darshit Saraf,65,Herbal Shampoo,Uncategorized,312.57,
+156,Jayesh Seshadri,79,Chips Packets,Uncategorized,130.98,
+157,Riya Ramesh,79,Bread,Uncategorized,114.1,2024-10-07
+158,Prerak Bath,119,Soap,Personal Care,325.31,
+159,Zaina Gopal,35,Biscuits,Snacks,134.7,
+160,Onkar Choudhary,67,Toothpaste,Uncategorized,480.45,
+161,Devansh Vora,61,Apple Juice,Uncategorized,101.03,2025-02-26
+162,Kanav Shere,7,Corn Flakes,Uncategorized,231.88,
+163,Kaira Kapoor,85,Soap,Personal Care,467.47,
+164,Umang Bora,70,Apple Juice,Uncategorized,369.03,
+165,Vritika Gulati,96,Green Tea,Uncategorized,450.97,
+166,Misha Chaudhary,95,Chips Packets,Uncategorized,329.32,
+167,Kashvi Bail,3,Corn Flakes,Uncategorized,43.51,2024-08-25
+168,Umang Issac,94,Washing Powder,Uncategorized,489.15,2025-01-28
+169,Arnav Wali,20,Herbal Shampoo,Uncategorized,257.4468656716418,2025-02-22
+170,Raghav Rana,14,Soap,Personal Care,230.57333333333335,2024-12-30
+171,Tarini Hora,42,Green Tea,Uncategorized,159.7,
+172,Kashvi Majumdar,56,Soap,Personal Care,167.87,2025-08-01
+173,Pari Sastry,118,Butter,Uncategorized,479.91,
+174,Saira Mani,111,Bread,Uncategorized,314.77,2024-07-06
+175,Nitara Dada,57,Face Wash,Uncategorized,137.04,
+176,Mohanlal Sengupta,14,Corn Flakes,Uncategorized,489.15,
+177,Akarsh Ray,19,Milk,Dairy,233.86,2024-08-11
+178,Saanvi Sabharwal,58,Biscuits,Snacks,237.38,
+179,Ira Tella,23,Bread,Uncategorized,257.4468656716418,
+180,Lagan Roy,15,Apple Juice,Uncategorized,87.31,2024-12-04
+181,Sana Bhattacharyya,46,Green Tea,Uncategorized,205.59,
+182,Anaya Kamdar,38,Soap,Personal Care,129.77,
+183,Neysa Rajan,3,Chips Packets,Uncategorized,478.74,
+184,Divij Chakraborty,11,Face Wash,Uncategorized,105.27,
+185,Bhavin Badami,84,Biscuits,Snacks,25.1,
+186,Eshani Magar,48,Washing Powder,Uncategorized,273.25,
+187,Ehsaan Wason,109,Apple Juice,Uncategorized,370.75,
+188,Jhanvi Dua,110,Biscuits,Snacks,83.6,
+189,Hridaan Kant,31,Washing Powder,Uncategorized,374.07,2025-08-01
+190,Mamooty Raval,19,Face Wash,Uncategorized,445.72,2025-03-09
+191,Ivana Devan,33,Washing Powder,Uncategorized,281.4,
+192,Indrans Sundaram,110,Green Tea,Uncategorized,22.21,2025-05-01
+193,Ela Chakrabarti,7,Butter,Uncategorized,62.26,
+194,Pari Gala,76,Biscuits,Snacks,307.03,2024-07-17
+195,Shray Krish,66,Mango Juice,Uncategorized,240.53,
+196,Dharmajan Kalla,106,Corn Flakes,Uncategorized,75.35,
+197,Nishith Sekhon,42,Toothpaste,Uncategorized,52.58,
+198,Hiran Badami,39,Milk,Dairy,361.61,
+199,Shalv Apte,73,Apple Juice,Uncategorized,36.19,
+200,Shanaya Master,68,Green Tea,Uncategorized,456.53,

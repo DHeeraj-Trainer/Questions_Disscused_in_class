@@ -1,0 +1,11 @@
+StudentID, Name, Subject, GradeType, OriginalGrade
+201, 'Aarav', 'Math', 'Percentage', 78
+202, 'Ishita', 'Physics', 'GPA', 3.2
+203, 'Rajesh', 'Chemistry', 'Letter', 'B+'
+204, 'Priya', 'Biology', 'Percentage', 88
+205, 'Manish', 'Math', 'GPA', 2.8
+206, 'Riya', 'Physics', 'Letter', 'C'
+207, 'Vikram', 'Chemistry', 'Percentage', 93
+208, 'Sanya', 'Biology', 'GPA',3.6
+209, 'Harsh', 'Math', 'Letter', 'A'
+210, 'Neha', 'Physics', 'Percentage',52
