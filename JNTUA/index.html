@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #976eea, #9568bd); /* Purple Gradient */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.15); /* Slightly more visible background */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+            max-width: 800px;
+            position: relative;
+            backdrop-filter: blur(12px); /* More blur */
+            border: 1px solid rgba(255, 255, 255, 0.25); /* More visible border */
+        }
+        .btn-custom {
+            background: linear-gradient(to right, #00c6ff, #0072ff); /* Blue Gradient */
+            color: white;
+            border: none;
+            padding: 14px 28px; /* Slightly larger button */
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4); /* Stronger button shadow */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-custom:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.5);
+        }
+        .display-box {
+            border: 1px solid rgba(218, 24, 24, 0.4); /* More visible border */
+            border-radius: 10px;
+            padding: 18px 30px; /* Larger display boxes */
+            min-width: 200px; /* Wider display boxes */
+            text-align: center;
+            position: fixed;
+            top: 30px; /* Adjusted top position */
+            transform: translateY(0);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(12px);
+            background-color: rgba(255, 255, 255, 0.2); /* More visible background */
+            color: black;
+            font-weight: bold;
+            font-size: medium;
+        }
+        #roll-display {
+            left: 30px; /* Adjusted left position */
+        }
+        #question-display {
+            right: 30px; /* Adjusted right position */
+        }
+        .range-container {
+            width: 100%;
+        }
+        .range-container .form-group {
+            margin-bottom: 18px; /* More spacing between form groups */
+        }
+        #history-table {
+            margin-top: 40px; /* More spacing above table */
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            border-collapse: collapse; /* Remove double borders */
+        }
+        #history-table th, #history-table td {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 20px; /* Larger table cells */
+            text-align: center;
+        }
+        #history-table thead {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        #history-table tbody tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center mb-4">Number Generator</h2>
+
+        <div class="range-container">
+            <div class="form-group">
+                <label for="rollMin">Roll No. Min Range:</label>
+                <input type="number" id="rollMin" class="form-control" value="1">
+            </div>
+
+            <div class="form-group">
+                <label for="rollMax">Roll No. Max Range:</label>
+                <input type="number" id="rollMax" class="form-control" value="10">
+            </div>
+
+            <div class="form-group">
+                <label for="questionMin">Question No. Min Range:</label>
+                <input type="number" id="questionMin" class="form-control" value="1">
+            </div>
+
+            <div class="form-group">
+                <label for="questionMax">Question No. Max Range:</label>
+                <input type="number" id="questionMax" class="form-control" value="10">
+            </div>
+        </div>
+
+        <button id="generate-numbers" class="btn btn-custom btn-block mb-3">Generate Numbers</button>
+
+        <div id="roll-display" class="display-box"></div>
+        <div id="question-display" class="display-box"></div>
+
+        <table id="history-table" class="table">
+            <thead>
+                <tr>
+                    <th>Roll No.</th>
+                    <th>Question No.</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script>
+        let displayedRolls = new Set();
+        let displayedQuestions = new Set();
+        let history = [];
+
+        function generateRandomNumber(min, max, displayedSet) {
+            let randomNumber;
+            do {
+                randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+            } while (displayedSet.has(randomNumber));
+            displayedSet.add(randomNumber);
+            return randomNumber;
+        }
+
+        document.getElementById("generate-numbers").addEventListener("click", function() {
+            const rollMin = parseInt(document.getElementById("rollMin").value);
+            const rollMax = parseInt(document.getElementById("rollMax").value);
+            const questionMin = parseInt(document.getElementById("questionMin").value);
+            const questionMax = parseInt(document.getElementById("questionMax").value);
+
+            if (displayedRolls.size >= (rollMax - rollMin + 1) || displayedQuestions.size >= (questionMax - questionMin + 1)) {
+                alert("All numbers in the given ranges have been generated.");
+                return;
+            }
+
+            const rollNumber = generateRandomNumber(rollMin, rollMax, displayedRolls);
+            const questionNumber = generateRandomNumber(questionMin, questionMax, displayedQuestions);
+
+            document.getElementById("roll-display").textContent = "Roll No: " + rollNumber;
+            document.getElementById("question-display").textContent = "Question No: " + questionNumber;
+
+            history.push({ roll: rollNumber, question: questionNumber });
+            updateHistoryTable();
+        });
+
+        function updateHistoryTable() {
+            const tableBody = document.querySelector("#history-table tbody");
+            tableBody.innerHTML = "";
+            history.forEach(item => {
+                const row = document.createElement("tr");
+                const rollCell = document.createElement("td");
+                const questionCell = document.createElement("td");
+                rollCell.textContent = item.roll;
+                questionCell.textContent = item.question;
+                row.appendChild(rollCell);
+                row.appendChild(questionCell);
+                tableBody.appendChild(row);
+            });
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

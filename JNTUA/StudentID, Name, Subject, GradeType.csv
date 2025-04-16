@@ -1,0 +1,11 @@
+Contact_ID, Name, City, State, Phone_Number, ZIP_Code 
+101, Aarav, Mumbai, MH, 9876543210, 400001
+102, Ishita, Bombay, Maharashtra, 987-654-3210, NULL
+103, Rajesh, Bangalore, Karnataka, +91 9876543210, 560001
+104, Priya, New Delhi, Delhi, 9999988888, 110001
+105, Manish, Bengaluru, KA, 99999 88888, 560002
+106, Riya, Delhi, DL, 8765432109, 110002
+107, Vikram, Hyderabad, Telangana, +91-8765432109, 500001
+108, Sanya, Chennai, TN, 7777788888, 600001
+109, Harsh, Bangalore, Karnataka, 9876543210, 560001
+110, Neha, Mumbai, MH, 9876543210, 400001;

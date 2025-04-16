@@ -1,0 +1,300 @@
+-- 1. Show first name, last name, and gender of patients whose gender is 'M'.
+SELECT first_name, last_name, gender FROM patients WHERE gender = 'M';
+
+-- 2. Show first name and last name of patients who do not have allergies (NULL).
+SELECT first_name, last_name FROM patients WHERE allergies IS NULL;
+
+-- 3. Show first name of patients that start with the letter 'C'.
+SELECT first_name FROM patients WHERE first_name LIKE 'C%';
+
+-- 4. Show first name and last name of patients whose weight is within the range of 100 to 120 (inclusive).
+SELECT first_name, last_name FROM patients WHERE weight BETWEEN 100 AND 120;
+
+-- 5. Update the patients table for the allergies column. If the patient's allergies are NULL, then replace it with 'NKA'.
+UPDATE patients SET allergies = 'NKA' WHERE allergies IS NULL;
+
+-- 6. Show first name and last name concatenated into one column to show their full name.
+SELECT first_name || ' ' || last_name AS full_name FROM patients;
+
+-- 7. Show first name, last name, and the full province name of each patient.
+SELECT p.first_name, p.last_name, pn.province_name FROM patients p JOIN province_names pn ON p.province_id = pn.province_id;
+
+-- 8. Show how many patients have a birth_date with 2010 as the birth year.
+SELECT COUNT(*) FROM patients WHERE strftime('%Y', birth_date) = '2010';
+
+-- 9. Show the first_name, last_name, and height of the patient with the greatest height.
+SELECT first_name, last_name, height FROM patients ORDER BY height DESC LIMIT 1;
+
+-- 10. Show all columns for patients who have one of the following patient_ids: 1, 45, 534, 879, 1000.
+SELECT * FROM patients WHERE patient_id IN (1, 45, 534, 879, 1000);
+
+-- 11. Show the total number of admissions.
+SELECT COUNT(*) FROM admissions;
+
+-- 12. Show all columns from admissions where the patient was admitted and discharged on the same day.
+SELECT * FROM admissions WHERE admission_date = discharge_date;
+
+-- 13. Show the patient_id and the total number of admissions for patient_id 579.
+SELECT patient_id, COUNT(*) FROM admissions WHERE patient_id = 579;
+
+-- 14. Based on the cities that our patients live in, show unique cities that are in province_id 'NS'.
+SELECT DISTINCT city FROM patients WHERE province_id = 'NS';
+
+-- 15. Write a query to find the first_name, last name, and birth date of patients who have a height greater than 160 and weight greater than 70.
+SELECT first_name, last_name, birth_date FROM patients WHERE height > 160 AND weight > 70;
+
+-- 16. Find a list of patients' first_name, last_name, and allergies where allergies are not null and they are from the city of 'Hamilton'.
+SELECT first_name, last_name, allergies FROM patients WHERE allergies IS NOT NULL AND city = 'Hamilton';
+
+-- 17. Show unique birth years from patients and order them in ascending order.
+SELECT DISTINCT strftime('%Y', birth_date) FROM patients ORDER BY 1;
+
+-- 18. Show unique first names from the patients table that only occur once in the list.
+SELECT first_name FROM patients GROUP BY first_name HAVING COUNT(*) = 1;
+
+-- 19. Show patient_id and first_name from patients whose first_name starts and ends with 's' and is at least 6 characters long.
+SELECT patient_id, first_name FROM patients WHERE first_name LIKE 's%s' AND LENGTH(first_name) >= 6;
+
+-- 20. Show patient_id, first_name, and last_name from patients whose diagnosis is 'Dementia' (stored in the admissions table).
+SELECT p.patient_id, p.first_name, p.last_name FROM patients p JOIN admissions a ON p.patient_id = a.patient_id WHERE a.diagnosis = 'Dementia';
+
+-- 21. Display every patient's first_name, ordered by the length of each name and then alphabetically.
+SELECT first_name FROM patients ORDER BY LENGTH(first_name), first_name;
+
+-- 22. Show the total amount of male patients and the total amount of female patients in the patients table in a single row.
+SELECT SUM(CASE WHEN gender = 'M' THEN 1 ELSE 0 END) AS male_count, SUM(CASE WHEN gender = 'F' THEN 1 ELSE 0 END) AS female_count FROM patients;
+
+-- 23. Show first name, last name, and allergies from patients with allergies to either 'Penicillin' or 'Morphine'. Order by allergies, then first_name, then last_name.
+SELECT first_name, last_name, allergies FROM patients WHERE allergies LIKE '%Penicillin%' OR allergies LIKE '%Morphine%' ORDER BY allergies, first_name, last_name;
+
+-- 24. Show patient_id and diagnosis from admissions for patients admitted multiple times for the same diagnosis.
+SELECT patient_id, diagnosis FROM admissions GROUP BY patient_id, diagnosis HAVING COUNT(*) > 1;
+
+-- 25. Show the city and the total number of patients in the city, ordered from most to least patients, then by city name.
+SELECT city, COUNT(*) FROM patients GROUP BY city ORDER BY COUNT(*) DESC, city;
+
+-- 26. Show first name, last name, and role (either "Patient" or "Doctor").
+SELECT first_name, last_name, 'Patient' AS role FROM patients UNION SELECT first_name, last_name, 'Doctor' AS role FROM doctors;
+
+-- 27. Show all allergies ordered by popularity, excluding 'NKA' and NULL values.
+SELECT allergies FROM patients WHERE allergies IS NOT NULL AND allergies != 'NKA' GROUP BY allergies ORDER BY COUNT(*) DESC;
+
+-- 28. Show all patients' first_name, last_name, and birth_date who were born in the 1970s. Sort by earliest birth_date.
+SELECT first_name, last_name, birth_date FROM patients WHERE strftime('%Y', birth_date) BETWEEN '1970' AND '1979' ORDER BY birth_date;
+
+-- 29. Display each patient's full name with last_name in all uppercase, first_name in all lowercase, separated by a comma, and ordered by first_name descending (e.g., "SMITH,jane").
+SELECT UPPER(last_name) || ',' || LOWER(first_name) FROM patients ORDER BY first_name DESC;
+
+-- 30. Show province_id(s) where the total sum of its patient's height is greater than or equal to 7,000.
+SELECT province_id FROM patients GROUP BY province_id HAVING SUM(height) >= 7000;
+
+-- 31. Show the difference between the largest weight and smallest weight for patients with the last name 'Maroni'.
+SELECT MAX(weight) - MIN(weight) FROM patients WHERE last_name = 'Maroni';
+
+-- 32. Show all days of the month (1-31) and how many admission_dates occurred on each, sorted by the most to least admissions.
+SELECT strftime('%d', admission_date) AS day, COUNT(*) FROM admissions GROUP BY day ORDER BY COUNT(*) DESC;
+
+-- 33. Show all columns for patient_id 542's most recent admission_date.
+SELECT * FROM admissions WHERE patient_id = 542 ORDER BY admission_date DESC LIMIT 1;
+
+-- 34. Show patient_id, attending_doctor_id, and diagnosis for admissions matching these conditions:
+--    - patient_id is an odd number and attending_doctor_id is 1, 5, or 19.
+--    - attending_doctor_id contains a 2 and patient_id has 3 characters.
+SELECT patient_id, attending_doctor_id, diagnosis 
+FROM admissions 
+WHERE (patient_id % 2 != 0 AND attending_doctor_id IN (1, 5, 19)) OR (attending_doctor_id LIKE '%2%' AND LENGTH(patient_id) = 3);
+
+-- 35. Show first_name, last_name, and total number of admissions attended for each doctor.
+SELECT d.first_name, d.last_name, COUNT(a.patient_id) FROM doctors d LEFT JOIN admissions a ON d.doctor_id = a.attending_doctor_id GROUP BY d.doctor_id;
+
+-- 36. For each doctor, display their id, full name, and the first and last admission date they attended.
+SELECT d.doctor_id, d.first_name || ' ' || d.last_name, MIN(a.admission_date), MAX(a.admission_date) FROM doctors d LEFT JOIN admissions a ON d.doctor_id = a.attending_doctor_id GROUP BY d.doctor_id;
+
+-- 37. Display the total amount of patients for each province, ordered by descending total.
+SELECT province_id, COUNT(*) FROM patients GROUP BY province_id ORDER BY COUNT(*) DESC;
+
+-- 38. For every admission, display the patient's full name, admission diagnosis, and their doctor's full name.
+SELECT p.first_name || ' ' || p.last_name AS patient_name, a.diagnosis, d.first_name || ' ' || d.last_name AS doctor_name FROM admissions a JOIN patients p ON a.patient_id = p.patient_id JOIN doctors d ON a.attending_doctor_id = d.doctor_id;
+
+-- 39. Display first name, last name, and number of duplicate patients based on first and last name.
+SELECT first_name, last_name, COUNT(*) FROM patients GROUP BY first_name, last_name HAVING COUNT(*) > 1;
+
+-- 40. Display patient’s full name, height (rounded to 1 decimal in feet), weight (rounded to 0 in pounds), birth_date, and gender (non-abbreviated).
+SELECT first_name || ' ' || last_name AS full_name, ROUND(height * 0.0328084, 1) AS height_feet, ROUND(weight * 2.20462, 0) AS weight_pounds, birth_date, CASE WHEN gender = 'M' THEN 'Male' WHEN gender = 'F' THEN 'Female' ELSE 'Other' END AS gender FROM patients;
+
+-- 41. Show patient_id, first_name, and last_name for patients who do not have any records in the admissions table.
+SELECT p.patient_id, p.first_name, p.last_name FROM patients p LEFT JOIN admissions a ON p.patient_id = a.patient_id WHERE a.patient_id IS NULL;
+
+-- 42. Display max_visits, min_visits, and average_visits per day, rounding average to 2 decimals.
+SELECT MAX(visits), MIN(visits), ROUND(AVG(visits), 2) FROM (SELECT strftime('%Y-%m-%d', admission_date) AS day, COUNT(*) AS visits FROM admissions GROUP BY day);
+
+-- 43. Show patients grouped into weight categories (100-109, 110-119, etc.), including total in each category.
+SELECT (weight / 10) * 10 AS weight_category, COUNT(*) FROM patients GROUP BY weight_category;
+
+-- 44. Show patient_id, weight, height, and isObese as a boolean (1 if BMI >= 30).
+SELECT patient_id, weight, height, CASE WHEN (weight / ((height * 0.01) * (height * 0.01))) >= 30 THEN 1 ELSE 0 END AS isObese FROM patients;
+
+-- 45. Show patient_id, first_name, last_name, and attending doctor's specialty for patients diagnosed with 'Dementia' by a doctor named 'Lisa'.
+SELECT p.patient_id, p.first_name, p.last_name, d.specialty FROM patients p JOIN admissions a ON p.patient_id = a.patient_id JOIN doctors d ON a.attending_doctor_id = d.doctor_id WHERE a.diagnosis = 'Dementia' AND d.first_name = 'Lisa';
+
+-- 46. Show patient_id and temp_password (format: patient_id + length of last_name + birth year).
+SELECT patient_id, patient_id || LENGTH(last_name) || strftime('%Y', birth_date) AS temp_password FROM patients;
+
+-- 47. Show if patients have insurance (Yes/No) and calculate total admission cost per group.
+-- (This requires an additional column for insurance and admission cost, which is not in the provided schema.)
+
+-- 48. Show provinces with more male than female patients, displaying only full province names.
+SELECT pn.province_name FROM province_names pn JOIN patients p ON pn.province_id = p.province_id GROUP BY pn.province_id HAVING SUM(CASE WHEN p.gender = 'M' THEN 1 ELSE 0 END) > SUM(CASE WHEN p.gender = 'F' THEN 1 ELSE 0 END);
+
+-- 49. Retrieve a specific patient meeting the given criteria (gender=M, weight>100, city is Toronto, birth month is 01).
+SELECT * FROM patients 
+WHERE gender = 'M' 
+AND weight > 100 
+AND city = 'Toronto' 
+AND birth_date LIKE '____-01-%';
+
+
+-- 50. Show the percentage of patients identified as 'M', rounded to the nearest hundredth.
+SELECT ROUND((CAST(SUM(CASE WHEN gender = 'M' THEN 1 ELSE 0 END) AS REAL) / COUNT(*)) * 100, 2) FROM patients;
+
+-- 51. Show the employee's first_name and last_name, a "num_orders" column with a count of the orders taken, and a column called "Shipped" that displays "On Time" if the order shipped_date is less or equal to the required_date, "Late" if the order shipped late, "Not Shipped" if shipped_date is null.
+Order by employee last_name, then by first_name, and then descending by number of orders.
+SELECT
+  e.first_name,
+  e.last_name,
+  COUNT(o.order_id) As num_orders,
+  (
+    CASE
+      WHEN o.shipped_date <= o.required_date THEN 'On Time'
+      WHEN o.shipped_date > o.required_date THEN 'Late'
+      WHEN o.shipped_date is null THEN 'Not Shipped'
+    END
+  ) AS shipped
+FROM orders o
+  JOIN employees e ON e.employee_id = o.employee_id
+GROUP BY
+  e.first_name,
+  e.last_name,
+  shipped
+ORDER BY
+  e.last_name,
+  e.first_name,
+  num_orders DESC
+-- 52. Sort province names alphabetically, with 'Ontario' always first.
+SELECT province_name FROM province_names ORDER BY CASE WHEN province_name = 'Ontario' THEN 0 ELSE 1 END, province_name;
+
+-- 53. Show a breakdown of total admissions per doctor each year.
+select d.doctor_id,upper(d.first_name || ' '|| d.last_name) as full_name,
+year(a.admission_date) as admission_year,count(*) as total_ad
+from admissions a join doctors d 
+on a.attending_doctor_id =d.doctor_id
+group by d.doctor_id,admission_year
+order By d.doctor_id,admission_year
+
+
+SELECT (d.first_name || ' ' || d.last_name) as Fullname, strftime('%Y', a.admission_date) as year_, COUNT(*) as total_admissions
+FROM doctors d LEFT JOIN admissions a 
+ON d.doctor_id = a.attending_doctor_id 
+GROUP BY d.doctor_id, strftime('%Y', a.admission_date);
+
+-- 54. Retrieve the customer who has placed the highest number of orders.
+SELECT c.company_name FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id ORDER BY COUNT(*) DESC LIMIT 1;
+
+-- 55. Get the total revenue generated by each product.
+SELECT p.product_name, SUM(od.quantity * p.unit_price * (1 - od.discount)) FROM products p JOIN order_details od ON p.product_id = od.product_id GROUP BY p.product_name;
+
+-- 56. Find the difference between required_date and shipped_date for each order.
+SELECT order_id, julianday(required_date) - julianday(shipped_date) FROM orders;
+
+-- 57. Calculate the average discount applied to order details.
+SELECT AVG(discount) FROM order_details;
+
+-- 58. Retrieve products where unit_price is between 10 and 50.
+SELECT * FROM products WHERE unit_price BETWEEN 10 AND 50;
+
+-- 59. Get all orders shipped to 'USA' or 'Canada'.
+SELECT * FROM orders WHERE ship_country IN ('USA', 'Canada');
+
+-- 60. Find customers whose company names start with 'A'.
+SELECT * FROM customers WHERE company_name LIKE 'A%';
+
+-- 61. Get all employees born before 1960.
+SELECT * FROM employees WHERE strftime('%Y', birth_date) < '1960';
+
+-- 62. Retrieve orders where freight is between 50 and 100.
+SELECT * FROM orders WHERE freight BETWEEN 50 AND 100;
+
+-- 63. Find products where quantity_per_unit contains "bottle".
+SELECT * FROM products WHERE quantity_per_unit LIKE '%bottle%';
+
+-- 64. Get employees whose title contains "Manager" or "Director".
+SELECT * FROM employees WHERE title LIKE '%Manager%' OR title LIKE '%Director%';
+
+-- 65. Retrieve orders shipped in 1997.
+SELECT * FROM orders WHERE strftime('%Y', shipped_date) = '1997';
+
+-- 66. Get orders shipped via "Federal Shipping" or "Speedy Express".
+SELECT * FROM orders WHERE ship_via IN (SELECT shipper_id FROM shippers WHERE company_name IN ('Federal Shipping', 'Speedy Express'));
+
+-- 67. Show products where units_in_stock is less than units_on_order.
+SELECT * FROM products WHERE units_in_stock < units_on_order;
+
+-- 68. Retrieve customers where phone is NOT NULL.
+SELECT * FROM customers WHERE phone IS NOT NULL;
+
+-- 69. Find products not in the "Seafood" category.
+SELECT * FROM products WHERE category_id != (SELECT category_id FROM categories WHERE category_name = 'Seafood');
+
+-- 70. Get orders where ship_city is 'London' and ship_country is 'UK'.
+SELECT * FROM orders WHERE ship_city = 'London' AND ship_country = 'UK';
+
+-- 71. Retrieve orders where freight charge is a multiple of 5.
+SELECT * FROM orders WHERE freight % 5 = 0;
+
+-- 72. Find employees who do NOT have a manager.
+SELECT * FROM employees WHERE reports_to IS NULL;
+
+-- 73. Retrieve employees ordered by hire date (ascending).
+	
+
+-- 74. Get products ordered by unit price (descending).
+SELECT * FROM products ORDER BY unit_price DESC;
+
+-- 75. Retrieve all orders with customer names.
+SELECT o.*, c.company_name FROM orders o JOIN customers c ON o.customer_id = c.customer_id;
+
+-- 76. List products with supplier names.
+SELECT p.*, s.company_name FROM products p JOIN suppliers s ON p.supplier_id = s.supplier_id;
+
+-- 77. Find all orders with employee names.
+SELECT o.*, e.first_name || ' ' || e.last_name FROM orders o JOIN employees e ON o.employee_id = e.employee_id;
+
+-- 78. Retrieve order details with product names.
+SELECT od.*, p.product_name FROM order_details od JOIN products p ON od.product_id = p.product_id;
+
+-- 79. List employees with manager names.
+SELECT e1.first_name || ' ' || e1.last_name AS employee, e2.first_name || ' ' || e2.last_name AS manager FROM employees e1 LEFT JOIN employees e2 ON e1.reports_to = e2.employee_id;
+
+-- 80. Retrieve customers with their orders.
+SELECT c.*, o.* FROM customers c JOIN orders o ON c.customer_id = o.customer_id;
+
+-- 81. Show employees and their territories.
+SELECT e.first_name || ' ' || e.last_name AS employee, t.territory_description FROM employees e JOIN employee_territories et ON e.employee_id = et.employee_id JOIN territories t ON et.territory_id = t.territory_id;
+
+-- 82. Find orders with shipper names.
+SELECT o.*, s.company_name FROM orders o JOIN shippers s ON o.ship_via = s.shipper_id;
+
+-- 83. Get products with category and supplier names.
+SELECT p.*, c.category_name, s.company_name FROM products p JOIN categories c ON p.category_id = c.category_id JOIN suppliers s ON p.supplier_id = s.supplier_id;
+
+-- 84. Retrieve orders with shipping company details.
+SELECT o.*, s.company_name, s.phone FROM orders o JOIN shippers s ON o.ship_via = s.shipper_id;
+
+-- 85. Show employees with assigned regions.
+SELECT e.first_name || ' ' || e.last_name AS employee, r.region_description FROM employees e JOIN employee_territories et ON e.employee_id = et.employee_id JOIN territories t ON et.territory_id = t.territory_id JOIN regions r ON t.region_id = r.region_id;
+
+-- 86. Retrieve orders with product and customer names.
+SELECT o.*, p.product_name, c.company_name FROM orders o JOIN order_details od ON o.order_id = od.order_id JOIN products p ON od.product_id = p.product_id JOIN customers c ON o.customer_id = c.customer_id;
+
+-- 87. Retrieve how much money was lost due to discounts each year.
+SELECT strftime('%Y', order_date) AS year, SUM(od.quantity * p.unit_price * od.discount) FROM orders o JOIN order_details od ON o.order_id = od.order_id JOIN products p ON od.product_id = p.product_id GROUP BY year;

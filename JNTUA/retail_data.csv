@@ -1,0 +1,101 @@
+customer_id,customer_name,age,product_name,category,price,sale_date
+101,Eshani Vyas,53,Washing Powder,Household,,10-03-2025
+102,Yakshit Apte,8,Face Wash,Personal Care,307.73,2024-10-12
+103,Vedika Bajwa,35,Green Tea,Beverages,148.2,09-04-2024
+104,Shalv Chopra,49,Green Tea,Beverages,470.78,2024/05/12
+105,Ehsaan Jani,116,Butter,,463.05,05-11-2024
+106,Hunar Sidhu,48,Milk,,215.54,2024-03-26
+107,Miraya Saini,50,Chips Packets,,467.7,15/02/2025
+108,Krish Rout,27,Toothpaste,Personal Care,65.81,2024/08/06
+109,Mehul Contractor,13,Soap,Personal Care,72.18,03-08-2024
+110,Bhamini Sha,70,Apple Juice,Beverages,308.94,2024-12-20
+111,Rhea Yogi,25,Corn Flakes,Breakfast,311.52,18-06-2024
+112,Jivin Sidhu,20,Milk,,354.1,24-05-2024
+113,Vanya Bansal,71,Washing Powder,Household,430.8,25/04/2024
+114,Alisha Gade,29,Mango Juice,Beverages,,21-12-2024
+115,Elakshi Tara,110,Apple Juice,Beverages,,29/11/2024
+116,Armaan Sangha,70,Apple Juice,Beverages,411.02,2025-03-18
+117,Mohanlal Kashyap,38,Washing Powder,Household,76.77,17/06/2024
+118,Pari Shah,6,Mango Juice,Beverages,142.92,2024/04/25
+119,Manjari Chopra,75,Apple Juice,Beverages,229.33,11-08-2024
+120,Shaan Raj,81,Milk,,180.55,10/08/2024
+121,Romil Kata,120,Milk,,21.36,02-21-2025
+122,Dhanush Bhatti,88,Chocolate Cake,Snacks,384.33,01/07/2024
+123,Amani Manda,69,Biscuits,Snacks,264.04,03-04-2024
+124,Ahana  Ravi,103,Milk,,233.78,29-10-2024
+125,Badal Sachar,68,Milk,,458.88,03-01-2025
+126,Mahika Balakrishnan,73,Apple Juice,Beverages,253.98,2024/10/20
+127,Heer Gara,56,Green Tea,Beverages,46.31,04-15-2024
+128,Anya Borra,63,Butter,,272.05,2024/08/13
+129,Zaina Swaminathan,16,Corn Flakes,Breakfast,,2025-02-02
+130,Rania Dar,94,Biscuits,Snacks,23.92,12/03/2025
+131,Romil Kothari,95,Green Tea,Beverages,281.62,19/06/2024
+132,Shamik Choudhary,7,Butter,,252.39,2024/10/20
+133,Dhanush Warrior,108,Milk,,81.93,2024/12/10
+134,Miraan Lalla,8,Toothpaste,Personal Care,197.75,2024-04-02
+135,Romil Chokshi,60,Soap,Personal Care,220.84,04-11-2024
+136,Jayant Taneja,111,Green Tea,Beverages,50.08,09-19-2024
+137,Anaya Mahal,6,Washing Powder,Household,298.1,2024/07/12
+138,Sumer Srivastava,106,Green Tea,Beverages,253.29,27/04/2024
+139,Uthkarsh Shan,73,Face Wash,Personal Care,131.12,2024-10-06
+140,Kimaya Bhargava,36,Bread,Bakery,336.17,13/03/2025
+141,Ela Biswas,118,Corn Flakes,Breakfast,418.4,04-10-2024
+142,Sumer Subramaniam,81,Corn Flakes,Breakfast,64.19,04-14-2024
+143,Zoya Basu,46,Bread,Bakery,408.85,2024-06-28
+144,Advik Jha,47,Biscuits,Snacks,303.64,2024-07-23
+145,Kartik Grewal,104,Soap,Personal Care,,2024/11/10
+146,Samaira Shetty,94,Toothpaste,Personal Care,485.98,2024/08/17
+147,Anika Kashyap,39,Mango Juice,Beverages,383.12,2024-10-14
+148,Aarush Bakshi,76,Herbal Shampoo,,60.21,04/05/2024
+149,Tanya Srinivas,35,Biscuits,Snacks,243.77,2025/02/22
+150,Baiju Agrawal,94,Butter,,34.41,03-04-2024
+151,Vritika Tara,70,Biscuits,Snacks,165.37,03-17-2025
+152,Rati Yogi,116,Herbal Shampoo,,56.19,13-04-2024
+153,Indrans Garde,15,Butter,,454.23,12-12-2024
+154,Chirag Balay,38,Corn Flakes,Breakfast,90.29,06-19-2024
+155,Darshit Saraf,65,Herbal Shampoo,,312.57,11/06/2024
+156,Jayesh Seshadri,79,Chips Packets,,130.98,03/05/2024
+157,Riya Ramesh,79,Bread,Bakery,114.1,10-07-2024
+158,Prerak Bath,119,Soap,Personal Care,325.31,08/01/2025
+159,Zaina Gopal,35,Biscuits,Snacks,134.7,19/01/2025
+160,Onkar Choudhary,67,Toothpaste,Personal Care,480.45,2024-04-27
+161,Devansh Vora,61,Apple Juice,Beverages,101.03,02-26-2025
+162,Kanav Shere,7,Corn Flakes,Breakfast,231.88,2024/09/01
+163,Kaira Kapoor,85,Soap,Personal Care,467.47,03/10/2024
+164,Umang Bora,70,Apple Juice,Beverages,369.03,25-09-2024
+165,Vritika Gulati,96,Green Tea,Beverages,450.97,28-06-2024
+166,Misha Chaudhary,95,Chips Packets,,329.32,20-12-2024
+167,Kashvi Bail,3,Corn Flakes,Breakfast,43.51,08-25-2024
+168,Umang Issac,94,Washing Powder,Household,489.15,01-28-2025
+169,Arnav Wali,20,Herbal Shampoo,,,02-22-2025
+170,Raghav Rana,14,Soap,Personal Care,,12-30-2024
+171,Tarini Hora,42,Green Tea,Beverages,159.7,2024-10-25
+172,Kashvi Majumdar,56,Soap,Personal Care,167.87,08-01-2025
+173,Pari Sastry,118,Butter,,479.91,2024/10/12
+174,Saira Mani,111,Bread,Bakery,314.77,07-06-2024
+175,Nitara Dada,57,Face Wash,Personal Care,137.04,2024-10-23
+176,Mohanlal Sengupta,14,Corn Flakes,Breakfast,489.15,07/03/2025
+177,Akarsh Ray,19,Milk,,233.86,08-11-2024
+178,Saanvi Sabharwal,58,Biscuits,Snacks,237.38,2025-03-01
+179,Ira Tella,23,Bread,Bakery,,06/11/2024
+180,Lagan Roy,15,Apple Juice,Beverages,87.31,12-04-2024
+181,Sana Bhattacharyya,46,Green Tea,Beverages,205.59,13-01-2025
+182,Anaya Kamdar,38,Soap,Personal Care,129.77,2024/06/25
+183,Neysa Rajan,3,Chips Packets,,478.74,2024/12/10
+184,Divij Chakraborty,11,Face Wash,Personal Care,105.27,2024/05/27
+185,Bhavin Badami,84,Biscuits,Snacks,25.1,04/11/2024
+186,Eshani Magar,48,Washing Powder,Household,273.25,2024/04/26
+187,Ehsaan Wason,109,Apple Juice,Beverages,370.75,29-08-2024
+188,Jhanvi Dua,110,Biscuits,Snacks,83.6,19/10/2024
+189,Hridaan Kant,31,Washing Powder,Household,374.07,08-01-2025
+190,Mamooty Raval,19,Face Wash,Personal Care,445.72,03-09-2025
+191,Ivana Devan,33,Washing Powder,Household,281.4,30/11/2024
+192,Indrans Sundaram,110,Green Tea,Beverages,22.21,05-01-2025
+193,Ela Chakrabarti,7,Butter,,62.26,2025-01-11
+194,Pari Gala,76,Biscuits,Snacks,307.03,07-17-2024
+195,Shray Krish,66,Mango Juice,Beverages,240.53,27-06-2024
+196,Dharmajan Kalla,106,Corn Flakes,Breakfast,75.35,23-03-2025
+197,Nishith Sekhon,42,Toothpaste,Personal Care,52.58,2024/12/16
+198,Hiran Badami,39,Milk,,361.61,2024-04-06
+199,Shalv Apte,73,Apple Juice,Beverages,36.19,19-02-2025
+200,Shanaya Master,68,Green Tea,Beverages,456.53,2024/07/04

@@ -1,0 +1,124 @@
+-- 34. Show patient_id, attending_doctor_id, and diagnosis for admissions matching these conditions:
+--    - patient_id is an odd number and attending_doctor_id is 1, 5, or 19.
+--    - attending_doctor_id contains a 2 and patient_id has 3 characters.
+
+select patient_id,attending_doctor_id,diagnosis
+from admissions
+where (patient_id % 2 <> 0 and attending_doctor_id in (1,5,19))
+or (attending_doctor_id like '%2%' and length(patient_id)=3);
+
+-- 63. Find products where quantity_per_unit contains "bottle".
+
+select  * from products where quantity_per_unit  like '%bottle%'
+
+
+-- 20. Show patient_id, first_name, and last_name from patients whose diagnosis is 'Dementia' (stored in the admissions table).
+
+
+select p.patient_id,p.first_name,p.last_name,a.diagnosis
+from patients p join admissions a on p.patient_id =a.patient_id where a.diagnosis='Dementia';
+
+
+-- 49. Retrieve a specific patient meeting the given criteria (gender=M, weight>100, city is Toronto, birth month is 01).
+
+select * from patients
+where gender='M'
+and weight>100
+and city='Toronto'
+and birth_date like	'__-01-%'
+
+--43. Show patients grouped into weight categories (100-109, 110-119, etc.), including total in each category.
+select floor(weight/10)*10 as weight_cat ,count(*) as total
+from patients
+group by weight_cat
+
+
+SELECT 
+    CONCAT(FLOOR(weight / 10) * 10, '-', FLOOR(weight / 10) * 10 + 9) AS weight_category,
+    COUNT(*) AS total_patients
+FROM patients
+GROUP BY FLOOR(weight / 10)
+ORDER BY MIN(weight);
+
+
+
+-- 8. Show how many patients have a birth_date with 2010 as the birth year.
+
+select count(*) as patient_count 
+from patients
+where year(birth_date)=2010
+
+SELECT COUNT(*) FROM patients WHERE strftime('%Y', birth_date) = '2010';
+
+
+
+-- 70. Get orders where ship_city is 'London' and ship_country is 'UK'.
+SELECT * FROM orders WHERE ship_city = 'London' AND ship_country = 'UK';
+
+-- 73. Retrieve employees ordered by hire date (ascending).
+
+SELECT * FROM employees ORDER BY hire_date;
+
+
+-- 46. Show patient_id and temp_password (format: patient_id + length of last_name + birth year).
+
+select patient_id,concat(patient_id,length(last_name),year(birth_date)) as temp_passwo
+from patients
+
+
+
+-- 12. Show all columns from admissions where the patient was admitted and discharged on the same day.
+SELECT * FROM admissions WHERE admission_date = discharge_date;
+
+
+
+
+-- 86. Retrieve orders with product and customer names.
+SELECT o.*, p.product_name, c.company_name 
+FROM orders o JOIN order_details od 
+ON o.order_id = od.order_id JOIN products p 
+ON od.product_id = p.product_id JOIN customers c 
+ON o.customer_id = c.customer_id;
+
+select o.*,c.company_name as customer_name ,p.product_name
+from orders o join customers c 
+on o.customer_id=c.customer_id join order_details od 
+on o.order_id=od.order_id join products p 
+on od.product_id=p.product_id 
+order by o.order_date desc
+
+-- 2. Show first name and last name of patients who do not have allergies (NULL).
+
+select first_name,last_name from patients where allergies is null or allergies =' '
+
+-- 54. Retrieve the customer who has placed the highest number of orders.
+
+select c.company_name,c.customer_id,count(o.order_id) as total_orders
+from customers c 
+join orders o on c.customer_id =o.customer_id
+group by c.customer_id,c.company_name
+order by total_orders desc
+limit 1
+
+
+SELECT c.company_name FROM customers c JOIN orders o ON c.customer_id = o.customer_id GROUP BY c.customer_id ORDER BY COUNT(*) DESC LIMIT 1;
+
+
+
+-- 53. Show a breakdown of total admissions per doctor each year.
+select d.doctor_id,upper(d.first_name || ' '|| d.last_name) as full_name,
+year(a.admission_date) as admission_year,count(*) as total_ad
+from admissions a join doctors d 
+on a.attending_doctor_id =d.doctor_id
+group by d.doctor_id,admission_year
+order By d.doctor_id,admission_year
+
+
+SELECT (d.first_name || ' ' || d.last_name) as Fullname, strftime('%Y', a.admission_date) as year_, COUNT(*) as total_admissions
+FROM doctors d LEFT JOIN admissions a 
+ON d.doctor_id = a.attending_doctor_id 
+GROUP BY d.doctor_id, strftime('%Y', a.admission_date);
+
+
+
+
