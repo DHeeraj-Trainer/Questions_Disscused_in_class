@@ -1,0 +1,105 @@
+You manage a product list from an online store. Each product has a name and the number of times it was bought this week. You must:
+
+Remove duplicate product entries (keep the first occurrence).
+
+Sort the product list by sales (descending).
+
+Identify the top 3 bestsellers.
+
+Print the total number of unique products.
+
+products = [
+    ["apple", 100], ["banana", 80], ["apple", 100], ["orange", 90],
+    ["banana", 80], ["kiwi", 70], ["melon", 120]
+]
+
+
+Unique Products:
+[['apple', 100], ['banana', 80], ['orange', 90], ['kiwi', 70], ['melon', 120]]
+
+Sorted Products by Sales:
+[['melon', 120], ['apple', 100], ['orange', 90], ['banana', 80], ['kiwi', 70]]
+
+Top 3 Bestsellers:
+['melon', 'apple', 'orange']
+
+Total Unique Products: 5
+
+
+
+
+
+
+
+
+
+
+
+A list contains student names who logged into the portal each day of the week. Some students logged in multiple times. You must:
+
+Create a list of students who logged in every day.
+
+Count how many days each student logged in.
+
+Identify students who were inactive for more than 2 days.
+
+attendance = [
+    ["Alice", "Bob", "David"],
+    ["Alice", "Charlie", "David"],
+    ["Alice", "Bob"],
+    ["Charlie", "David"],
+    ["Alice", "Bob", "Charlie"],
+    ["Alice", "Charlie", "Bob"],
+    ["Alice", "Bob"]
+]
+
+
+Students who logged in every day: ['Alice']
+
+Login Count:
+{'Alice': 7, 'Bob': 5, 'David': 3, 'Charlie': 4}
+
+Inactive for more than 2 days:
+['David']
+
+
+
+
+From a list of elements, identify:
+The element that occurs most frequently.
+Print all elements that occur more than once (duplicates).
+elements = [4, 2, 7, 2, 8, 7, 2, 4, 9, 10, 7]
+Most frequent element: 2 (3 times) and 7 (3 times)
+Duplicates:
+[4, 2, 7]
+
+List Features :
+[],Any data type of elements,Mutable,index values
+append,clear,remove,reverse,sort,sorted,index,popand pop(n),extend,del
+insert,adding lists,size is not fixed ,
+slicing and bulit in fucntions 
+tuple:
+(),Any data type of elements,immutable,index values
+slicing,and built in fucntions
+del ,index,
+adding tuples,
+
+Set:
+{},no duplicates,no index,Any data type of elements,unordered collection of data values with diffrent types,mutable
+add,update,del,clear,remove,discard,pop,adding 2 sets,size is also not fixed
+no sclicing,and built in fucntions
+union, intersection,diffrence,issubset,issuperset
+
+
+
+
+
+
+
+
+
+Given a list of strings with digits, sort by:
+
+Length of the string
+
+If equal length, sort alphabetically

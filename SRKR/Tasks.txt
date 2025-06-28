@@ -1,0 +1,70 @@
+Tasks:
+Students who logged in every day
+Login count for each student
+Students inactive more than 2 days
+
+attendance = [
+    ["Alice", "Bob", "David"],
+    ["Alice", "Charlie", "David"],
+    ["Alice", "Bob"],
+    ['Alice',"Charlie", "David"],
+    ["Alice", "Bob", "Charlie"],
+    ["Alice", "Charlie", "Bob"],
+    ["Alice", "Bob"]
+]
+Output:
+Students who logged in every day: ['Alice']
+Login Count:
+{'Alice': 7, 'Bob': 5, 'David': 3, 'Charlie': 4}
+Inactive for more than 2 days:
+['David']
+
+
+
+
+elements = [4, 2, 7, 2, 8, 7, 2, 4, 9, 10, 7]
+
+Tasks:
+
+Find the most frequent element.
+
+Find all elements that occur more than once (duplicates).
+
+
+
+
+
+
+drama_club = {"Aarav", "Priya", "Ravi", "Meera", "Sneha"}
+music_club = {"Sneha", "Karan", "Aarav", "Divya", "Rohit"}
+dance_club = {"Divya", "Ravi", "Ishaan", "Meera", "Asha"}
+tech_club = {"Karan", "Aarav", "Rohit", "Vikram", "Meena"}
+sports_club = {"Ravi", "Vikram", "Asha", "Neha", "Divya"}
+ Your Tasks:
+🎭🎵 Find all students who are in either Drama or Music club.
+🎵 Who are the students that are in both Dance and Music clubs?
+👩‍💻🏏 Who are in the Sports club but not in Tech club?
+🎶🎭 Who are in exactly one of the Drama or Music clubs?
+💃🕺 List all students who are in at least one of the three clubs: Dance, Tech, or Sports.
+💻🎭 Check if everyone in Tech Club is also in Drama Club.
+🤼‍♂️👩‍💻 Are there any common students between Sports and Tech Clubs?
+👁️‍🗨️ Is "Aarav" in more than one club?
+🧮 Count how many clubs "Divya" is part of.
+🆕 A new AI Club is proposed by:
+	ai_club = {"Riya", "Ishaan", "Meena"}
+Check whether AI Club members are completely new (i.e., not in any other existing club).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

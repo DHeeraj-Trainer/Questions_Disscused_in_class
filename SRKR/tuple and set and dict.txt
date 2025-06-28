@@ -1,0 +1,529 @@
+Create a List of Tuples with the First Element as the Number and Second Element as the Square of the Number
+ lowerlimit = 5
+ upperlimit = 13
+el=[]
+for i in range(5,14):
+    el.append((i,i**2))
+el=[(x,x**2) for x in range(5,14)]
+print(el)
+
+Remove Element from a Tuple at num postion
+ gven_tup = (14, 32, 16, 85, 47, 65)
+ num = 3
+gven_list=list(gven_tup)
+gven_list.pop(num)
+print(tuple(gven_list))
+
+
+get the First Element of each Tuple in a new List
+ gvn_tupl_lst = [(1, 2), (3, 4)]
+Output:[1,3]
+# res=[]
+# for i in range(len(gvn_tupl_lst)):
+#     res.append(gvn_tupl_lst[i][0])
+# print(res)
+
+Swap First and Last Elements of a Tuple
+Input: (10, 20, 30, 40)
+Output: (40, 20, 30, 10)
+def funn(t):
+    return  (t[-1],) +t[1:-1]+(t[0],)
+print(funn(Input))
+
+
+
+Count Occurrence of  2 in a Tuple
+Tuple= (1, 2, 3, 2, 4, 2)
+Tuple.count(2)
+count=0
+for i in range(len(Tuple)):
+	if Tuple[i]==2:
+		count+=1
+print(count)
+
+Check if Two Tuples are Identical or not
+Tuple1= (1, 2, 3)
+Tuple2= (1, 2, 3)
+Output: True
+
+print(Tuple1==Tuple2)
+
+
+Find Maximum and Minimum in a Tuple
+Input= (12, 5, 78, 34, 1)
+Output: max = 78, min = 1
+print(f"max = {max(Input)}, min = {min(Input)}")
+
+Concatenate Two Tuples
+t1 = (1, 2)
+t2 = (3, 4)
+Result: (1, 2, 3, 4)=print(t1+t2)
+
+In an online test, a student's answers are stored as a tuple. The key (correct) answers are also in a tuple. Count how many answers were correct.
+student_answers = ('A', 'B', 'D', 'C', 'A')
+correct_answers = ('A', 'B', 'C', 'C', 'A')
+# Expected Output: 4 correct answers
+sa = ('A', 'B', 'D', 'C', 'A')
+ca = ('A', 'B', 'C', 'C', 'A')
+score=0
+if len(sa)==len(ca):
+    for i in range((len(sa)+len(ca))//2):
+        if sa[i]==ca[i]:
+            score+=1
+print(f"{score} correct answers") 
+
+From a list of tuples representing (product_name, price), find the product with the maximum price.
+products = [("pen", 10), ("book", 50), ("bag", 120), ("pencil", 5)]
+# Output: bag (120)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Find Union and Intersection of Two Sets
+
+A = {1, 2, 3}, B = {3, 4, 5}
+
+Check if a Set is a Subset of Another
+
+A = {1, 2}, B = {1, 2, 3} → True
+
+Remove Duplicates from a List Using Set
+
+List = [1, 2, 2, 3, 3, 3, 4] → {1, 2, 3, 4}
+
+Find Symmetric Difference Between Sets
+
+A = {1, 2, 3}, B = {2, 3, 4} output: {1, 4}
+
+Check Disjoint Sets
+
+A = {1, 2}, B = {3, 4} output: True
+
+
+
+In an office, each department submitted a list of employees who attended training. Some employees attended multiple sessions. Use sets to find the total unique attendees.
+
+dept1 = {"Alice", "Bob", "Charlie"}
+dept2 = {"Bob", "David", "Emma"}
+# Output: Total unique attendees = 5
+
+
+
+Given two product sets:
+store1 = {"apple", "banana", "orange"}
+store2 = {"banana", "kiwi", "apple"}
+
+Print the items available in both stores, only in store1, and only in store2.
+
+
+
+
+
+Question 2: Working with Set Methods
+Scenario:
+You are managing a music playlist where each playlist is represented as a set of song IDs.
+
+Task:
+Write a function manage_playlist(playlist, operation, song=None, another_playlist=None) 
+that performs the following operations based on the method name provided in the operation argument:
+
+Use add() to add a song to the playlist.
+Use remove() to remove a specific song from the playlist.
+Use discard() to remove a song only if it exists in the playlist.
+Use pop() to remove and return a random song.
+Use clear() to remove all songs from the playlist.
+Use union() to combine the current playlist with another playlist.
+Use intersection() to find common songs between two playlists.
+Use difference() to find songs unique to the current playlist compared to another playlist.
+
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: add
+Enter the song ID: 101
+
+Result: Song 101 added to the playlist.
+Updated Playlist: {101}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: add
+Enter the song ID: 102
+
+Result: Song 102 added to the playlist.
+Updated Playlist: {101, 102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: union
+Enter another playlist as comma-separated song IDs (e.g., 101,102,103): 102,103,104
+
+Result: {101, 102, 103, 104}
+Updated Playlist: {101, 102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: intersection
+Enter another playlist as comma-separated song IDs (e.g., 101,102,103): 102,103
+
+Result: {102}
+Updated Playlist: {101, 102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: pop
+
+Result: Randomly removed song: 101
+Updated Playlist: {102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: exit
+Exiting the playlist manager.
+'''
+
+
+
+
+
+
+
+Count Word Frequencies in a Sentence
+
+Input: "apple banana apple"
+
+Output: {"apple": 2, "banana": 1}
+
+Add a New Key-Value Pair
+
+Add "age": 25 to {"name": "Tom"}
+
+Merge Two Dictionaries
+
+d1 = {"a": 1}, d2 = {"b": 2} → {"a": 1, "b": 2}
+
+Check if a Key Exists
+
+Key: "name" in {"name": "Alice", "city": "NY"}
+
+Invert a Dictionary (value: key)
+
+{"a": 1, "b": 2} → {1: "a", 2: "b"}
+
+
+You are creating a student gradebook system. Each student’s name is a key, and their marks are stored in a list.
+grades = {
+    "Alice": [85, 90, 88],
+    "Bob": [75, 70, 72],
+    "Charlie": [95, 100, 90]
+}
+Calculate and print the average score for each student.
+
+
+
+
+
+
+
+From a dictionary of products and prices:
+
+products = {
+    "pen": 10,
+    "book": 50,
+    "bag": 120,
+    "pencil": 5
+}
+Find:
+
+Product with maximum price
+
+Product with minimum price
+
+Total bill amount if you buy one of each
+
+
+
+
+You are building a product catalog system for an online store. The catalog is stored as a 
+dictionary where keys are product IDs and values are product names.
+
+Task:
+Write a function manage_catalog(catalog, operation, key=None, value=None) that performs
+the following operations based on the method name provided in the operation argument:
+
+Use get() to retrieve a product name by its ID.
+Use keys() to get a list of all product IDs.
+Use values() to get a list of all product names.
+Use items() to get all product ID-name pairs.
+Use update() to add or update a product in the catalog.
+Use pop() to remove a product by its ID and return its name.
+Use popitem() to remove the last added product.
+Use clear() to empty the catalog.
+ 
+catalog = {
+    101: "Laptop",
+    102: "Smartphone",
+    103: "Tablet",
+    104: "Headphones"
+}
+
+operation = "get"
+key = 102
+print(manage_catalog(catalog, operation, key))  # Output: Smartphone
+
+
+Operations: get, keys, values, items, update, pop, popitem, clear, exit
+Enter the operation you want to perform: keys
+
+Result: [101, 102, 103, 104]
+Updated Catalog: {101: 'Laptop', 102: 'Smartphone', 103: 'Tablet', 104: 'Headphones'}
+
+Operations: get, keys, values, items, update, pop, popitem, clear, exit
+Enter the operation you want to perform: get
+Enter the product ID (key): 102
+
+Result: Smartphone
+Updated Catalog: {101: 'Laptop', 102: 'Smartphone', 103: 'Tablet', 104: 'Headphones'}
+
+Operations: get, keys, values, items, update, pop, popitem, clear, exit
+Enter the operation you want to perform: update
+Enter the product ID (key): 105
+Enter the product name (value): Smartwatch
+
+Result: Product 105 updated/added successfully.
+Updated Catalog: {101: 'Laptop', 102: 'Smartphone', 103: 'Tablet', 104: 'Headphones', 105: 'Smartwatch'}
+
+Operations: get, keys, values, items, update, pop, popitem, clear, exit
+Enter the operation you want to perform: popitem
+
+Result: (105, 'Smartwatch')
+Updated Catalog: {101: 'Laptop', 102: 'Smartphone', 103: 'Tablet', 104: 'Headphones'}
+
+Operations: get, keys, values, items, update, pop, popitem, clear, exit
+Enter the operation you want to perform: exit
+Exiting the catalog manager.
+
+
+'''
+'''
+
+
+
+def manage_catalog(catalog, operation, key=None, value=None):
+    if operation == "get":
+        return catalog.get(key, "Product not found")
+    elif operation == "keys":
+        return list(catalog.keys())
+    elif operation == "values":
+        return list(catalog.values())
+    elif operation == "items":
+        return list(catalog.items())
+    elif operation == "update":
+        if key and value:
+            catalog.update({key: value})
+            return f"Product {key} updated/added successfully."
+        else:
+            return "Error: Provide both key and value for update."
+    elif operation == "pop":
+        if key:
+            return catalog.pop(key, "Product not found")
+        else:
+            return "Error: Provide a key to remove a product."
+    elif operation == "popitem":
+        if catalog:
+            return catalog.popitem()
+        else:
+            return "Error: Catalog is empty."
+    elif operation == "clear":
+        catalog.clear()
+        return "Catalog cleared successfully."
+    else:
+        return "Error: Invalid operation."
+
+
+def interactive_catalog_manager():
+    catalog = {
+        101: "Laptop",
+        102: "Smartphone",
+        103: "Tablet",
+        104: "Headphones",
+    }
+    print("Initial Catalog:", catalog)
+    
+    while True:
+        print("\nOperations: get, keys, values, items, update, pop, popitem, clear, exit")
+        operation = input("Enter the operation you want to perform: ").strip().lower()
+        
+        if operation == "exit":
+            print("Exiting the catalog manager.")
+            break
+
+        key = None
+        value = None
+        
+        if operation in ["get", "pop", "update"]:
+            key = input("Enter the product ID (key): ").strip()
+            if key.isdigit():
+                key = int(key)
+            else:
+                print("Invalid key! Please enter a numeric product ID.")
+                continue
+            
+            if operation == "update":
+                value = input("Enter the product name (value): ").strip()
+                if not value:
+                    print("Error: Product name cannot be empty!")
+                    continue
+        
+        result = manage_catalog(catalog, operation, key, value)
+        print("\nResult:", result)
+        print("Updated Catalog:", catalog)
+
+
+interactive_catalog_manager()
+'''
+
+
+
+
+
+'''
+Question 2: Working with Set Methods
+Scenario:
+You are managing a music playlist where each playlist is represented as a set of song IDs.
+
+Task:
+Write a function manage_playlist(playlist, operation, song=None, another_playlist=None) 
+that performs the following operations based on the method name provided in the operation argument:
+
+Use add() to add a song to the playlist.
+Use remove() to remove a specific song from the playlist.
+Use discard() to remove a song only if it exists in the playlist.
+Use pop() to remove and return a random song.
+Use clear() to remove all songs from the playlist.
+Use union() to combine the current playlist with another playlist.
+Use intersection() to find common songs between two playlists.
+Use difference() to find songs unique to the current playlist compared to another playlist.
+
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: add
+Enter the song ID: 101
+
+Result: Song 101 added to the playlist.
+Updated Playlist: {101}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: add
+Enter the song ID: 102
+
+Result: Song 102 added to the playlist.
+Updated Playlist: {101, 102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: union
+Enter another playlist as comma-separated song IDs (e.g., 101,102,103): 102,103,104
+
+Result: {101, 102, 103, 104}
+Updated Playlist: {101, 102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: intersection
+Enter another playlist as comma-separated song IDs (e.g., 101,102,103): 102,103
+
+Result: {102}
+Updated Playlist: {101, 102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: pop
+
+Result: Randomly removed song: 101
+Updated Playlist: {102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: exit
+Exiting the playlist manager.
+'''
+
+
+'''
+def manage_playlist(playlist, operation, song=None, another_playlist=None):
+    if operation == "add":
+        playlist.add(song)
+        return f"Song {song} added to the playlist."
+    elif operation == "remove":
+        if song in playlist:
+            playlist.remove(song)
+            return f"Song {song} removed from the playlist."
+        else:
+            return f"Error: Song {song} not found in the playlist."
+    elif operation == "discard":
+        playlist.discard(song)
+        return f"Song {song} discarded (if it existed)."
+    elif operation == "pop":
+        if playlist:
+            removed_song = playlist.pop()
+            return f"Randomly removed song: {removed_song}"
+        else:
+            return "Error: Playlist is empty."
+    elif operation == "clear":
+        playlist.clear()
+        return "Playlist cleared successfully."
+    elif operation == "union":
+        if another_playlist is not None:
+            return playlist.union(another_playlist)
+        else:
+            return "Error: Provide another playlist for union."
+    elif operation == "intersection":
+        if another_playlist is not None:
+            return playlist.intersection(another_playlist)
+        else:
+            return "Error: Provide another playlist for intersection."
+    elif operation == "difference":
+        if another_playlist is not None:
+            return playlist.difference(another_playlist)
+        else:
+            return "Error: Provide another playlist for difference."
+    else:
+        return "Error: Invalid operation."
+
+
+def interactive_playlist_manager():
+    playlist = set()
+    print("Welcome to the Playlist Manager!")
+    print("Initial Playlist:", playlist)
+    
+    while True:
+        print("\nOperations: add, remove, discard, pop, clear, union, intersection, difference, exit")
+        operation = input("Enter the operation you want to perform: ").strip().lower()
+        
+        if operation == "exit":
+            print("Exiting the playlist manager.")
+            break
+
+        song = None
+        another_playlist = None
+        
+        if operation in ["add", "remove", "discard"]:
+            song = input("Enter the song ID: ").strip()
+            if not song.isdigit():
+                print("Invalid song ID! Please enter a numeric value.")
+                continue
+            song = int(song)
+
+        if operation in ["union", "intersection", "difference"]:
+            another_playlist_input = input("Enter another playlist as comma-separated song IDs (e.g., 101,102,103): ").strip()
+            another_playlist = set(int(s) for s in another_playlist_input.split(",") if s.isdigit())
+        
+        result = manage_playlist(playlist, operation, song, another_playlist)
+        print("\nResult:", result)
+        print("Updated Playlist:", playlist)
+
+
+interactive_playlist_manager()
+

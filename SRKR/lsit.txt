@@ -1,0 +1,191 @@
+Add Number to each Element in a List
+gven_lst = [2,4,6,8,10]
+numbr = 5
+o/p: [7, 9, 11, 13, 15]
+
+gven_lst = [2,4,6,8,10]
+n=int(input("enter the number: "))
+el=[]
+for i in range(len(gven_lst)):
+    gven_lst[i] = gven_lst[i]+n
+print(gven_lst)
+# for i in gven_lst:
+#     el.append(i+n)
+# print(el)
+
+
+Divide a list into half if legnth is even else give like not an even length
+team=['a','b','c','d','e','f','j','h']
+output:['a','b','c','d'] and ['e','f','j','h']
+team=['a','b','c','d','e','f','j','h']
+if len(team)%2==0:
+    mid=len(team)//2
+    print(f"{team[:mid]} and {team[mid:]}")
+
+
+Split a list into two lists:
+One containing elements at even indices.
+Another containing elements at odd indices.
+numbers = [10, 20, 30, 40, 50, 60]
+Even-indexed: [10, 30, 50]
+Odd-indexed: [20, 40, 60]
+
+numbers = [10, 20, 30, 40, 50, 60]
+even=numbers[0:len(numbers):2]
+odd=numbers[1:len(numbers):2]
+print(odd ,"and" ,even)
+
+
+Given a list of strings with digits, sort by:
+Length of the string
+If equal length, sort alphabetically
+items = ["abc", "a", "de", "abcd", "b"]
+o/p: ["a", "b", "de", "abc", "abcd"]
+
+rotate a list to the left by k postions
+tasks=[t1,t2,t3,t4,t5]
+k=2
+output=[t3,t4,t5,t1,t2]
+tasks=["t1","t2","t3","t4","t5"]
+k=int(input("Enter no of rotations: "))
+k%=len(tasks)
+print(tasks)
+tasks=tasks[k:]+tasks[0:k]
+print(tasks)
+In a list of daily sales, some entries are mistakenly entered as 0. Move all 0s to the end without changing the order of other elements.
+sales=[120,0,340,230,0,0,520,55,5200,0]
+o/p:[120,340,230,520,55,5200,0,0,0,0]
+method1:
+for i in range(zero_count):
+    sales.remove(0)
+for i in range(zero_count):
+    sales.append(0)
+print(sales)
+method2:
+zeros=[x for x in sales if x==0]
+non_zeros=[x for x in sales if x!=0]
+res=non_zeros+zeros
+print(res)
+Find the Missing Number in an array/list of sequnace
+given_list = [1, 3, 2, 6, 5] o/p :4
+given_list = [1, 3, 2, 6, 5] 
+b=max(given_list)
+summ=(b*(b+1))//2
+print("Missing number:",summ-sum(given_list))
+From a list of user inputs, extract all palindromes.
+words = ["madam", "apple", "noon", "hello"]
+# Expected: ["madam", "noon"]
+palindrom=[]
+words = ["madam", "apple", "noon", "hello"]
+for word in words:
+    if word==word[::-1]:
+        palindrom.append(word)
+print(palindrom)
+
+You have a product list from a shopping cart. Count how many times each product was added.
+cart = ["apple", "banana", "apple", "orange", "banana"]
+# Output: apple → 2, banana → 2, orange → 1
+cart = ["apple", "banana", "apple", "orange", "banana"]
+unique_items=[]
+for item in cart:
+    if item not in unique_items:
+        unique_items.append(item)
+# print(unique_items)
+for item in unique_items:
+    print(f"{item} -> {cart.count(item)}")
+
+You receive sensor data which includes noise (negative values). Filter them out.
+data = [20, -5, 15, -1, 0, 33]
+# Expected: [20, 15, 0, 33]
+
+
+You have a nested list of items from different categories. Convert it into a flat list.
+nested = [[1, 2], [3, 4], [5],6]
+# Output: [1, 2, 3, 4, 5,6]
+
+
+team[start:stop:step]
+
+get last 4 items in reversed :
+logs=[1,2,3,4,5,6,7]
+output:[7,6,5,4]
+
+
+
+
+
+
+# Create a Python program called Shopping List Manager 
+# that performs the following functions:
+
+# 	Allows the user to add items to a shopping list.
+# 	Allows the user to remove specific items from the list.
+# 	Provides an option to sort the items in the shopping 
+# 	list alphabetically.
+# 	Displays the final list of items after the user 
+# 	finishes their operations.
+# 	The program should be interactive and user-friendly, 
+# 	prompting the user for actions and providing clear outputs.
+
+# Sample Input and Output:
+# Consider the following sequence of operations performed by the user:
+# 	Add the items: "Milk", "Eggs", "Bread", "Butter", "Apples".
+# 	Remove the item: "Butter".
+# 	Sort the list alphabetically.
+# 	Display the final list.
+
+
+
+def display_menu():
+    print("\n____________Welcome to Mart___________")
+    print("1.Add item")
+    print("2.Remove Item")
+    print("3.Sort List")
+    print("4.Display the List")
+    print("5.Exit")
+
+def add_item(shop_list):
+    item=input("Enter the item u want add :")
+    shop_list.append(item)
+    print(f"{item}.Has been added to list.")
+    print(shop_list)
+
+def remove_item(shop_list):
+    item=input("Enter the item u want to remove :")
+    if item in shop_list:
+        shop_list.remove(item)
+        print(f"{item} has been removed")
+        print(shop_list)
+    else:
+        print(f"{item} is not in the list")
+def sort_list(shop_list):
+    shop_list.sort()
+    print("Sorted List :",shop_list)
+def display_finallist(shop_list):
+    if shop_list:
+        print("\n Final Shopping List")
+        for item in shop_list:
+            print(item)
+    else:print("No items in List")
+
+def list_manager():
+    shop_list=[]
+    while True:
+        display_menu()
+        choice=input("Enter Your Choice :")
+        if choice=='1':
+            add_item(shop_list)
+        elif choice=='2':
+            remove_item(shop_list)
+        elif choice=='3':
+            sort_list(shop_list)
+        elif choice=='4':
+            display_finallist(shop_list)
+        elif choice=='5':
+            print("Thank You")
+            break
+        else:
+            print("Invalid CHoice,Plese Try Again")
+        
+
+list_manager()

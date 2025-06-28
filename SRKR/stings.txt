@@ -1,0 +1,30 @@
+story = "   Once upon a the TIME in a distant village, there lived a wise coder named Python. He was respected for his WISDOM, logic, and power. python often said: 'the Code is poetry!'   "
+Tasks:
+1. The story feels cluttered — clean the unnecessary surroundings.
+2. The elders say Python should never be spoken in uppercase — make the name more humble.
+3. All wisdom must begin in quiet tone — make the whole story soft-spoken.
+4. You’re preparing a title for a scroll — turn it into a proper title.
+5. The master hates loudness — remove every occurrence of "WISDOM" and replace it with "clarity".
+6. Count how many times our master Python is mentioned (regardless of how it is written).
+7. Is it true that the story begins with silence? Prove it.
+8. Is there truth in the final words? Confirm if they end with a poetic mark.
+9. Extract the ancient quote Python said — it's between the single quotes.
+10. Find where the word "power" first appears, and where the word "the" last appears.
+11. The High Council wants a banner — take only the first 12 symbols.
+12. They also need the last 15 symbols for a secret seal.
+13. There’s a hidden code in the middle — extract every second character from position 10 to 50.
+14. To read the tale backward — reverse the story completely.
+15. Break the story into its words, and count how many parts you get.
+16. Some of the wisdom was stored in comma-separated runes — split those too.
+17. Join the words using a sacred rune: `-` (dash).
+18. Count how often the letter of enlightenment (‘e’) appears in the story.
+19. The scroll must begin with "Once" — verify that.
+20. The scroll must end with "poetry!'" — check that too.
+21. There is a word “Code” — but is it pure? Is it alphabetic only? (Clean it first)
+22. Check if a number like `"123456"` is considered holy — is it purely numeric?
+23. Show how long the purified scroll is after trimming.
+24. Write a code snippet that changes all `" "` (spaces) to underscores to preserve spacing in ancient runes.
+25. Finally, form a password using: the first 3 letters, the last 3 letters, and the length of the final story.
+
+
+
