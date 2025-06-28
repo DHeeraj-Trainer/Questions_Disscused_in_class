@@ -1,0 +1,157 @@
+Generate 5 unique employee IDs starting from 101.
+Output:  
+Employee IDs: 101, 102, 103, 104, 105
+"""
+Simulate a rocket launch countdown from 10 to 1.
+
+Output:
+10  
+...  
+1  
+Launch!
+
+# for i in range(10,0,-1):
+#     print(i)
+# print("Start")
+
+
+i=10
+while i>0:
+    print(i)
+    i-=1
+print("Start")
+"""
+
+
+
+list1=[1,2,1,3,4,2,4,2,2,3,2,2,"3",5,4,5,['d',9]]
+print(list1[-1])
+for i in list1:
+    print(i)
+for i in range(len(list1)):
+    print(list1[i])
+
+
+Problem: Calculate sum of N natural numbers.
+Input: 5
+Output: 15  
+
+N=int(input("Enter the N Values"))
+sum=0
+for i in range(N+1):
+    sum+=i
+print("Sum",sum)
+
+
+
+Input: [3000, 4000, 5000, 4500, 6000, 3200, 5000]  
+Output: Total = 30700
+
+
+
+
+
+Log a user’s steps for 7 days and find total steps taken in a week.
+
+Input: [3000, 4000, 5000, 4500, 6000, 3200, 5000]  
+Output: Total = 30700
+
+# Input=[3000, 4000, 5000, 4500, 6000, 3200, 5000]  
+N=int(input("Enter no of days: "))
+sum=0
+count=0
+for i in range(N):
+    value=int(input("Enter the value"))
+    count+=1
+    sum+=value
+print("Sum:" ,sum,count)
+
+Problem: Given a number, print its multiplication table up to 10.
+Test Case:
+Input: 5
+Output:
+5 x 1 = 5
+5 x 2 = 10
+...c
+5 x 10 = 50
+"""
+n=int(input("Enter integer: "))
+for i in range(1,n+1):
+    for j in range(1,11):
+        print(f"{i} X {j} = {i*j}")
+
+
+"""
+Problem: Reverse the digits of a given number.
+Input: 1234
+Output: 4321
+"""
+n=input("Enter number: ")
+print(n[::-1])
+n=1234
+reverse=0
+while n>0:
+    digit=n%10
+    reverse=reverse*10+digit
+    n//=10
+print(reverse)
+
+
+n=input("Enter number: ")
+print(n[::-1])
+revers=''
+for i in n:
+    revers=i+revers
+print("revers",revers)
+    
+
+Calculate daily parking fee for N vehicles (₹50 per car, ₹30 per bike).
+Input: [car, bike, car, bike, bike]  
+Output: Total = ₹190
+
+n=int(input("Enter no of cars and bikes: "))
+bill=car_count=bike_count=0
+for i in range(n):
+    value=input("Enter Car or Bike: ").lower()
+    if value=="car":
+        bill+=50
+        car_count+=1
+    elif value=="bike":
+        bill+=30
+        bike_count+=1
+    else:print("Enter valid value")
+print("Bill: ",bill)
+print("Bikes: ",bike_count)
+print("Cars: ",car_count)
+
+From a list of user emails, validate each one:
+Must contain @ and .
+Length must be > 5 max-16
+Input: [“john@example.com”, “invalid@”, “hello.com”]  
+Output: Valid: 1, Invalid: 2
+
+
+Simulate an ATM that returns the least number of currency notes (₹2000, ₹1000,₹500, ₹100, ₹50, ₹10) for a withdrawal amount.
+Input: ₹3860  
+Output: {₹2000:1, ₹1000:1, ₹500:1, ₹100:3, ₹50:1, ₹10:1}
+
+
+Problem: Find the sum of digits of a number.
+Input: 1234
+Output: 10
+
+
+n=(input("Enter the number: "))
+sum=0
+for i in n:
+    sum+=int(i)
+print("Sum: ",sum)
+
+
+num=(input("Enter the number: "))
+
+sum=0
+while num>0:
+    sum+=num%10
+    num//=10
+print("Sum: ",sum)
