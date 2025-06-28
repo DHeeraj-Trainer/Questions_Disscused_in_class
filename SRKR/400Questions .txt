@@ -1,0 +1,874 @@
+
+🧱 Core Data Structures & Basic Algorithms (Foundation)
+
+Find character frequency in a string (e.g., "hello" -> {'h':1, 'e':1, 'l':2, 'o':1})
+
+Validate 3-char "vowel sandwich" (consonant-vowel-consonant, e.g., "cat", "bed")
+
+Check if a number is within specified bounds (inclusive/exclusive)
+
+Generate random numbers within a given range (integer and float)
+
+Check whether all elements in a list are identical
+
+Find the intersection of two lists (consider unique elements vs. multiplicity)
+
+Count decimal places in a float string (e.g., "1.230" -> 3, "1.23" -> 2)
+
+Find the difference of two lists (elements in A but not in B)
+
+Count occurrences of a specific word (e.g., "Nemo") in a string (case-insensitive, whole word)
+
+Remove duplicate characters from a string (preserving or not preserving order)
+
+Find the mode(s) of a list of numbers
+
+Compute the sum of numbers up to n (iterative and recursive)
+
+Capitalize the first letter of every word in a sentence
+
+Count words in a string (handle multiple spaces, punctuation, leading/trailing spaces)
+
+Count set bits (‘1’s) in the binary representation of an integer (Hamming weight)
+
+Generate a random integer between 1 and 10 (inclusive)
+
+Check if a string is empty or contains only whitespace
+
+Convert a time string (e.g., "2m 30s") to total seconds
+
+Join a list of strings into a single comma-separated string
+
+Check if a list of numbers is sorted in ascending order (strictly or non-strictly)
+
+Print the progressive spelling of a word (e.g., "Hi" -> "H", "Hi")
+
+Calculate the sum of cubes of elements in a list
+
+Compute the maximum difference between any two elements in a list
+
+Check if a number is prime (optimize for efficiency)
+
+Find all prime factors of a given number
+
+Calculate GCD (Greatest Common Divisor) of two numbers (e.g., Euclidean algorithm)
+
+Calculate LCM (Least Common Multiple) of two numbers (using GCD)
+
+Check if a string is a pangram (contains every letter of the alphabet)
+
+Convert an integer to its Roman numeral representation (1 to 3999)
+
+Convert a Roman numeral string to an integer
+
+Implement atoi (string to integer conversion, handling signs, overflow, invalid characters)
+
+Implement itoa (integer to string conversion, handling negative numbers)
+
+Find the integer square root of a number (without using math.sqrt)
+
+Check if a number is a perfect square
+
+NEW: Print Fibonacci triangle up to n rows
+
+NEW: Diagonal difference in a square matrix
+
+NEW: Shell game simulation (track position of an item under shuffling shells)
+
+🔄 Slicing, Loops, and Iteration Fundamentals (Extended Dive)
+
+Iterate and print each character of a string.
+
+Iterate and print each item of a list using a for loop and while loop.
+
+Use enumerate to print items and their indices from a list.
+
+Iterate through a list and print only elements at even/odd indices.
+
+Use a while loop to find the sum of digits of a number.
+
+Sum all even numbers in a list using a for loop and a conditional statement.
+
+Find the minimum/maximum element in a list using a for loop (without min()/max()).
+
+Create a new list containing the length of each string in an original list of strings using a loop.
+
+Reverse a list in-place using a for loop and swapping elements.
+
+Use a nested loop to print a multiplication table (e.g., up to 10x10).
+
+Flatten a list of lists (2D list) into a 1D list using nested for loops.
+
+Extract every k-th element from a list starting from the first, using a loop.
+
+Slicing: Get all elements except the first and last from a list/tuple.
+
+Slicing: Get elements from index i to j-1 of a list/string.
+
+Slicing: Get elements from index 3 to the end of a list.
+
+Slicing: Get every k-th element of a list using step in slicing.
+
+Slicing: Reverse a list/tuple/string using slicing.
+
+Slicing: Demonstrate that slicing creates a shallow copy of a list.
+
+Slicing: Get the middle element(s) of a list using slicing (handle even/odd lengths).
+
+Slicing: Extract a substring between two specific characters or indices.
+
+Slicing: Rotate a list by k positions using slicing and concatenation.
+
+Slicing: Extract matrix diagonals using slicing and loops.
+
+Slicing: Implement a circular slice of a list (e.g., slice wraps around).
+
+Using a loop, create a string pattern: 1, 22, 333, 4444, 55555.
+
+Using nested loops, create various patterns (hollow square, triangle, pyramid).
+
+Simple sliding window: find the average/sum of k consecutive elements in an array.
+
+Implement "run-length encoding" for a string using a loop (e.g., "AAABBCDD" -> "A3B2C1D2").
+
+Remove all odd numbers from a list by creating a new list using a loop.
+
+Find the indices of the first and last occurrence of an element in a list using loops.
+
+Print elements of a 2D list in a spiral order using loops and boundary tracking.
+
+Simulate break and else with a for loop: search for an item, print "found" or "not found".
+
+Simulate continue: sum only numbers greater than 10 in a list.
+
+Given a sentence, reverse the order of words using loops (split, reverse list of words, join).
+
+Calculate the element-wise sum of two lists of numbers of the same length into a new list.
+
+Using a while loop, continuously prompt user for input until they type "quit".
+
+Create a "deck of cards" (list of strings like "Ace of Spades") using nested loops for suits and ranks.
+
+Implement a simple Caesar Cipher encryption/decryption for a string using a loop.
+
+Implement Vigenère cipher / ROT13 using loops.
+
+Generate Pascal’s triangle rows using loops.
+
+Implement Sieve of Eratosthenes to find primes up to n using loops.
+
+Count peaks and troughs in a list of numbers via a loop.
+
+Implement loop-based decimal to binary conversion and vice-versa.
+
+Loop-based float-to-fraction conversion (approximation).
+
+Loop-based text justification (simplified).
+
+Loop-based skyline problem (basic approach to find max envelope).
+
+Loop-based histogram drawing (text-based representation).
+
+Loop-based calendar printing for a given month/year.
+
+Loop-based Collatz conjecture: count steps to reach 1.
+
+Loop-based digit reversal in a number.
+
+Loop-based palindrome check for numbers/strings.
+
+Loop-based shuffle of a list (e.g., Fisher-Yates variant).
+
+Loop-based: find missing number in a range 1 to N.
+
+Loop-based harmonic series sum up to N terms.
+
+Loop-based power set/subset generation.
+
+Loop-based permutation generation.
+
+Loop-based combination generation.
+
+Simulate loop unrolling for a simple loop.
+
+Cumulative running sum / running maximum of a list via loop.
+
+Pairwise iteration with a sliding window of size 2 over a list.
+
+Generate all contiguous sublists (subarrays) of a list using nested loops.
+
+Product of elements at even indices / Sum of elements at odd indices.
+
+📋 List-Specific & Array Manipulations (Matrices Included)
+
+Sum of all list items / Multiply all items in a list.
+
+Find largest/smallest number in a list.
+
+Count occurrences of a specific item in a list.
+
+Remove duplicates from a list preserving order.
+
+Rotate a list by k positions (in-place and not in-place).
+
+Merge two sorted lists into a single sorted list.
+
+Flatten a nested list (e.g., [[1,2,[3]],4] -> [1,2,3,4]).
+
+Partition a list into evens and odds, preserving relative order.
+
+List Comprehension: Various tasks like filtering, mapping, creating matrices.
+
+Transpose a matrix (list of lists).
+
+Find the second largest element in a list.
+
+Find the k-th smallest/largest element in a list.
+
+Reverse a list (in-place and new list).
+
+Remove nil/None/empty string literals from a list.
+
+Find all duplicate elements in a list and their counts.
+
+Group frequency of elements into a dictionary.
+
+Two Sum: Find a pair that sums to a target value (hash map/two-pointer).
+
+3Sum: Find all unique triplets that sum to zero.
+
+3Sum Closest: Find a triplet whose sum is closest to a target value.
+
+4Sum / 4Sum II: Find unique quadruplets summing to a target / Count quadruplets.
+
+Subarray Sum Equals K: Find number of continuous subarrays summing to k.
+
+Find the Majority Element (appears more than n/2 times).
+
+Move all zeros to the end of an array, maintaining order of non-zero elements.
+
+Find the longest consecutive sequence of numbers in an unsorted list.
+
+Best Time to Buy and Sell Stock (I, II-any transactions, III-two transactions, IV-k transactions, with Cooldown, with Transaction Fee).
+
+Product of Array Except Self (without division).
+
+Maximum Subarray Sum (Kadane's Algorithm).
+
+Maximum Product Subarray.
+
+Container With Most Water.
+
+Trapping Rain Water.
+
+Jump Game (I - can reach end, II - min jumps to reach end).
+
+Merge Overlapping Intervals.
+
+Insert Interval into sorted non-overlapping intervals.
+
+Find Missing Number in a list of 1 to N distinct numbers.
+
+Find a Peak Element in a list.
+
+Rearrange array: positive and negative numbers alternating.
+
+Shuffle an array randomly and uniformly (Fisher-Yates).
+
+Remove duplicates from sorted array (in-place, at most k occurrences).
+
+Median of Two Sorted Arrays.
+
+Sort Colors (Dutch National Flag problem: 0s, 1s, 2s).
+
+Find the Duplicate Number in an array of n+1 integers (1 to n).
+
+Rotate Image (NxN matrix) by 90 degrees clockwise in-place.
+
+Spiral Matrix (I & II - generate).
+
+Set Matrix Zeroes (if an element is 0, set its entire row and column to 0).
+
+Word Search in a 2D grid (I & II - with Trie).
+
+Image Flood Fill.
+
+Snake pattern traversal in a matrix.
+
+Diagonal Traversal of a Matrix (all anti-diagonals).
+
+Validate Sudoku board.
+
+🔢 Tuple Tasks
+
+Create a tuple with various data types; access by index (positive/negative).
+
+Find length, count occurrences, check membership in a tuple.
+
+Concatenate two tuples; convert list to tuple and tuple to list.
+
+Unpack a tuple into multiple variables.
+
+Convert a tuple of characters/strings to a single string.
+
+"Remove" element from tuple (by creating a new one).
+
+Find common items in two tuples.
+
+Sort a tuple (results in a list).
+
+Slice a tuple (start, end, step).
+
+Reverse a tuple (new tuple).
+
+Access elements in a nested tuple.
+
+Create a single-item tuple (note the comma).
+
+Swap two tuples/variables using tuple packing/unpacking.
+
+Create a list of tuples: (n, n³, n!) for n from 1 to 5.
+
+Check if all items in a tuple are the same.
+
+Filter a tuple based on criteria (e.g., get only even numbers).
+
+🔁 Set-Based Operations
+
+Create a set, add/remove items (observe uniqueness).
+
+Check membership efficiently; perform union, intersection, difference.
+
+Symmetric difference of sets; check subset/superset/proper subset.
+
+Remove duplicates from a list via set (preserving/not preserving order).
+
+Find common/unique items between two lists using sets.
+
+frozenset: creation and usage (e.g., as dictionary key, element in another set).
+
+Set Comprehension: e.g., create a set of unique squared even numbers.
+
+Determine if two sets are disjoint.
+
+Power Set generation (can use sets to store unique subsets).
+
+Longest Consecutive Sequence in an array (using set for O(1) lookups).
+
+Count Distinct Islands in a binary grid (serialize island shape for uniqueness).
+
+Evaluate Equations using Union-Find (set-based disjoint set operations).
+
+🗂 Dictionary (Hash Map) Questions
+
+Create, manipulate (add/update/delete), use get() with default.
+
+Merge two dictionaries (handle conflicts: prioritize, sum values).
+
+Get keys with max/min values.
+
+Invert a dictionary (value -> list of keys for duplicates).
+
+Check if a value exists efficiently.
+
+Remove specified keys (handle missing keys).
+
+Count character/word frequencies using dict.
+
+Sort dictionary by keys or by values (ascending/descending).
+
+Access/modify nested dictionary values.
+
+defaultdict logic: provide default for missing keys.
+
+Group a list of dictionaries by a common property.
+
+Flatten a nested dictionary (e.g., {'a': {'b': 1}} -> {'a_b': 1}).
+
+JSON-like access via path string (e.g., "user.profile.name").
+
+Use tuple as dictionary key; explain why lists can't be.
+
+Dictionary Comprehension: various tasks (e.g., from two lists, num to square).
+
+Implement LRU Cache (dict + doubly linked list).
+
+Implement LFU Cache (dict + frequency lists or dict + heap).
+
+Serialize/Deserialize Binary Tree to/from a dictionary representation.
+
+Implement a Phone Directory using a Trie (often stored with dicts per node).
+
+Design Add and Search Word Data Structure (Trie with . wildcard).
+
+Find 4Sum / 4Sum II (can use hashing of pairs or counts).
+
+Partition Labels (greedy approach with char last positions).
+
+📜 String Algorithms
+
+Check if two strings are anagrams.
+
+Group Anagrams from a list of strings.
+
+Find all anagrams of a pattern string within a larger text (Sliding Window).
+
+Longest Palindromic Substring.
+
+Longest Palindromic Subsequence.
+
+Valid Palindrome (I - ignore case/non-alphanum, II - allow one deletion).
+
+Longest Common Prefix among an array of strings.
+
+Implement strstr() / find() (find first occurrence of needle in haystack).
+
+Validate IP Address (IPv4 and IPv6).
+
+Reverse words in a string (I - whole string, II - in-place if possible).
+
+Rotate string by k positions.
+
+Basic String Compression (e.g., "aabcccccaaa" -> "a2b1c5a3").
+
+Decode String (e.g., "3[a2[c]]" -> "accaccacc").
+
+Minimum Window Substring (find smallest substring containing all chars of another string).
+
+Longest Substring Without Repeating Characters.
+
+Longest Substring with At Most K Distinct Characters.
+
+Text Justification.
+
+Compare Version Numbers.
+
+URLify: Replace spaces with "%20" in a character array (in-place).
+
+Check if two strings are isomorphic.
+
+Shortest Palindrome by adding characters to the front.
+
+Wildcard Pattern Matching (?, *).
+
+Regular Expression Matching (., *).
+
+Palindromic Partitioning (I - all partitions, II - min cuts).
+
+KMP Algorithm: Substring search, build LPS array.
+
+Rabin-Karp Algorithm: Substring search using hashing.
+
+Z-Algorithm: Pattern matching.
+
+Suffix Array / Suffix Tree: Construction (e.g., Manber-Myers for SA) and applications (e.g., LCP).
+
+Edit Distance (Levenshtein distance).
+
+🥞 Stack
+
+Implement Stack (push, pop, peek, isEmpty, size) using list/array.
+
+Validate Balanced Parentheses/Brackets/Braces.
+
+Convert Infix to Postfix expression (Shunting-yard).
+
+Evaluate Postfix Expression.
+
+Evaluate Infix Expression using two stacks.
+
+Next Greater Element (I, II, III - circular).
+
+Implement Min Stack (O(1) for all ops including getMin).
+
+Simplify File Path (handle . and ..).
+
+Implement Queue using two Stacks.
+
+Largest Rectangle in Histogram.
+
+Maximal Rectangle in a binary matrix (builds on largest rectangle).
+
+Trapping Rain Water (can be solved with stack).
+
+Basic Calculator (I, II - with +,-,*,/, III - with parentheses).
+
+Daily Temperatures (days to wait for warmer temp).
+
+Remove K Digits to make smallest number.
+
+Remove Invalid Parentheses to make a valid string (BFS/DFS/Backtracking approach).
+
+🇶 Queue & Deque
+
+Implement Queue (enqueue, dequeue, peek, isEmpty) using list/array.
+
+Implement Deque (add/remove/peek: Front/Rear).
+
+Implement Circular Queue using an array.
+
+Sliding Window Maximum (using deque for O(N)).
+
+Generate binary numbers from 1 to n using a queue.
+
+First Non-Repeating Character in a Stream (queue + hash map).
+
+Implement Stack using one or two Queues.
+
+Josephus Problem (elimination game in a circle).
+
+Design Hit Counter for website (last 5 mins, queue of timestamps).
+
+Number of Recent Calls (requests in last 3000ms).
+
+Implement a Max Queue/Deque (supports find max in O(1)).
+
+Task Scheduler (CPU tasks with cooldown, often uses Priority Queue + regular Queue).
+
+Monotonic Queue applications (e.g., sliding window problems).
+
+Queue Reconstruction by Height.
+
+🔗 Linked Lists
+
+Implement Singly Linked List (Node, insert, delete, search, print).
+
+Implement Doubly Linked List.
+
+Reverse a Linked List (iterative and recursive).
+
+Find Middle Element of a Linked List (fast/slow pointers).
+
+Detect Cycle in Linked List (Floyd's Tortoise and Hare).
+
+Find Starting Point of Cycle in Linked List.
+
+Remove Nth Node From End of List.
+
+Merge Two Sorted Linked Lists.
+
+Check if Linked List is Palindrome (reverse half, or use stack).
+
+Add Two Numbers represented by Linked Lists (digits in reverse or forward order).
+
+Copy List with Random Pointer (deep copy).
+
+Rotate Linked List by k positions.
+
+Flatten a Multilevel Doubly Linked List (nodes have next, prev, child).
+
+LRU Cache (Doubly Linked List + Hash Map).
+
+Reverse Nodes in k-Group.
+
+Intersection of Two Linked Lists (find common node).
+
+Reorder List (L0→Ln→L1→Ln-1→…).
+
+Odd Even Linked List (group odd nodes then even nodes).
+
+Partition List around a value x.
+
+Swap Nodes in Pairs.
+
+Remove Duplicates from Sorted List (I & II - remove all occurrences).
+
+Convert Binary Number in a Linked List to Integer.
+
+Sort a Linked List (e.g., using Merge Sort).
+
+🌲 Trees (General, Binary Trees, BST, Heaps)
+
+Implement Binary Tree Node; Basic Traversals: Inorder, Preorder, Postorder (recursive & iterative).
+
+Level Order Traversal (BFS), Zigzag Level Order Traversal.
+
+Find Height/Maximum Depth of a Binary Tree.
+
+Find Diameter of a Binary Tree.
+
+Check if Binary Tree is Balanced (AVL property).
+
+Check if Binary Tree is Symmetric (Mirror of itself).
+
+Lowest Common Ancestor (LCA) of two nodes in Binary Tree / BST.
+
+Binary Tree Views: Left, Right, Top, Bottom.
+
+Serialize and Deserialize Binary Tree (to string/list/dict).
+
+Construct Binary Tree from: (Preorder & Inorder), (Postorder & Inorder).
+
+Populating Next Right Pointers in Each Node (Perfect BT and general BT).
+
+Implement Binary Search Tree (BST): Insert, Search, Delete.
+
+Validate Binary Search Tree.
+
+Kth Smallest/Largest Element in a BST.
+
+Inorder Successor/Predecessor in BST.
+
+Convert Sorted Array/List to Height-Balanced BST.
+
+Convert BST to Sorted Doubly Linked List (in-place).
+
+Morris Traversal for Inorder, Preorder (constant space).
+
+Maximum Path Sum in a Binary Tree (any node to any node).
+
+Count Complete Tree Nodes efficiently.
+
+Binary Tree Pruning (remove subtrees not containing a '1').
+
+Check if two trees are Identical / Same Tree. Check for Subtree.
+
+Invert/Mirror a Binary Tree.
+
+Find all Root-to-Leaf Paths / Sum of Path Numbers.
+
+Heap: Implement Min-Heap & Max-Heap using array (insert, extractMin/Max, heapifyUp/Down, buildHeap).
+
+Find Kth Largest Element in an unsorted array using a Heap.
+
+Merge K Sorted Lists/Arrays using a Min-Heap.
+
+Check if a given Binary Tree is a Min-Heap or Max-Heap.
+
+Sliding Window Median using Two Heaps.
+
+Top K Frequent Elements (using Heap).
+
+🌍 Graph Algorithms
+
+Graph Representation: Adjacency List, Adjacency Matrix (pros/cons).
+
+Graph Traversals: Breadth-First Search (BFS), Depth-First Search (DFS) (recursive & iterative).
+
+Detect Cycle in Undirected Graph (BFS/DFS/DSU).
+
+Detect Cycle in Directed Graph (DFS with recursion stack/states).
+
+Number of Connected Components in Undirected Graph.
+
+Topological Sort on a Directed Acyclic Graph (DAG) (Kahn's BFS-based, DFS-based).
+
+Shortest Path Algorithms:
+* Dijkstra's (single source, non-negative weights, use priority queue).
+* Bellman-Ford (single source, handles negative weights, detects negative cycles).
+* Floyd-Warshall (all-pairs shortest paths).
+* Shortest Path in Weighted DAG (linear time using topological sort).
+
+Minimum Spanning Tree (MST): Prim's Algorithm, Kruskal's Algorithm (uses DSU).
+
+Check if Graph is Bipartite (2-colorable).
+
+Clone an Undirected Graph (nodes and edges, handle cycles).
+
+Word Ladder (I & II - find all shortest paths).
+
+Course Schedule (I - can finish, II - find order).
+
+Number of Islands (count islands in 2D grid).
+
+Alien Dictionary (derive order of characters from sorted words).
+
+Walls and Gates (shortest distance from gates in a grid - multi-source BFS).
+
+Reconstruct Itinerary from tickets (Eulerian path/Hierholzer's).
+
+Graph Coloring problem (backtracking).
+
+Hamiltonian Path/Cycle detection (backtracking).
+
+Network Delay Time (Dijkstra).
+
+Cheapest Flights Within K Stops (modified Dijkstra/Bellman-Ford).
+
+Serialize and Deserialize Graph.
+
+Max Flow (e.g., Edmonds-Karp algorithm).
+
+Stepping Numbers (numbers where adjacent digits differ by 1 - BFS/DFS).
+
+💡 Recursion & Backtracking
+
+Calculate Factorial / Nth Fibonacci number (recursive, with memoization).
+
+Tower of Hanoi puzzle.
+
+Generate all Valid Combinations of N Pairs of Parentheses.
+
+Generate Subsets (Power Set) of a given set/list.
+
+Generate Permutations of a list/string (with/without duplicates).
+
+Generate Combinations (select k items from n).
+
+Combination Sum (I, II, III, IV - various constraints on reuse and sum).
+
+N-Queens problem.
+
+Sudoku Solver.
+
+Word Search in a 2D grid (revisit - backtracking core).
+
+Letter Combinations of a Phone Number.
+
+Rat in a Maze (find path(s)).
+
+Palindrome Partitioning (revisit).
+
+Beautiful Arrangement.
+
+Balanced Parentheses Depth calculation using recursion.
+
+Sum of digits of a (large) number using recursion.
+
+⚙️ Dynamic Programming (DP)
+
+Fibonacci sequence (DP: tabulation & memoization).
+
+Longest Common Subsequence (LCS) / Longest Common Substring.
+
+Longest Increasing Subsequence (LIS) (O(n^2) and O(n log n)).
+
+Knapsack problems (0/1, Unbounded, Fractional - though fractional is greedy).
+
+Coin Change (min coins, number of ways).
+
+Edit Distance (Levenshtein distance).
+
+Matrix Chain Multiplication.
+
+Word Break (I - can segment, II - all segmentations).
+
+Maximum Subarray Sum (Kadane's - DP perspective).
+
+Minimum Path Sum in a Grid.
+
+Unique Paths in a Grid (I & II - with obstacles).
+
+House Robber (I, II - circular, III - tree).
+
+Longest Palindromic Substring/Subsequence (DP approaches).
+
+Best Time to Buy and Sell Stock (DP variants for multiple transactions).
+
+Regular Expression Matching (DP).
+
+Distinct Subsequences.
+
+Interleaving String.
+
+Decode Ways.
+
+Subset Sum Problem.
+
+✨ Sorting & Searching Algorithms (Variants & Advanced)
+
+Implement Standard Sorts: Bubble, Selection, Insertion, Merge, Quick (Lomuto/Hoare, 3-way), Heap Sort.
+
+Counting Sort, Radix Sort (LSD/MSD).
+
+TimSort (overview and conceptual implementation blocks).
+
+Patience Sorting (application to find LIS).
+
+Implement Binary Search (iterative & recursive).
+
+Find First and Last Occurrence of an element in a sorted array.
+
+Search in Rotated Sorted Array (with/without duplicates).
+
+Find Minimum in Rotated Sorted Array.
+
+Search in a Nearly Sorted Array (k-sorted).
+
+Median of Two Sorted Arrays (efficient O(log(min(m,n)))).
+
+Search a 2D Matrix (I - rows sorted, first_of_row > last_of_prev; II - rows & cols sorted independently).
+
+Find Kth Smallest Element in a Sorted Matrix.
+
+Peak Index in a Mountain Array / Find a peak element.
+
+Kth Missing Positive Number in a sorted array.
+
+Find K Closest Elements to a given value in a sorted array.
+
+Interpolation Search.
+
+Ternary Search (for unimodal functions/arrays).
+
+Exponential Search / Jump Search.
+
+Search in an Infinite Sorted Array.
+
+Search in a Rotated Bitonic Array.
+
+In-place Stable Sort (conceptual challenges, e.g., in-place merge).
+
+Fractional Cascading (conceptual for multi-list searching).
+
+🔗 Advanced Data Structures (Trie, Segment Tree, Fenwick, DSU)
+
+Trie (Prefix Tree): Implement (insert, search, startsWith, delete). Applications: Autocomplete, Spell Checker, Phone Directory, IP Routing.
+
+Segment Tree: Implement for Range Sum/Min/Max Queries with Point Updates. Conceptual: Lazy Propagation for Range Updates.
+
+Fenwick Tree (Binary Indexed Tree - BIT): Implement for prefix sums/updates.
+
+Disjoint Set Union (DSU) / Union-Find: Implement with Path Compression and Union by Rank/Size. Applications: Cycle detection, Kruskal's, Equivalence relations.
+
+📁 File Handling (Practical Problems)
+
+Read/Write CSV files; parse and count entries.
+
+Merge multiple sorted/unsorted files line by line or based on a key.
+
+Word count across multiple text files.
+
+Implement a simple file change watcher (e.g., using polling and timestamps/hashes).
+
+Recursive file search by extension or name in a directory tree.
+
+Calculate total size of a directory tree recursively.
+
+Parse JSON/XML files into native data structures (e.g., dicts/lists) and validate.
+
+Design a log parser to extract specific information using regular expressions.
+
+Read/write binary files (e.g., custom structs or fixed-size records).
+
+Implement tail command functionality (last N lines of a file).
+
+Process a huge file chunk by chunk (that doesn't fit in memory).
+
+Find duplicate files in a directory based on content hash.
+
+External Sorting: Implement Merge Sort for files larger than memory.
+
+Recursive directory copy utility.
+
+🧐 Algorithmic Paradigms, OOP & Miscellaneous System Design Lite
+
+Greedy: Activity Selection, Fractional Knapsack, Huffman Coding.
+
+Bit Manipulation: Check/Set/Clear/Toggle Kth bit, Count set bits, Find single non-repeating element (XOR), Trailing zeros in N!.
+
+OOP Concepts: Explain Polymorphism, Inheritance, Encapsulation, Abstraction with code examples.
+
+OOP Design: Basic classes for: Library, Vending Machine, Parking Lot, Online Shopping Cart.
+
+System Design Lite:
+* Word Frequency Counter for large files (MapReduce idea).
+* URL Shortener (hashing, collision, DB schema).
+* Web Crawler (BFS, visited set, rate limiting, politeness).
+* Design a Social Network Feed (e.g., Twitter - priority queue for relevance/time).
+
+Mathematical: Check for Armstrong number, Palindrome number, Fibonacci sequence, Factorial, Catalan numbers.
+
+deepcopy vs. shallow copy for nested mutable objects.
+
+This list now exceeds 400 problems, providing a very robust foundation for study and practice across a wide spectrum of data structures and algorithmic concepts.

@@ -1,0 +1,262 @@
+ 1. Find the Frequency of Characters in a String
+
+ Description: Count how many times each character appears in the string.
+ Input: `"Hello"`
+ Output:
+
+
+  H - 1  
+  e - 1  
+  l - 2  
+  o - 1  
+
+
+ 2. Validate Vowel Sandwich (3-character string)
+
+ Description: Check if the string is 3 characters long and has a vowel in the middle.
+ Input: `"bAb"`
+ Output: `Valid Vowel Sandwich`
+
+
+ 4. Generate a Random Number Within a Range
+
+ Description: Generate a random number between `min` and `max`.
+ Example:
+
+
+  min = 10  
+  max = 20  
+  Output: 14  (any number between 10 and 20)
+
+
+
+ 3. Validate if a Number is Within Given Bounds
+
+ Description: Check if a number lies between two bounds.
+ Input:
+
+
+  number = 100  
+  lower = 20  
+  upper = 5  
+
+ Output: `False`
+
+
+
+
+
+
+
+
+ 5. Check if All Elements in a List Are the Same
+
+ Input: `[2, 2, 2, 2]`
+ Output: `Valid`
+
+
+
+ 6. Find the Intersection of Two Lists
+
+ Input:
+
+
+  list1 = [1, 2, 3, 6, 5, 8, 6]  
+  list2 = [1, 2, 3, 5, 6]  
+
+ Output: `{1, 2, 3, 5, 6}`
+
+
+
+ 7. Count Decimal Places in a Floating-Point Number
+
+ Input: `"12.345"`
+ Output: `Count of decimal values is: 3`
+
+
+
+ 8. Find the Difference Between Two Lists
+
+ Input:
+
+
+  list1 = [1, 2, 3, 6, 5, 8, 6]  
+  list2 = [1, 2, 3, 5, 6]  
+
+ Output: `{8}`
+
+
+
+ 9. Find How Many Times "Nemo" Appears in a String
+
+ Input:
+  `"There is Mom Nemo and Father Nemo in a Nemo Family"`
+ Output: `3`
+
+
+
+ 10. Remove Duplicates From a String
+
+ Input: `"Hello"`
+ Output: `"Helo"`
+
+
+
+ 11. Find the Mode of a List of Numbers
+
+ Input: `[1, 1, 1, 2, 3, 2]`
+ Output: `1`
+
+
+
+ 12. Sum of Numbers Up to a Given Number
+
+ Input: `5`
+ Output: `15` (1+2+3+4+5)
+
+
+
+ 13. Capitalize the First Letter of Each Word in a String
+
+ Input: `"hello world"`
+ Output: `"Hello World"`
+
+
+
+ 14. Count the Number of Words in a String
+
+ Input: `"I am learning Python"`
+ Output: `4`
+
+
+
+ 15. Count the Number of 1s in a Binary Representation
+
+ Input: `13`
+ Binary: `1101`
+ Output: `3`
+
+
+
+ 16. Generate a Random Number Between 1 and 10
+
+ Output: `Random number (1-10): 7`
+
+
+
+ 17. Check if a String is Empty
+
+ Input: `""`
+ Output: `String is empty`
+
+
+
+ 18. Convert Minutes to Seconds
+
+ Input: `5`
+ Output: `300`
+
+
+
+ 19. Convert a List to a Comma-Separated String
+
+ Input: `["a", "b", "c"]`
+ Output: `"a,b,c"`
+
+
+
+ 20. Check if a List is Sorted in Ascending Order
+
+ Input: `[1, 2, 3, 4]`
+ Output: `Sorted`
+
+
+
+ 21. Spell Out a Word
+
+ Input: `"apple"`
+ Output:
+
+
+  a  
+  ap  
+  app  
+  appl  
+  apple  
+
+
+
+
+ 22. Find the Sum of Cubes of All Elements in a List
+
+ Input: `[1, 2, 3]`
+ Output: `36` (1³ + 2³ + 3³)
+
+
+
+ 23. Find the Nth Fibonacci Number (Recursive Approach)
+
+ Input: `6`
+ Output: `5`
+
+
+
+ 24. Find All Permutations of a String
+
+ Input: `"abc"`
+ Output:
+  `['abc', 'acb', 'bac', 'bca', 'cab', 'cba']`
+
+
+
+ 25. Maximum Difference Between List Elements
+
+ Input: `[2, 1, 10, 5]`
+ Output: `9` (10 - 1)
+
+
+
+ 26. Find the First Non-Repeating Character in a String
+
+ Input: `"aabbcde"`
+ Output: `"c"`
+
+
+
+ 27. Check for Balanced Parentheses (`{}`, `[]`, `()`)
+
+ Input: `"([{}])"`
+ Output: `Balanced`
+
+
+
+ 28. Word Break Problem
+
+ Input:
+
+
+  s = "applepenapple"  
+  word_dict = ["apple", "pen"]  
+
+ Output: `True`
+
+
+
+ 29. String Compression
+
+ Input: `"aaabbc"`
+ Output: `"a3b2c1"`
+
+
+
+ 30. Fibonacci Triangle
+
+ Input: `4`
+ Output:
+
+
+  0  
+  1 1  
+  2 3 5  
+  8 13 21 34  
+
