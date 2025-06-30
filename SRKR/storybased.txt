@@ -1,0 +1,95 @@
+1. Hospital Patient Record Manager
+
+Project Title: Hospital Patient Record Management System
+
+Description:
+Design and implement a system to manage hospital patients, doctors, and appointment scheduling. The system should support real-time tracking of patient visits, doctor assignments, and prioritize emergency patients using a priority queue. It should also allow filtering and searching of patient records.
+
+Features & Functional Requirements:
+
+* Class Definitions:
+
+  * `Patient`: name, age, patient_id, condition, priority (normal/emergency), visit_time.
+  * `Doctor`: name, doctor_id, specialty, list of patients.
+  * `Appointment`: patient_id, doctor_id, date, time.
+* Queue:
+
+  * Regular patients added to a queue.
+  * Emergency patients pushed into a priority queue.
+* Functionalities:
+
+  * Add new patient/doctor.
+  * Schedule appointment (match available doctor).
+  * Attend next patient (emergency prioritized).
+  * Display waiting queue.
+  * Search records by patient_id, doctor_id, or condition.
+  * Print daily appointments for a doctor.
+* Encapsulation:
+
+  * Private fields with accessors (get/set).
+* Extensions:
+
+  * Save/load patient records from file.
+  * Export filtered records.
+
+---
+
+2. Job Application Tracker
+
+Project Title: Job Application Tracking System
+
+Description:
+Create an object-oriented system to track job applications, interviews, and job offers. The system should prevent duplicates, support sorting, and export data in a clean, user-readable format.
+
+Features & Functional Requirements:
+
+* Class Definitions:
+
+  * `Application`: company_name, job_title, apply_date, deadline_date, status (applied, interview, offered, rejected).
+* Use of Tuples and Sets:
+
+  * Store applications as tuples in a set to avoid duplication.
+* Functionalities:
+
+  * Add new application.
+  * Update application status.
+  * View all applications.
+  * Filter applications by status or company.
+  * Show upcoming interviews (based on status and date).
+  * Sort applications by deadline.
+  * Export application data to CSV.
+* Extensions:
+
+  * Import application list from file.
+  * Notify upcoming deadlines (optional).
+
+---
+
+3. Parking Lot System
+
+Project Title: Multi-Level Parking Lot Manager
+
+Description:
+Design and develop a system to simulate and manage a parking lot. Vehicles should be tracked using stack (for single-lane LIFO exits) and queue for entry order. Include multi-level lot management and fee calculation based on parking duration.
+
+Features & Functional Requirements:
+
+* Class Definitions:
+
+  * `Vehicle`: license_plate, entry_time, exit_time, level.
+  * `ParkingSlot`: slot_id, level, is_occupied.
+  * `ParkingLot`: levels, slots_per_level, map of slots.
+* Use of Stack & Queue:
+
+  * Stack to manage exit in LIFO order per lane.
+  * Queue to simulate incoming vehicles.
+* Functionalities:
+
+  * Park a new vehicle (assign to slot).
+  * Vehicle exits: calculate parking fee.
+  * View available slots on each level.
+  * Display all parked vehicles.
+  * Extend to multi-level parking.
+* Fee Calculation:
+
+  * Basic hourly rate \* duration.
