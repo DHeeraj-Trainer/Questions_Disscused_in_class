@@ -1,0 +1,25 @@
+STACK
+
+LeetCode 20 - Valid Parentheses
+LeetCode 155 - Min Stack
+LeetCode 496 - Next Greater Element I
+LeetCode 739 - Daily Temperatures
+LeetCode 901 - Online Stock Span
+LeetCode 402 - Remove K Digits
+LeetCode 316 - Remove Duplicate Letters
+LeetCode 150 - Evaluate Reverse Polish Notation
+LeetCode 227 - Basic Calculator II
+LeetCode 224 - Basic Calculator
+
+
+Queue
+LeetCode 232 - Implement Queue Using Stacks
+LeetCode 933 - Number of Recent Calls
+LeetCode 622 - Design Circular Queue
+LeetCode 641 - Design Circular Deque
+LeetCode 649 - Dota2 Senate
+LeetCode 950 - Reveal Cards in Increasing Order
+LeetCode 239 - Sliding Window Maximum
+LeetCode 215 - Kth Largest Element in an Array
+LeetCode 621 - Task Scheduler
+LeetCode 703 - Kth Largest Element in a Stream

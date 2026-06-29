@@ -1,0 +1,153 @@
+from pathlib import Path
+
+html = r"""<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Maximum Building Height Simulator</title>
+<style>
+body{font-family:Arial,sans-serif;background:#0f172a;color:#e5e7eb;margin:0}
+header{padding:16px;background:#111827}
+.container{padding:20px;max-width:1200px;margin:auto}
+.card{background:#111827;padding:16px;border-radius:12px;margin-bottom:16px}
+input,textarea{width:100%;padding:8px;margin:6px 0;background:#1f2937;color:white;border:1px solid #374151}
+button{padding:8px 12px;margin:4px}
+#bars{display:flex;align-items:flex-end;height:320px;gap:4px;border:1px solid #374151;padding:10px;overflow:auto}
+.bar{width:40px;background:#3b82f6;position:relative;text-align:center}
+.bar span{position:absolute;top:-20px;left:0;right:0;font-size:11px}
+.active{background:#ef4444}
+pre{white-space:pre-wrap}
+</style>
+</head>
+<body>
+<header><h2>LeetCode 1840 - Maximum Building Height Simulator</h2></header>
+<div class="container">
+<div class="card">
+<label>n</label>
+<input id="n" value="10">
+<label>restrictions (JSON)</label>
+<textarea id="r">[[5,3],[2,5],[7,4],[10,3]]</textarea>
+<button onclick="build()">Generate Walkthrough</button>
+<button onclick="prevStep()">Prev</button>
+<button onclick="nextStep()">Next</button>
+</div>
+
+<div class="card">
+<h3>Current Step</h3>
+<div id="step"></div>
+</div>
+
+<div class="card">
+<div id="bars"></div>
+</div>
+
+<div class="card">
+<h3>Details</h3>
+<pre id="details"></pre>
+</div>
+</div>
+
+<script>
+let steps=[],idx=0;
+
+function addStep(title, details, skyline=[]){
+  steps.push({title,details,skyline});
+}
+
+function draw(arr){
+ const bars=document.getElementById('bars');
+ bars.innerHTML='';
+ if(!arr.length) return;
+ let mx=Math.max(...arr,1);
+ arr.forEach((h,i)=>{
+   let d=document.createElement('div');
+   d.className='bar';
+   d.style.height=(h/mx*250+10)+'px';
+   d.innerHTML='<span>'+(i+1)+'</span>'+h;
+   bars.appendChild(d);
+ });
+}
+
+function show(){
+ if(!steps.length) return;
+ document.getElementById('step').innerText=steps[idx].title;
+ document.getElementById('details').innerText=steps[idx].details;
+ draw(steps[idx].skyline);
+}
+
+function nextStep(){ if(idx<steps.length-1){idx++;show();}}
+function prevStep(){ if(idx>0){idx--;show();}}
+
+function build(){
+ steps=[]; idx=0;
+ let n=Number(document.getElementById('n').value);
+ let r=JSON.parse(document.getElementById('r').value);
+
+ addStep("Problem","Brute force would generate n buildings. Impossible when n = 1e9.",[]);
+
+ r.push([1,0]);
+ r.sort((a,b)=>a[0]-b[0]);
+
+ addStep("Sorted Restrictions",
+ JSON.stringify(r,null,2),[]);
+
+ if(r[r.length-1][0]!==n){
+   r.push([n,r[r.length-1][1]+(n-r[r.length-1][0])]);
+ }
+
+ addStep("After Adding Building n",
+ JSON.stringify(r,null,2),[]);
+
+ for(let i=1;i<r.length;i++){
+   let d=r[i][0]-r[i-1][0];
+   let before=r[i][1];
+   r[i][1]=Math.min(r[i][1],r[i-1][1]+d);
+   addStep(
+    "Left Pass i="+i,
+    `distance=${d}\nmin(${before}, ${r[i-1][1]}+${d}) = ${r[i][1]}`,
+    []
+   );
+ }
+
+ for(let i=r.length-2;i>=0;i--){
+   let d=r[i+1][0]-r[i][0];
+   let before=r[i][1];
+   r[i][1]=Math.min(r[i][1],r[i+1][1]+d);
+   addStep(
+    "Right Pass i="+i,
+    `distance=${d}\nmin(${before}, ${r[i+1][1]}+${d}) = ${r[i][1]}`,
+    []
+   );
+ }
+
+ let ans=0;
+
+ for(let i=1;i<r.length;i++){
+   let [x1,h1]=r[i-1];
+   let [x2,h2]=r[i];
+   let d=x2-x1;
+   let peak=Math.floor((h1+h2+d)/2);
+   ans=Math.max(ans,peak);
+
+   addStep(
+    "Peak Calculation Segment "+i,
+    `(${x1},${h1}) -> (${x2},${h2})
+distance=${d}
+peak=(${h1}+${h2}+${d})//2 = ${peak}`,
+    []
+   );
+ }
+
+ let skyline=new Array(Math.min(n,80)).fill(0);
+ for(let i=1;i<skyline.length;i++){
+   skyline[i]=Math.min(skyline[i-1]+1,ans);
+ }
+ addStep("Final Answer","Maximum Height = "+ans,skyline);
+
+ show();
+}
+build();
+</script>
+</body>
+</html>
+

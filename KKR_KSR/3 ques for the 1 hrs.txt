@@ -1,0 +1,310 @@
+ Problem 1: Metro Smart Navigation System
+
+ Problem Statement
+
+The Metro Authority has developed a smart navigation system for commuters. There are **N** metro stations connected by **M** bidirectional routes. Each route has a travel time (in minutes).
+
+A passenger wants to travel from the **source station S** to the **destination station D**.
+
+Your task is to determine:
+
+1. The minimum travel time.
+2. The path followed.
+3. If multiple shortest paths exist, choose the path having the **fewest intermediate stations**.
+4. If no path exists, print:
+
+```
+NO ROUTE
+```
+
+---
+
+ Input Format
+
+```
+N M
+u1 v1 time1
+u2 v2 time2
+...
+uM vM timeM
+S D
+```
+
+---
+
+ Constraints
+
+```
+2 ≤ N ≤ 100000
+1 ≤ M ≤ 200000
+1 ≤ Time ≤ 1000
+```
+
+---
+
+ Output Format
+
+If a route exists:
+
+```
+Minimum Time = X
+Path = S -> ... -> D
+```
+
+Otherwise:
+
+```
+NO ROUTE
+```
+
+---
+
+ Sample Input
+
+```
+6 7
+1 2 4
+1 3 2
+2 4 5
+3 4 6
+3 5 3
+5 6 2
+4 6 1
+1 6
+```
+
+---
+
+ Sample Output
+
+```
+Minimum Time = 7
+Path = 1 -> 3 -> 5 -> 6
+```
+
+---
+
+ Hidden Test Cases
+
+ Test Case 1
+
+Input
+
+```
+3 1
+1 2 5
+1 3
+```
+
+Output
+
+```
+NO ROUTE
+```
+
+---
+
+ Test Case 2
+
+Input
+
+```
+5 6
+1 2 1
+2 5 4
+1 3 2
+3 4 2
+4 5 1
+2 3 1
+1 5
+```
+
+Output
+
+```
+Minimum Time = 5
+Path = 1 -> 2 -> 5
+```
+
+---
+
+ Problem 2: Warehouse Inventory Management
+
+ Problem Statement
+
+A warehouse stores multiple products.
+
+Each product record contains:
+
+* Product_ID
+* Category
+* Quantity
+* Price
+
+Multiple records may exist for the same **Product_ID**.
+
+ Rules
+
+1. Merge duplicate Product_IDs by adding their quantities.
+2. After merging, perform the following operations:
+
+* Print the total inventory value.
+* Find the highest value product.
+* Print the top K products based on inventory value.
+* Print category-wise inventory value.
+* Print products having quantity less than 10.
+
+Inventory Value = Quantity × Price
+
+---
+
+ Input Format
+
+```
+N
+Product_ID Category Quantity Price
+...
+K
+```
+
+---
+
+ Sample Input
+
+```
+7
+P101 Electronics 10 2000
+P102 Grocery 30 40
+P101 Electronics 5 2000
+P103 Furniture 3 15000
+P104 Grocery 100 25
+P105 Electronics 7 5000
+P102 Grocery 20 40
+2
+```
+
+---
+
+ Sample Output
+
+```
+Total Inventory Value
+
+113500
+
+Highest Value Product
+
+P103
+
+Top Products
+
+P103
+P101
+
+Low Stock
+
+P103
+P105
+```
+
+---
+
+ Edge Cases
+
+* Duplicate Product IDs
+* Quantity = 0
+* Same inventory values
+* Empty category
+* Large number of products
+
+---
+
+ Problem 3: Online Coding Platform Leaderboard
+
+ Problem Statement
+
+An online coding platform records every submission.
+
+Each submission contains:
+
+* Username
+* Problem_ID
+* Score
+* Submission_Time
+
+---
+
+ Rules
+
+ For each problem
+
+* Only the highest score is counted.
+* If multiple submissions have the same score, keep the earliest submission.
+
+ For each user
+
+Compute:
+
+* Total Score = Sum of highest scores of all solved problems.
+* Penalty = Sum of submission times of the accepted (counted) submissions.
+* Solved Problems = Number of unique solved problems.
+
+---
+
+ Ranking Rules
+
+Sort users by:
+
+1. Higher Total Score
+2. Lower Penalty
+3. More Solved Problems
+4. Alphabetical Username
+
+---
+
+ Output Format
+
+```
+Rank Username Score Penalty Solved
+```
+
+---
+
+ Sample Input
+
+```
+10
+Rahul A 100 15
+Rahul B 80 40
+Rahul A 90 10
+Anita A 100 20
+Anita B 90 25
+Raj A 100 5
+Raj B 80 35
+Raj C 60 50
+Neha A 90 18
+Neha C 100 60
+```
+
+---
+
+ Sample Output
+
+```
+Rank Username Score Penalty Solved
+
+1 Raj 240 90 3
+2 Anita 190 45 2
+3 Rahul 180 55 2
+4 Neha 190 78 2
+```
+
+---
+
+ Hidden Test Cases
+
+* Duplicate submissions
+* Same score with different submission times
+* Users solving zero problems
+* Tie on all ranking parameters
+* Large dataset (100000 submissions)

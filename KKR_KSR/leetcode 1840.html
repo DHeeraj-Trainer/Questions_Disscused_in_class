@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeetCode 1840 - Maximum Building Height Visualizer</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,system-ui,sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+    line-height:1.6;
+}
+
+header{
+    padding:30px;
+    text-align:center;
+    background:#111827;
+    border-bottom:1px solid #334155;
+}
+
+header h1{
+    font-size:2rem;
+}
+
+section{
+    max-width:1400px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+.card{
+    background:#111827;
+    border:1px solid #334155;
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:24px;
+}
+
+h2{
+    margin-bottom:20px;
+    color:#60a5fa;
+}
+
+button{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:8px;
+    cursor:pointer;
+    margin:5px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+input{
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    width:100%;
+    margin-top:10px;
+}
+
+.visual{
+    display:flex;
+    align-items:flex-end;
+    gap:6px;
+    height:350px;
+    padding:20px;
+    border:1px solid #334155;
+    border-radius:12px;
+    overflow-x:auto;
+    margin-top:20px;
+}
+
+.bar{
+    min-width:40px;
+    background:#3b82f6;
+    transition:all .7s ease;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    color:white;
+    font-size:12px;
+    border-radius:6px 6px 0 0;
+    position:relative;
+}
+
+.bar span{
+    position:absolute;
+    top:-24px;
+}
+
+.restricted{
+    background:#ef4444;
+}
+
+.success{
+    color:#4ade80;
+}
+
+.warning{
+    color:#fbbf24;
+}
+
+.code{
+    background:black;
+    padding:15px;
+    border-radius:10px;
+    overflow:auto;
+    margin-top:15px;
+}
+
+.step{
+    font-size:1.1rem;
+    margin-top:15px;
+    color:#fbbf24;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+td,th{
+    border:1px solid #334155;
+    padding:10px;
+    text-align:center;
+}
+
+.highlight{
+    color:#4ade80;
+    font-weight:bold;
+}
+
+.formula{
+    font-size:1.4rem;
+    text-align:center;
+    padding:20px;
+    color:#4ade80;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#94a3b8;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+<h1>Maximum Building Height Visualizer</h1>
+<p>LeetCode 1840 Interactive Explanation</p>
+</header>
+
+<section>
+
+<div class="card">
+<h2>Example Testcase</h2>
+
+<p>
+n = 10<br>
+restrictions = [[5,3],[2,5],[7,4],[10,3]]
+</p>
+
+<button onclick="showBruteForce()">
+Brute Force Idea
+</button>
+
+<button onclick="showRestrictionsOnly()">
+Observation
+</button>
+
+<button onclick="leftPass()">
+Left → Right Pass
+</button>
+
+<button onclick="rightPass()">
+Right → Left Pass
+</button>
+
+<button onclick="showPeak()">
+Peak Formula
+</button>
+
+<button onclick="showFinal()">
+Final Solution
+</button>
+
+<div id="message" class="step">
+Click a button to start visualization.
+</div>
+
+<div id="visual" class="visual"></div>
+</div>
+
+<div class="card">
+<h2>Peak Formula</h2>
+
+<div class="formula">
+peak = (h1 + h2 + distance) // 2
+</div>
+
+<p>
+Instead of generating all buildings,
+we only keep restricted points.
+</p>
+</div>
+
+<div class="card">
+<h2>Why Not Build All Buildings?</h2>
+
+<table>
+<tr>
+<th>Approach</th>
+<th>Memory</th>
+<th>Time</th>
+</tr>
+
+<tr>
+<td>Generate All n Buildings</td>
+<td>O(n)</td>
+<td>O(n)</td>
+</tr>
+
+<tr>
+<td class="highlight">Process Restrictions Only</td>
+<td class="highlight">O(k)</td>
+<td class="highlight">O(k log k)</td>
+</tr>
+</table>
+
+<br>
+
+<p>
+n can be 1,000,000,000.
+Creating an array of size 1e9 is impossible.
+</p>
+
+</div>
+
+<div class="card">
+<h2>Python Solution</h2>
+
+<pre class="code">
+class Solution:
+    def maxBuilding(self, n, restrictions):
+
+        restrictions.append([1,0])
+        restrictions.sort()
+
+        if restrictions[-1][0] != n:
+            restrictions.append([
+                n,
+                restrictions[-1][1] +
+                (n - restrictions[-1][0])
+            ])
+
+        m = len(restrictions)
+
+        for i in range(1,m):
+            d = restrictions[i][0] - restrictions[i-1][0]
+            restrictions[i][1] = min(
+                restrictions[i][1],
+                restrictions[i-1][1] + d
+            )
+
+        for i in range(m-2,-1,-1):
+            d = restrictions[i+1][0] - restrictions[i][0]
+            restrictions[i][1] = min(
+                restrictions[i][1],
+                restrictions[i+1][1] + d
+            )
+
+        ans = 0
+
+        for i in range(1,m):
+
+            x1,h1 = restrictions[i-1]
+            x2,h2 = restrictions[i]
+
+            d = x2 - x1
+
+            ans = max(
+                ans,
+                (h1+h2+d)//2
+            )
+
+        return ans
+</pre>
+
+</div>
+
+</section>
+
+<footer>
+Interactive Learning Page for Maximum Building Height
+</footer>
+
+<script>
+
+const visual=document.getElementById("visual");
+const message=document.getElementById("message");
+
+function draw(arr,restricted=[]){
+
+    visual.innerHTML="";
+
+    arr.forEach((h,index)=>{
+
+        const div=document.createElement("div");
+
+        div.className="bar";
+
+        if(restricted.includes(index+1))
+            div.classList.add("restricted");
+
+        div.style.height=(h*45+10)+"px";
+
+        div.innerHTML=
+            `<span>${index+1}</span>${h}`;
+
+        visual.appendChild(div);
+    });
+}
+
+function showBruteForce(){
+
+    message.innerHTML=
+    "Brute force generates every building. Works for n=10 but fails for n=1e9.";
+
+    draw([0,1,2,3,3,4,4,5,4,3],[2,5,7,10]);
+}
+
+function showRestrictionsOnly(){
+
+    message.innerHTML=
+    "Observation: We only care about restricted points.";
+
+    draw([0,1,0,0,3,0,4,0,0,3],[2,5,7,10]);
+}
+
+function leftPass(){
+
+    message.innerHTML=
+    "Left → Right pass updates heights using adjacent distance.";
+
+    draw([0,1,0,0,3,0,4,0,0,3],[2,5,7,10]);
+}
+
+function rightPass(){
+
+    message.innerHTML=
+    "Right → Left pass validates restrictions from the opposite direction.";
+
+    draw([0,1,0,0,3,0,4,0,0,3],[2,5,7,10]);
+}
+
+function showPeak(){
+
+    message.innerHTML=
+    "Peak between (7,4) and (10,3): (4+3+3)//2 = 5";
+
+    draw([0,1,2,3,3,4,4,5,4,3],[2,5,7,10]);
+}
+
+function showFinal(){
+
+    message.innerHTML=
+    "Final Answer = 5";
+
+    draw([0,1,2,3,3,4,4,5,4,3],[2,5,7,10]);
+}
+
+showBruteForce();
+
+</script>
+
+</body>
+</html>

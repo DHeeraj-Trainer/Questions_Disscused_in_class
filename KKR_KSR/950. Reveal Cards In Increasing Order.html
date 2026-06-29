@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reveal Cards In Increasing Order - Visualizer</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Segoe UI,sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    min-height:100vh;
+    color:white;
+    padding:30px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#cbd5e1;
+    margin-bottom:30px;
+}
+
+.panel{
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:25px;
+}
+
+.input-row{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+input{
+    flex:1;
+    min-width:300px;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+}
+
+button{
+    padding:14px 20px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.primary{
+    background:#3b82f6;
+    color:white;
+}
+
+.primary:hover{
+    transform:translateY(-2px);
+}
+
+.controls{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    margin-top:20px;
+}
+
+.control-btn{
+    background:#334155;
+    color:white;
+}
+
+.control-btn:hover{
+    background:#475569;
+}
+
+.section-title{
+    font-size:20px;
+    margin-bottom:15px;
+    color:#93c5fd;
+}
+
+.cards{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    min-height:80px;
+}
+
+.card{
+    width:65px;
+    height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    font-weight:bold;
+    font-size:18px;
+    transition:.5s;
+}
+
+.sorted{
+    background:#10b981;
+}
+
+.index-card{
+    background:#f59e0b;
+    color:#111;
+}
+
+.result-card{
+    background:#475569;
+}
+
+.filled{
+    background:#8b5cf6;
+    transform:scale(1.08);
+}
+
+.highlight{
+    animation:pulse .8s infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.15);}
+    100%{transform:scale(1);}
+}
+
+.info{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+}
+
+.info-box{
+    background:#1e293b;
+    border-radius:14px;
+    padding:18px;
+}
+
+.label{
+    color:#94a3b8;
+    font-size:14px;
+}
+
+.value{
+    font-size:24px;
+    margin-top:8px;
+}
+
+.explanation{
+    margin-top:20px;
+    line-height:1.8;
+    color:#e2e8f0;
+    min-height:70px;
+}
+
+.progress{
+    height:12px;
+    background:#334155;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:20px;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#3b82f6,#8b5cf6);
+    transition:.5s;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1>🃏 Reveal Cards In Increasing Order</h1>
+<p class="subtitle">
+Visualizing the Queue Simulation Solution (LeetCode 950)
+</p>
+
+<div class="panel">
+
+<div class="input-row">
+<input id="deckInput"
+value="17,13,11,2,3,5,7">
+<button class="primary" onclick="startVisualization()">
+Generate Visualization
+</button>
+</div>
+
+<div class="controls">
+<button class="control-btn" onclick="prevStep()">⬅ Previous</button>
+<button class="control-btn" onclick="nextStep()">Next ➡</button>
+<button class="control-btn" onclick="play()">▶ Auto Play</button>
+</div>
+
+<div class="progress">
+<div id="progressFill" class="progress-fill"></div>
+</div>
+
+</div>
+
+<div class="panel">
+<div class="section-title">Sorted Cards</div>
+<div id="sortedCards" class="cards"></div>
+</div>
+
+<div class="panel">
+<div class="section-title">Queue of Indices</div>
+<div id="queueCards" class="cards"></div>
+</div>
+
+<div class="panel">
+<div class="section-title">Result Deck Being Built</div>
+<div id="resultCards" class="cards"></div>
+</div>
+
+<div class="panel">
+
+<div class="info">
+
+<div class="info-box">
+<div class="label">Current Card</div>
+<div id="currentCard" class="value">-</div>
+</div>
+
+<div class="info-box">
+<div class="label">Assigned Index</div>
+<div id="currentIndex" class="value">-</div>
+</div>
+
+<div class="info-box">
+<div class="label">Step</div>
+<div id="stepCount" class="value">0</div>
+</div>
+
+</div>
+
+<div id="explanation" class="explanation">
+Enter a deck and click Generate Visualization.
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let states = [];
+let currentStep = 0;
+let timer = null;
+
+function buildStates(deck){
+
+    let sorted = [...deck].sort((a,b)=>a-b);
+
+    let queue = [];
+    for(let i=0;i<deck.length;i++)
+        queue.push(i);
+
+    let result = Array(deck.length).fill(null);
+
+    let snapshots=[];
+
+    snapshots.push({
+        sorted:[...sorted],
+        queue:[...queue],
+        result:[...result],
+        card:null,
+        index:null,
+        message:"Initial state. Queue contains all indices."
+    });
+
+    for(let card of sorted){
+
+        let idx = queue.shift();
+
+        result[idx]=card;
+
+        snapshots.push({
+            sorted:[...sorted],
+            queue:[...queue],
+            result:[...result],
+            card,
+            index:idx,
+            message:`Place card ${card} into position ${idx}.`
+        });
+
+        if(queue.length){
+
+            let moved=queue.shift();
+            queue.push(moved);
+
+            snapshots.push({
+                sorted:[...sorted],
+                queue:[...queue],
+                result:[...result],
+                card,
+                index:idx,
+                message:`Move index ${moved} to the back of the queue.`
+            });
+        }
+    }
+
+    return snapshots;
+}
+
+function render(){
+
+    let s = states[currentStep];
+
+    document.getElementById("currentCard").innerText =
+        s.card ?? "-";
+
+    document.getElementById("currentIndex").innerText =
+        s.index ?? "-";
+
+    document.getElementById("stepCount").innerText =
+        currentStep + " / " + (states.length-1);
+
+    document.getElementById("explanation").innerText =
+        s.message;
+
+    let progress =
+        (currentStep/(states.length-1))*100;
+
+    document.getElementById("progressFill").style.width =
+        progress+"%";
+
+    let sortedDiv =
+        document.getElementById("sortedCards");
+
+    sortedDiv.innerHTML="";
+
+    s.sorted.forEach(v=>{
+        sortedDiv.innerHTML +=
+        `<div class="card sorted">${v}</div>`;
+    });
+
+    let queueDiv =
+        document.getElementById("queueCards");
+
+    queueDiv.innerHTML="";
+
+    s.queue.forEach((v,i)=>{
+        queueDiv.innerHTML +=
+        `<div class="card index-card ${i===0?'highlight':''}">
+            ${v}
+        </div>`;
+    });
+
+    let resultDiv =
+        document.getElementById("resultCards");
+
+    resultDiv.innerHTML="";
+
+    s.result.forEach(v=>{
+        resultDiv.innerHTML +=
+        `<div class="card result-card ${v!==null?'filled':''}">
+            ${v ?? ''}
+        </div>`;
+    });
+}
+
+function startVisualization(){
+
+    let deck =
+        document.getElementById("deckInput")
+        .value
+        .split(",")
+        .map(x=>parseInt(x.trim()))
+        .filter(x=>!isNaN(x));
+
+    states = buildStates(deck);
+
+    currentStep = 0;
+
+    render();
+}
+
+function nextStep(){
+
+    if(currentStep < states.length-1){
+        currentStep++;
+        render();
+    }
+}
+
+function prevStep(){
+
+    if(currentStep > 0){
+        currentStep--;
+        render();
+    }
+}
+
+function play(){
+
+    clearInterval(timer);
+
+    timer = setInterval(()=>{
+
+        if(currentStep < states.length-1){
+            currentStep++;
+            render();
+        }
+        else{
+            clearInterval(timer);
+        }
+
+    },1000);
+}
+
+startVisualization();
+
+</script>
+
+</body>
+</html>

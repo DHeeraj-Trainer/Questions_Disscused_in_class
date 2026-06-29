@@ -1,0 +1,707 @@
+MOVIE TICKET PRICE BASED ON AGE
+Problem Statement:
+Write a program to determine the ticket price based on a person's age.
+Rules:
+- Below 12 years → $10
+- 12 to 60 years → $15
+- Above 60 years → $12
+
+Test Case 1:
+Input: [15,65,19,68]
+Output:
+15 -> $15
+65 -> $12
+19 -> $15
+68 -> $12
+
+
+Test Case 2:
+Input: [5,12,61]
+Output:
+5 -> $10
+12 -> $15
+61 -> $12
+
+
+
+ATM MANAGEMENT SYSTEM
+
+Problem Statement:
+Create an ATM system that validates a PIN before allowing transactions.
+The system should support Deposit, Withdrawal, Balance Inquiry, Transaction History, and Exit.
+
+Input:
+PIN and transaction options
+
+Output:
+Transaction results and updated balance
+
+Test Case 1:
+Input:
+PIN=1234
+Deposit=500
+Balance Inquiry
+Output:
+Deposit Successful
+Balance = 500
+
+Test Case 2:
+Input:
+PIN=1234
+Withdraw=200
+History
+Output:
+Withdrawal Successful
+Transaction History:
+Withdraw - 200
+
+
+
+PIZZA SHOP ORDERING SYSTEM
+
+Problem Statement:
+Create a pizza ordering system that allows customers to choose pizza size and toppings.
+Calculate and display the total bill.
+
+Prices:
+Small=$10
+Medium=$15
+Large=$20
+Cheese=$2
+Pepperoni=$3
+
+Test Case 1:
+Input:
+Medium Pizza
+Cheese
+Output:
+Total = $17
+
+Test Case 2:
+Input:
+Large Pizza
+Cheese
+Pepperoni
+Output:
+Total = $25
+
+
+
+ADVANCED PIZZA SHOP SYSTEM
+
+Problem Statement:
+Allow customers to order multiple pizzas in a single order.
+Delivery Charge:
+- $5 if order value < $50
+- Free if order value >= $50
+
+Output should display a complete receipt.
+
+Test Case 1:
+Input:
+2 Medium Pizzas
+Cheese on both
+Output:
+Pizza Cost = $34
+Delivery = $5
+Total = $39
+
+Test Case 2:
+Input:
+3 Large Pizzas
+Pepperoni on all
+Output:
+Pizza Cost = $69
+Delivery = Free
+Total = $69
+
+
+
+LIST OPERATIONS
+
+Problem Statement:
+Given:
+a=[1,2,35,6,8,6,5,8,99,0,66]
+
+Perform:
+append(5)
+insert(2,85)
+remove(2)
+pop()
+pop(index_of_0)
+index(85)
+count(2)
+sort()
+reverse()
+slicing
+append(sum(list)),append(max(list))
+find length,find indexes of 0,max,min
+
+COUNT EVEN AND ODD NUMBERS
+
+Problem Statement:
+Separate even and odd numbers from a given list.
+Display both lists and their counts.
+
+Test Case 1:
+Input:
+[2,4,5,7]
+Output:
+Even=[2,4]
+Count=2
+Odd=[5,7]
+Count=2
+
+Test Case 2:
+Input:
+[10,11,12]
+Output:
+Even=[10,12]
+Odd=[11]
+
+
+
+Problem Statement:
+Given:
+[1,5,8,9,6,3,7,52,69,55,1,4,5,2,3,6,9,555,125,145]
+
+Perform:
+- Find second largest number
+- Find average
+- Sum negative, positive even and positive odd numbers
+- Find largest even and odd numbers
+- Find position of max value
+- Add a number to every element
+- Print first element of each nested list
+
+Test Case 1:
+Input:
+Given list
+Output:
+Second Largest = 145
+
+Test Case 2:
+Input:
+[10,20,30]
+Output:
+Second Largest = 20
+
+
+
+SHOPPING LIST MANAGER
+
+Problem Statement:
+Create a shopping list manager that allows users to:
+- Add items
+- Remove items
+- Sort items
+- Display final list
+- Exit
+Test Case 1:
+Input:
+Add Milk
+Add Eggs
+Add Bread
+Remove Eggs
+Sort
+Output:
+Bread
+Milk
+
+Test Case 2:
+Input:
+Add Apple
+Add Mango
+Sort
+Output:
+Apple
+Mango
+
+
+
+MOVE ALL ZEROS TO THE END
+
+Problem Statement:
+Move all zeros in a list to the end while maintaining the order of non-zero elements.
+
+Test Case 1:
+Input:
+[1,0,2,0]
+Output:
+[1,2,0,0]
+
+Test Case 2:
+Input:
+[0,0,5]
+Output:
+[5,0,0]
+
+
+
+FIND THE MISSING NUMBER
+
+Problem Statement:
+Given numbers from 1 to n with one number missing, find the missing number.
+
+Test Case 1:
+Input:
+[1,3,2,6,5]
+Output:
+4
+
+Test Case 2:
+Input:
+[1,2,4,5]
+Output:
+3
+
+
+
+CHARACTER FREQUENCY COUNTER
+
+Problem Statement:
+Count the frequency of every character in a string.
+
+Test Case 1:
+Input:
+Hello
+Output:
+H-1
+e-1
+l-2
+o-1
+
+Test Case 2:
+Input:
+Apple
+Output:
+A-1
+p-2
+l-1
+e-1
+
+
+
+CHECK IF ALL ELEMENTS ARE SAME
+
+Problem Statement:
+Check whether all elements in a list are identical.
+
+Test Case 1:
+Input:
+[2,2,2,2]
+Output:
+True
+
+Test Case 2:
+Input:
+[2,2,3]
+Output:
+False
+
+
+
+INTERSECTION OF TWO LISTS
+
+Problem Statement:
+Find common elements between two lists without using sets.
+
+Test Case 1:
+Input:
+[1,2,3]
+[2,3,4]
+Output:
+[2,3]
+
+Test Case 2:
+Input:
+[5,6]
+[1,2]
+Output:
+[]
+
+
+
+COUNT DECIMAL PLACES
+
+Problem Statement:
+Count the number of digits after the decimal point.
+Test Case 1:
+Input:12.3456
+Output:4
+Test Case 2:
+Input:10.5
+Output:1
+
+
+
+FIND NEMO
+
+Problem Statement:
+Count the number of times the word "Nemo" appears in a string.
+
+Test Case 1:
+Input:
+Nemo Nemo Nemo
+Output:
+3
+
+Test Case 2:
+Input:
+Finding Dory
+Output:
+0
+
+
+
+REVERSE A LIST WITHOUT USING reverse()
+
+Problem Statement:
+Reverse all elements of a list without using the built-in reverse() method.
+
+Test Case 1:
+Input:
+[1,2,3,4]
+Output:
+[4,3,2,1]
+
+Test Case 2:
+Input:
+['a','b','c']
+Output:
+['c','b','a']
+
+
+
+FIND DUPLICATES IN A LIST
+
+Problem Statement:
+Find all duplicate elements present in a list.
+
+Test Case 1:
+Input:
+[1,2,3,2,4,5,1]
+Output:
+[1,2]
+
+Test Case 2:
+Input:
+[10,20,30]
+Output:
+[]
+
+
+
+REMOVE DUPLICATES FROM A LIST
+
+Problem Statement:
+Remove duplicate values from a list while maintaining original order.
+
+Test Case 1:
+Input:
+[1,2,2,3,1,4]
+Output:
+[1,2,3,4]
+
+Test Case 2:
+Input:
+[5,5,5,5]
+Output:
+[5]
+
+
+
+Remove Duplicates While Maintaining Order
+Problem Statement
+Remove duplicate elements but preserve original order.
+Example
+Input:[1,2,2,3,1,4]
+Output:[1,2,3,4]
+
+
+Move All Zeros To End
+Problem Statement: Move all zeros to the end while maintaining non-zero order.
+Example
+Input:[1,0,2,0,5]
+Output:[1,2,5,0,0]
+
+
+
+MERGE TWO LISTS WITHOUT DUPLICATES
+
+Problem Statement:
+Combine two lists and remove duplicate values.
+
+Test Case 1:
+Input:
+[1,2,3]
+[3,4,5]
+Output:
+[1,2,3,4,5]
+
+Test Case 2:
+Input:
+[10,20]
+[20,30]
+Output:
+[10,20,30]
+
+
+
+ROTATE LIST LEFT BY N POSITIONS
+
+Problem Statement:
+Rotate the elements of a list to the left by N positions.
+
+Test Case 1:
+Input:
+List=[1,2,3,4,5]
+N=2
+Output:
+[3,4,5,1,2]
+
+Test Case 2:
+Input:
+List=[10,20,30,40]
+N=1
+Output:
+[20,30,40,10]
+
+
+
+ROTATE LIST RIGHT BY N POSITIONS
+
+Problem Statement:
+Rotate the elements of a list to the right by N positions.
+
+Test Case 1:
+Input:
+List=[1,2,3,4,5]
+N=2
+Output:
+[4,5,1,2,3]
+
+Test Case 2:
+Input:
+List=[10,20,30,40]
+N=1
+Output:
+[40,10,20,30]
+
+
+Sum of Digits of Every Number
+Problem Statement
+Create new list containing sum of digits of each element.
+Example
+Input:[123,45,67]
+Output:[6,9,13]
+
+
+
+FIND PAIRS WITH GIVEN SUM
+
+Problem Statement:
+Find all pairs of numbers whose sum equals a given target value.
+
+Test Case 1:
+Input:
+List=[1,2,3,4,5]
+Target=5
+Output:
+(1,4)
+(2,3)
+
+Test Case 2:
+Input:
+List=[2,7,11,15]
+Target=9
+Output:
+(2,7)
+
+
+
+SEPARATE POSITIVE AND NEGATIVE NUMBERS
+
+Problem Statement:
+Create separate lists for positive and negative numbers.
+
+Test Case 1:
+Input:
+[-1,5,-8,9,10,-4]
+Output:
+Positive=[5,9,10]
+Negative=[-1,-8,-4]
+
+Test Case 2:
+Input:
+[-5,-6,2]
+Output:
+Positive=[2]
+Negative=[-5,-6]
+
+
+
+FIND THE SECOND SMALLEST NUMBER
+
+Problem Statement:
+Find the second smallest unique number in a list.
+
+Test Case 1:
+Input:
+[5,2,8,1,9]
+Output:
+2
+
+Test Case 2:
+Input:
+[10,20,30,40]
+Output:
+20
+
+
+
+
+FIND THE LARGEST ELEMENT IN A LIST
+
+Problem Statement:
+Find and display the largest element present in the given list.
+
+Test Case 1:
+Input:
+[10,25,8,99,45]
+Output:
+99
+
+Test Case 2:
+Input:
+[-5,-2,-10]
+Output:
+-2
+
+
+
+FIND THE SMALLEST ELEMENT IN A LIST
+
+Problem Statement:
+Find and display the smallest element present in the given list.
+
+Test Case 1:
+Input:
+[10,25,8,99,45]
+Output:
+8
+
+Test Case 2:
+Input:
+[-5,-2,-10]
+Output:
+-10
+
+
+
+
+Create two lists:
+- Elements at even indexes
+- Elements at odd indexes
+
+Test Case 1:
+Input:
+[10,20,30,40,50]
+Output:
+Even Index=[10,30,50]
+Odd Index=[20,40]
+
+Test Case 2:
+Input:
+[1,2,3,4]
+Output:
+Even Index=[1,3]
+Odd Index=[2,4]
+
+
+
+
+
+
+Problem Statement:
+Swap the first and last elements of the list.
+
+Test Case 1:
+Input:
+[10,20,30,40]
+Output:
+[40,20,30,10]
+
+Test Case 2:
+Input:
+[1,2]
+Output:
+[2,1]
+
+
+
+
+
+Count how many times each element appears in the list.
+
+Test Case 1:
+Input:
+[1,2,2,3,1,1]
+Output:
+1 -> 3
+2 -> 2
+3 -> 1
+
+Test Case 2:
+Input:
+[5,5,5]
+Output:
+5 -> 3
+
+
+
+
+
+
+
+
+
+
+
+Check whether the given list is sorted in ascending order.
+
+Test Case 1:
+Input:
+[1,2,3,4,5]
+Output:
+True
+
+Test Case 2:
+Input:
+[1,5,3,4]
+Output:
+False
+
+
+
+
+
+
+
+
+
+
+Problem Statement:
+Create a new list containing the sum of digits of each number.
+
+Test Case 1:
+Input:
+[123,45,67]
+Output:
+[6,9,13]
+
+Test Case 2:
+Input:
+[10,20]
+Output:
+[1,2]

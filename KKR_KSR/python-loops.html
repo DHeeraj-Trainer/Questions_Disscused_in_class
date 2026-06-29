@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loops &amp; Patterns — The Python Pattern Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --line:#2b3442;
+    --ink:#e6edf3; --dim:#8b97a6; --faint:#5b6675;
+    --amber:#ffb454; --green:#7ee787; --pink:#ff7eb6; --cyan:#56d4dd; --violet:#bc8cff; --red:#ff7b72;
+    --run:#238636; --run-h:#2ea043;
+    --mono:'JetBrains Mono',ui-monospace,'Cascadia Code',Consolas,monospace;
+    --sans:'Space Grotesk',system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;
+    background-image:radial-gradient(circle at 18% -10%,rgba(188,140,255,.10),transparent 45%),
+                     radial-gradient(circle at 95% 8%,rgba(86,212,221,.08),transparent 40%);}
+  h1,h2,h3{font-weight:600;letter-spacing:-.02em;line-height:1.1}
+  code,.mono{font-family:var(--mono)}
+  a{color:var(--cyan)}
+
+  .topbar{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.82);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:10px 20px;flex-wrap:wrap}
+  .dots{display:flex;gap:7px}.dots i{width:12px;height:12px;border-radius:50%;display:block}
+  .dots i:nth-child(1){background:#ff5f56}.dots i:nth-child(2){background:#ffbd2e}.dots i:nth-child(3){background:#27c93f}
+  .topbar .file{font-family:var(--mono);font-size:13px;color:var(--dim)}
+  .pystat{font-family:var(--mono);font-size:11.5px;color:var(--faint);display:flex;align-items:center;gap:7px}
+  .pystat .led{width:8px;height:8px;border-radius:50%;background:var(--amber);animation:pulse 1.2s infinite}
+  .pystat.ready .led{background:var(--green);animation:none}
+  @keyframes pulse{50%{opacity:.3}}
+  .nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+  .nav a{font-family:var(--mono);font-size:12.5px;color:var(--dim);text-decoration:none;padding:6px 11px;border-radius:7px;border:1px solid transparent}
+  .nav a:hover{color:var(--ink);border-color:var(--line);background:var(--panel)}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  .hero{padding:60px 0 36px;text-align:center}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;color:var(--amber);letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px}
+  .hero h1{font-size:clamp(36px,6.5vw,64px);margin:0 0 8px}
+  .hero h1 .for{color:var(--violet)}.hero h1 .rng{color:var(--cyan)}.hero h1 .star{color:var(--amber)}
+  .hero p{max-width:620px;margin:14px auto 0;color:var(--dim);font-size:17px}
+
+  section{padding:44px 0;border-top:1px solid var(--line)}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+  .sec-num{font-family:var(--mono);font-size:13px;color:var(--amber)}
+  section h2{font-size:clamp(24px,3.6vw,34px);margin:0}
+  .lead{color:var(--dim);max-width:700px;margin:6px 0 22px;font-size:16px}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:780px){.grid2{grid-template-columns:1fr}}
+
+  .key{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);
+    border-left:3px solid var(--amber);border-radius:12px;padding:20px 22px;margin:22px 0}
+  .key h3{margin:0 0 10px;font-family:var(--mono);font-size:14px;color:var(--amber);letter-spacing:.06em}
+  .key pre{margin:0;font-family:var(--mono);font-size:13px;color:var(--ink);white-space:pre;overflow:auto;line-height:1.65}
+  .key .note{color:var(--dim);font-size:14.5px;margin-top:12px}
+  .k{color:var(--pink)}.fn{color:var(--cyan)}.num{color:var(--amber)}.str{color:var(--green)}.cmt{color:var(--faint)}.op{color:var(--violet)}.var{color:var(--ink)}
+
+  .ide{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);margin-top:18px;
+    box-shadow:0 18px 44px -30px rgba(0,0,0,.8)}
+  .ide .bar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:var(--panel2);border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .ide .bar .t{font-family:var(--mono);font-size:12px;color:var(--dim);margin-right:auto}
+  .preset{font-family:var(--mono);font-size:11.5px;background:var(--bg);color:var(--dim);border:1px solid var(--line);border-radius:7px;padding:5px 9px}
+  .ide .body{display:grid;grid-template-columns:1.05fr .95fr}
+  @media(max-width:720px){.ide .body{grid-template-columns:1fr}}
+  .editor-wrap{position:relative;border-right:1px solid var(--line)}
+  @media(max-width:720px){.editor-wrap{border-right:none;border-bottom:1px solid var(--line)}}
+  .editor-wrap pre.hlcode, .editor-wrap textarea{
+    margin:0;padding:16px 16px 16px 52px;font-family:var(--mono);font-size:13.5px;line-height:1.6;
+    white-space:pre;tab-size:4;border:0;}
+  .editor-wrap pre.hlcode{position:absolute;inset:0;pointer-events:none;overflow:auto;color:var(--ink)}
+  .editor-wrap textarea{position:relative;width:100%;min-height:230px;background:transparent;
+    color:transparent;caret-color:var(--green);resize:vertical;outline:none;overflow:auto;display:block}
+  .editor-wrap textarea::selection{background:rgba(86,212,221,.28)}
+  .gutter{position:absolute;top:0;left:0;width:40px;padding:16px 0;text-align:right;
+    font-family:var(--mono);font-size:13.5px;line-height:1.6;color:var(--faint);
+    border-right:1px solid var(--line);background:rgba(0,0,0,.18);user-select:none;pointer-events:none;overflow:hidden}
+  .gutter span{display:block;padding-right:8px}
+  .scr{padding:16px 18px;background:#07090d;min-height:230px;display:flex;flex-direction:column}
+  .paneltag{font-family:var(--mono);font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.15em;margin-bottom:12px}
+  .canvas{font-family:var(--mono);font-size:16px;line-height:1.25;white-space:pre;color:var(--green);letter-spacing:.1em;flex:1;overflow:auto}
+  .canvas.err{color:var(--red);letter-spacing:0;font-size:13px}
+  .runbtn{font-family:var(--mono);font-size:12.5px;border:1px solid var(--run);background:var(--run);color:#fff;padding:7px 15px;border-radius:8px;cursor:pointer;transition:.15s}
+  .runbtn:hover{background:var(--run-h)}
+  .runbtn:disabled{opacity:.5;cursor:wait}
+  .runbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+  .ghost{font-family:var(--mono);font-size:12px;color:var(--dim);background:var(--panel);border:1px solid var(--line);padding:7px 12px;border-radius:8px;cursor:pointer}
+  .ghost:hover{color:var(--ink);border-color:var(--faint)}
+  .hint{font-family:var(--mono);font-size:11px;color:var(--faint);padding:8px 18px;border-top:1px solid var(--line);background:var(--panel2)}
+
+  table{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  th{font-family:var(--mono);font-size:12px;color:var(--amber);text-transform:uppercase;letter-spacing:.08em}
+  td .mono{color:var(--cyan)}
+
+  .vizgrid{display:inline-grid;gap:5px;margin-top:4px}
+  .cell{width:26px;height:26px;border-radius:5px;background:var(--panel2);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;color:var(--faint);transition:.16s}
+  .cell.on{background:var(--amber);color:#1a1300;border-color:var(--amber);transform:scale(1.08)}
+  .cell.row{background:rgba(255,180,84,.12);border-color:rgba(255,180,84,.35)}
+
+  footer{padding:40px 0 60px;text-align:center;color:var(--faint);font-family:var(--mono);font-size:12.5px}
+  footer .pulse{color:var(--green)}
+  @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="dots"><i></i><i></i><i></i></span>
+  <span class="file">~/python/loops_and_patterns.py</span>
+  <span class="pystat" id="pyStat"><span class="led"></span><span id="pyStatText">booting Python…</span></span>
+  <nav class="nav">
+    <a href="#basics">while/for</a>
+    <a href="#numbers">numbers</a>
+    <a href="#alpha">alphabet</a>
+    <a href="#shapes">shapes</a>
+    <a href="#hollow">hollow</a>
+    <a href="#nested">nested</a>
+    <a href="#keys">key&nbsp;logic</a>
+  </nav>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">The Python Pattern Lab</div>
+    <h1><span class="for">for</span> i <span class="op">in</span> <span class="rng">range</span>(<span class="star">★</span>):</h1>
+    <p>Every editor below runs <strong>real Python</strong> in your browser. Change the code, press <strong>Run</strong> — the output is whatever your code actually prints. Break it, fix it, learn.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="basics">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Two ways to loop</h2></div>
+    <p class="lead">A loop repeats a block. <code>for</code> repeats a known number of times; <code>while</code> repeats until a condition turns false. Edit either one and run it.</p>
+    <div class="grid2">
+      <div data-ide data-title="for_loop.py">for i in range(5):   # i = 0,1,2,3,4
+    print("row", i)</div>
+      <div data-ide data-title="while_loop.py">i = 0
+while i < 5:
+    print("row", i)
+    i += 1           # must change i, or it loops forever</div>
+    </div>
+  </section>
+
+  <section id="numbers">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Number patterns</h2></div>
+    <p class="lead">Load a preset from the dropdown or write your own. The inner loop controls how many numbers print on each row.</p>
+    <div data-ide data-title="number_pattern.py" data-presets="numbers">for i in range(1, 6):
+    for j in range(1, i + 1):
+        print(j, end=" ")
+    print()</div>
+  </section>
+
+  <section id="alpha">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Alphabet patterns</h2></div>
+    <p class="lead">Same skeleton — only the printed value changes. Turn a number into a letter with <code>chr(65 + j)</code>, because <code>chr(65)</code> is <code>'A'</code>.</p>
+    <div class="key"><h3>number → letter</h3>
+      <pre><span class="fn">chr</span>(<span class="num">65</span>) <span class="op">→</span> <span class="str">'A'</span>      <span class="cmt"># chr(66)→'B', chr(67)→'C' …</span>
+<span class="fn">chr</span>(<span class="num">65</span> <span class="op">+</span> <span class="var">j</span>) <span class="cmt"># j = 0,1,2 → A,B,C</span></pre></div>
+    <div data-ide data-title="alphabet_pattern.py" data-presets="alpha">for i in range(1, 6):
+    for j in range(i):
+        print(chr(65 + j), end=" ")
+    print()</div>
+  </section>
+
+  <section id="shapes">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Shape patterns (stars)</h2></div>
+    <p class="lead">Shapes are just spaces and stars. Two questions per row <code>i</code>: how many spaces, how many stars? Try changing <code>"★"</code> to any character.</p>
+    <div data-ide data-title="shape_pattern.py" data-presets="shapes">n = 5
+for i in range(n):
+    print(" " * (n - i - 1) + "★" * (2 * i + 1))</div>
+  </section>
+
+  <section id="hollow">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Hollow patterns</h2></div>
+    <p class="lead">Hollow = print <code>★</code> only on the border, blank inside. The border test: first/last row or first/last column.</p>
+    <div class="key"><h3>the border condition</h3>
+      <pre><span class="k">if</span> <span class="var">i</span><span class="op">==</span><span class="num">0</span> <span class="op">or</span> <span class="var">i</span><span class="op">==</span><span class="var">n</span><span class="op">-</span><span class="num">1</span> <span class="op">or</span> <span class="var">j</span><span class="op">==</span><span class="num">0</span> <span class="op">or</span> <span class="var">j</span><span class="op">==</span><span class="var">n</span><span class="op">-</span><span class="num">1</span>:
+    <span class="fn">print</span>(<span class="str">"★"</span>, end<span class="op">=</span><span class="str">""</span>)
+<span class="k">else</span>:
+    <span class="fn">print</span>(<span class="str">" "</span>, end<span class="op">=</span><span class="str">""</span>)</pre></div>
+    <div data-ide data-title="hollow_pattern.py" data-presets="hollow">n = 5
+for i in range(n):
+    for j in range(n):
+        if i == 0 or i == n - 1 or j == 0 or j == n - 1:
+            print("★", end="")
+        else:
+            print(" ", end="")
+    print()</div>
+  </section>
+
+  <section id="nested">
+    <div class="sec-head"><span class="sec-num">06</span><h2>How nested loops run</h2></div>
+    <p class="lead">Edit the two <code>range()</code> values, press <strong>Play</strong>, and the grid animates exactly how your loops walk: the outer loop picks the row, the inner loop fills every column before moving down.</p>
+    <div class="ide">
+      <div class="bar"><span class="t">nested_visualizer.py</span>
+        <span class="preset" id="vChip">i=0 · j=0</span>
+        <button class="runbtn" id="vizRun">▶ Play</button></div>
+      <div class="body">
+        <div class="editor-wrap">
+          <div class="gutter" id="vGutter"></div>
+          <pre class="hlcode" id="vHL" aria-hidden="true"></pre>
+          <textarea id="vCode" spellcheck="false">for i in range(4):       # rows
+    for j in range(4):   # columns
+        print("★", end="")
+    print()</textarea>
+        </div>
+        <div class="scr">
+          <div class="paneltag">walk</div>
+          <div class="vizgrid" id="vizGrid"></div>
+          <pre id="vizTrace" style="margin:14px 0 0;font-size:12px;color:var(--dim);white-space:pre"></pre>
+        </div>
+      </div>
+      <div class="hint">tip: change <code>range(4)</code> to any size (max 8) — the grid rebuilds from your code.</div>
+    </div>
+  </section>
+
+  <section id="keys">
+    <div class="sec-head"><span class="sec-num">07</span><h2>The key logic — cheat sheet</h2></div>
+    <p class="lead">Every pattern reduces to three choices: row count, column count, and the printed character.</p>
+    <table>
+      <thead><tr><th>Pattern</th><th>Spaces / row i</th><th>Symbols / row i</th><th>Print</th></tr></thead>
+      <tbody>
+        <tr><td>Left triangle</td><td class="mono">—</td><td class="mono">i + 1</td><td class="mono">★</td></tr>
+        <tr><td>Right triangle</td><td class="mono">n − i − 1</td><td class="mono">i + 1</td><td class="mono">★</td></tr>
+        <tr><td>Pyramid</td><td class="mono">n − i − 1</td><td class="mono">2·i + 1</td><td class="mono">★</td></tr>
+        <tr><td>Inverted</td><td class="mono">i</td><td class="mono">n − i</td><td class="mono">★</td></tr>
+        <tr><td>Numbers</td><td class="mono">—</td><td class="mono">i + 1</td><td class="mono">j + 1</td></tr>
+        <tr><td>Alphabet</td><td class="mono">—</td><td class="mono">i + 1</td><td class="mono">chr(65+j)</td></tr>
+        <tr><td>Hollow box</td><td class="mono">—</td><td class="mono">n</td><td class="mono">edge?★:· </td></tr>
+      </tbody>
+    </table>
+    <div class="key" style="border-left-color:var(--green)">
+      <h3 style="color:var(--green)">remember these four</h3>
+      <pre><span class="cmt"># 1.</span> Outer loop = rows · inner loop = columns
+<span class="cmt"># 2.</span> <span class="fn">print</span>(x, end<span class="op">=</span><span class="str">""</span>)  stays on the same line
+<span class="cmt"># 3.</span> bare <span class="fn">print</span>()       moves to the next line
+<span class="cmt"># 4.</span> spaces align the shape · symbols draw it</pre>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap"><span class="pulse">●</span> real Python, running in your browser · edit anything, run everything</footer>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+<script>
+const RM = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function highlight(src){
+  return src.split('\n').map(line=>{
+    let out='', i=0;
+    while(i<line.length){
+      const rest=line.slice(i); let m;
+      if(m=rest.match(/^#.*/)){ out+='<span class="cmt">'+esc(m[0])+'</span>'; break; }
+      if(m=rest.match(/^("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/)){ out+='<span class="str">'+esc(m[0])+'</span>'; i+=m[0].length; continue; }
+      if(m=rest.match(/^\b(for|while|if|elif|else|in|return|def|and|or|not|break|continue|pass|import|from|range|print|chr|ord|str|int|len|end)\b/)){
+        const kw=m[0];
+        const cls=/^(for|while|if|elif|else|in|return|def|and|or|not|break|continue|pass|import|from)$/.test(kw)?'k':'fn';
+        out+='<span class="'+cls+'">'+kw+'</span>'; i+=kw.length; continue;
+      }
+      if(m=rest.match(/^\d+/)){ out+='<span class="num">'+m[0]+'</span>'; i+=m[0].length; continue; }
+      if(m=rest.match(/^[=+\-*/<>%]+/)){ out+='<span class="op">'+esc(m[0])+'</span>'; i+=m[0].length; continue; }
+      out+=esc(line[i]); i++;
+    }
+    return out;
+  }).join('\n');
+}
+
+let pyodide=null, pyReady=false;
+const statEl=document.getElementById('pyStat'), statTxt=document.getElementById('pyStatText');
+async function bootPython(){
+  try{
+    pyodide = await loadPyodide();
+    pyReady = true;
+    statEl.classList.add('ready'); statTxt.textContent='Python ready';
+    document.querySelectorAll('.runbtn[data-ide-run]').forEach(b=>b.disabled=false);
+    runners.forEach(r=>r());
+  }catch(e){ statTxt.textContent='Python failed to load — check connection'; }
+}
+async function runPython(code){
+  if(!pyReady) return {out:'', err:'Python is still loading…'};
+  const wrapped =
+`import sys, io
+_buf = io.StringIO()
+_old = sys.stdout
+sys.stdout = _buf
+try:
+    exec(${JSON.stringify(code)}, {})
+except Exception as _e:
+    print("ERR::" + type(_e).__name__ + ": " + str(_e), file=_buf)
+finally:
+    sys.stdout = _old
+_out = _buf.getvalue()
+if len(_out) > 6000:
+    _out = _out[:6000] + "\\n… (output truncated)"
+_out`;
+  try{
+    let res = await pyodide.runPythonAsync(wrapped); res = res || '';
+    const idx = res.indexOf('ERR::');
+    if(idx>=0) return {out:res.slice(0,idx), err:res.slice(idx+5).trim()};
+    return {out:res, err:''};
+  }catch(e){ return {out:'', err:String(e.message||e)}; }
+}
+
+function typeOut(el, text){
+  if(el._t) clearInterval(el._t);
+  el.classList.remove('err');
+  if(RM || text.length>900){ el.textContent=text; return; }
+  el.textContent=''; let i=0;
+  el._t=setInterval(()=>{ el.textContent=text.slice(0,i)+(i<text.length?'▌':''); i++;
+    if(i>text.length){clearInterval(el._t);el.textContent=text;} }, 8);
+}
+
+const PRESETS={
+  numbers:{
+    'Increasing rows':`for i in range(1, 6):\n    for j in range(1, i + 1):\n        print(j, end=" ")\n    print()`,
+    'Repeat row number':`for i in range(1, 6):\n    for j in range(i):\n        print(i, end=" ")\n    print()`,
+    'Continuous count':`c = 1\nfor i in range(1, 6):\n    for j in range(i):\n        print(c, end=" ")\n        c += 1\n    print()`,
+    'Reverse (5..1)':`for i in range(5, 0, -1):\n    for j in range(i, 0, -1):\n        print(j, end=" ")\n    print()`,
+  },
+  alpha:{
+    'A / AB / ABC':`for i in range(1, 6):\n    for j in range(i):\n        print(chr(65 + j), end=" ")\n    print()`,
+    'A / BB / CCC':`for i in range(5):\n    for j in range(i + 1):\n        print(chr(65 + i), end=" ")\n    print()`,
+    'Continuous A B C':`c = 0\nfor i in range(1, 6):\n    for j in range(i):\n        print(chr(65 + c), end=" ")\n        c += 1\n    print()`,
+  },
+  shapes:{
+    'Pyramid':`n = 5\nfor i in range(n):\n    print(" " * (n - i - 1) + "★" * (2 * i + 1))`,
+    'Left triangle':`n = 5\nfor i in range(1, n + 1):\n    print("★" * i)`,
+    'Right triangle':`n = 5\nfor i in range(1, n + 1):\n    print(" " * (n - i) + "★" * i)`,
+    'Inverted':`n = 5\nfor i in range(n):\n    print("★" * (n - i))`,
+    'Diamond':`n = 5\nfor i in range(n):\n    print(" " * (n - i - 1) + "★" * (2 * i + 1))\nfor i in range(n - 2, -1, -1):\n    print(" " * (n - i - 1) + "★" * (2 * i + 1))`,
+  },
+  hollow:{
+    'Hollow square':`n = 5\nfor i in range(n):\n    for j in range(n):\n        if i == 0 or i == n - 1 or j == 0 or j == n - 1:\n            print("★", end="")\n        else:\n            print(" ", end="")\n    print()`,
+    'Hollow triangle':`n = 5\nfor i in range(n):\n    for j in range(i + 1):\n        if j == 0 or j == i or i == n - 1:\n            print("★", end="")\n        else:\n            print(" ", end="")\n    print()`,
+    'Hollow pyramid':`n = 5\nfor i in range(n):\n    print(" " * (n - i - 1), end="")\n    for j in range(2 * i + 1):\n        if j == 0 or j == 2 * i or i == n - 1:\n            print("★", end="")\n        else:\n            print(" ", end="")\n    print()`,
+  }
+};
+
+const runners=[];
+function makeGutter(g,n){ g.innerHTML=''; for(let i=1;i<=n;i++){const s=document.createElement('span');s.textContent=i;g.appendChild(s);} }
+
+function buildIDE(host){
+  const title=host.dataset.title||'main.py';
+  const presetKey=host.dataset.presets;
+  const initial=host.textContent.replace(/^\n/,'').replace(/\s+$/,'');
+  host.textContent=''; host.className='ide';
+  const presetOpts = presetKey ? `<select class="preset">${Object.keys(PRESETS[presetKey]).map(k=>`<option>${k}</option>`).join('')}</select>` : '';
+  host.innerHTML=`
+    <div class="bar">
+      <span class="t">${title}</span>
+      ${presetOpts}
+      <button class="ghost reset">↺ reset</button>
+      <button class="runbtn" data-ide-run disabled>▶ Run</button>
+    </div>
+    <div class="body">
+      <div class="editor-wrap">
+        <div class="gutter"></div>
+        <pre class="hlcode" aria-hidden="true"></pre>
+        <textarea spellcheck="false"></textarea>
+      </div>
+      <div class="scr">
+        <div class="paneltag">output</div>
+        <div class="canvas"></div>
+      </div>
+    </div>`;
+  const ta=host.querySelector('textarea'), hl=host.querySelector('.hlcode'),
+        gut=host.querySelector('.gutter'), out=host.querySelector('.canvas'),
+        runBtn=host.querySelector('.runbtn'), reset=host.querySelector('.reset'),
+        sel=host.querySelector('.preset');
+
+  function sync(){
+    hl.innerHTML=highlight(ta.value)+'\n';
+    makeGutter(gut, ta.value.split('\n').length);
+    hl.scrollTop=ta.scrollTop; hl.scrollLeft=ta.scrollLeft;
+  }
+  function setCode(c){ ta.value=c; sync(); }
+  async function run(){
+    if(!pyReady){ out.textContent='Python is still loading…'; return; }
+    runBtn.disabled=true; const old=runBtn.textContent; runBtn.textContent='running…';
+    const {out:o,err}=await runPython(ta.value);
+    if(err){ out.classList.add('err'); out.textContent='⚠ '+err; }
+    else { typeOut(out, o.length?o:'(no output)'); }
+    runBtn.disabled=false; runBtn.textContent=old;
+  }
+  ta.addEventListener('input',sync);
+  ta.addEventListener('scroll',()=>{hl.scrollTop=ta.scrollTop;hl.scrollLeft=ta.scrollLeft;gut.scrollTop=ta.scrollTop;});
+  ta.addEventListener('keydown',e=>{
+    if(e.key==='Tab'){e.preventDefault();
+      const s=ta.selectionStart,en=ta.selectionEnd;
+      ta.value=ta.value.slice(0,s)+'    '+ta.value.slice(en);
+      ta.selectionStart=ta.selectionEnd=s+4; sync();}
+  });
+  runBtn.addEventListener('click',run);
+  reset.addEventListener('click',()=>{setCode(initial);out.classList.remove('err');out.textContent='';});
+  if(sel) sel.addEventListener('change',()=>setCode(PRESETS[presetKey][sel.value]));
+  setCode(initial);
+  runners.push(run);
+}
+document.querySelectorAll('[data-ide]').forEach(buildIDE);
+
+/* nested visualizer */
+const vCode=document.getElementById('vCode'), vHL=document.getElementById('vHL'),
+      vGut=document.getElementById('vGutter'), grid=document.getElementById('vizGrid'),
+      trace=document.getElementById('vizTrace'), vChip=document.getElementById('vChip');
+function vSync(){ vHL.innerHTML=highlight(vCode.value)+'\n'; makeGutter(vGut, vCode.value.split('\n').length); }
+vCode.addEventListener('input',vSync);
+vCode.addEventListener('scroll',()=>{vHL.scrollTop=vCode.scrollTop;vGut.scrollTop=vCode.scrollTop;});
+vCode.addEventListener('keydown',e=>{if(e.key==='Tab'){e.preventDefault();
+  const s=vCode.selectionStart;vCode.value=vCode.value.slice(0,s)+'    '+vCode.value.slice(vCode.selectionEnd);
+  vCode.selectionStart=vCode.selectionEnd=s+4;vSync();}});
+vSync();
+
+function parseRanges(src){
+  const nums=[...src.matchAll(/range\(\s*(\d+)\s*\)/g)].map(m=>+m[1]);
+  let rows=nums[0]||4, cols=nums[1]!==undefined?nums[1]:rows;
+  rows=Math.max(1,Math.min(8,rows)); cols=Math.max(1,Math.min(8,cols));
+  return {rows,cols};
+}
+let timer=null;
+function buildGrid(rows,cols){
+  grid.style.gridTemplateColumns=`repeat(${cols},1fr)`; grid.innerHTML='';
+  for(let i=0;i<rows;i++)for(let j=0;j<cols;j++){
+    const c=document.createElement('div');c.className='cell';c.id=`c-${i}-${j}`;c.textContent='★';grid.appendChild(c);
+  }
+}
+document.getElementById('vizRun').addEventListener('click',()=>{
+  if(timer){clearInterval(timer);timer=null;}
+  const {rows,cols}=parseRanges(vCode.value);
+  buildGrid(rows,cols); trace.textContent=''; vChip.textContent='i=0 · j=0';
+  if(RM){ document.querySelectorAll('.cell').forEach(c=>c.classList.add('on')); trace.textContent='(motion reduced)'; return; }
+  let i=0,j=0,log='';
+  timer=setInterval(()=>{
+    document.querySelectorAll('.cell').forEach(c=>c.classList.remove('on'));
+    for(let jj=0;jj<cols;jj++){const c=document.getElementById(`c-${i}-${jj}`);if(c)c.classList.add('row');}
+    const cell=document.getElementById(`c-${i}-${j}`); if(cell)cell.classList.add('on');
+    vChip.textContent=`i=${i} · j=${j}`;
+    log+=`i=${i}, j=${j}  → print ★\n`;
+    if(j===cols-1) log+=`        ↵ print()  → new line\n`;
+    trace.textContent=log.split('\n').slice(-9).join('\n');
+    j++;
+    if(j===cols){ j=0; i++; [...document.querySelectorAll('.cell')].forEach(c=>c.classList.remove('row')); }
+    if(i===rows){ clearInterval(timer); timer=null; vChip.textContent='✓ done'; }
+  }, 240);
+});
+
+bootPython();
+</script>
+</body>
+</html>

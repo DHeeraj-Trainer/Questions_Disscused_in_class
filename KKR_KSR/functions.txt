@@ -1,0 +1,140 @@
+Area of Circle
+
+Write a function that takes the radius of a circle as input and returns its area.
+Use the formula Area = π × r².
+
+Test Case 1:
+Input: radius = 5
+Output: 78.54
+
+Test Case 2:
+Input: radius = 3
+Output: 28.27
+
+Square Using Lambda
+
+Create a lambda function that returns the square of a given number.
+The function should take one argument and return its square.
+
+Test Case 1:
+Input: 4
+Output: 16
+
+Test Case 2:
+Input: 7
+Output: 49
+
+Sum of Variable Arguments
+
+Write a function total(*numbers) that accepts any number of arguments and returns their sum.
+The function should work for both small and large sets of numbers.
+Test Case 1:Input: total(1, 2, 3, 4)
+Output: 10
+Test Case 2:Input: total(10, 20, 30)
+Output: 60
+Student Information
+Create a function student_info(**kwargs) that prints all student details passed as keyword arguments.
+Display each key-value pair on a separate line.
+Test Case 1:
+Input: name="Rahul", age=20
+Output:
+name : Rahul
+age : 20
+
+Test Case 2:
+Input: name="Priya", city="Hyderabad"
+Output:
+name : Priya
+city : Hyderabad
+
+Nested Multiplication Function
+
+Write a function calculator(a, b) containing a nested function multiply().
+The nested function should return the product of a and b.
+
+Test Case 1:
+Input: calculator(4, 5)
+Output: 20
+
+Test Case 2:
+Input: calculator(7, 8)
+Output: 56
+
+Power Function Using Closure
+
+Create a function power(n) that returns another function to raise a number to power n.
+The returned function should compute xⁿ.
+
+Test Case 1:
+Input:
+square = power(2)
+square(5)
+Output: 25
+
+Test Case 2:
+Input:
+cube = power(3)
+cube(4)
+Output: 64
+
+Factorial Function
+
+Write a function that returns the factorial of a given positive integer.
+Factorial of n is the product of all integers from 1 to n.
+
+Test Case 1:
+Input: 5
+Output: 120
+
+Test Case 2:
+Input: 6
+Output: 720
+
+Palindrome Checker
+
+Create a function that checks whether a given string is a palindrome.
+Return True if the string reads the same forwards and backwards.
+
+Test Case 1:
+Input: "madam"
+Output: True
+
+Test Case 2:
+Input: "python"
+Output: False
+
+List Statistics
+
+Create a function that returns the minimum, maximum, and average values from a list.
+Return the results in the specified order.
+
+Test Case 1:
+Input: [10, 20, 30, 40]
+Output: Min=10, Max=40, Avg=25.0
+
+Test Case 2:
+Input: [5, 15, 25]
+Output: Min=5, Max=25, Avg=15.0
+
+Counter Using Closure
+
+Create a function that returns a counter function.
+Each call to the counter should increase and return the count by 1.
+
+Test Case 1:
+Input:
+counter()
+counter()
+Output:
+1
+2
+
+Test Case 2:
+Input:
+counter()
+counter()
+counter()
+Output:
+1
+2
+3

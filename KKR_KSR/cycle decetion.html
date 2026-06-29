@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Floyd Cycle Visualizer (141 + 142)</title>
+
+<style>
+body{
+    margin:0;
+    font-family:system-ui;
+    background:#0b1220;
+    color:white;
+}
+
+h1{
+    text-align:center;
+    color:#60a5fa;
+}
+
+.container{
+    display:grid;
+    grid-template-columns:1fr 420px;
+    gap:10px;
+    padding:10px;
+}
+
+.panel{
+    background:#111827;
+    border-radius:12px;
+    padding:10px;
+}
+
+.controls button, input, select{
+    padding:8px;
+    margin:4px;
+    border-radius:8px;
+    border:none;
+}
+
+button{
+    cursor:pointer;
+    background:#2563eb;
+    color:white;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+svg{
+    width:100%;
+    height:320px;
+    background:#0f172a;
+    border-radius:10px;
+}
+
+/* NODE */
+.node{
+    fill:#334155;
+    stroke:#64748b;
+    stroke-width:2;
+    transition:0.4s;
+}
+
+.slow{ fill:#22c55e !important; }
+.fast{ fill:#f59e0b !important; }
+.meet{ fill:#ef4444 !important; }
+.start{ fill:#a855f7 !important; }
+
+/* EDGE cycle */
+.cycle{
+    stroke:#ef4444;
+    stroke-width:2;
+    fill:none;
+}
+
+/* CODE */
+.code-line{
+    font-family:monospace;
+    padding:3px;
+    border-radius:6px;
+}
+
+.active{
+    background:#1d4ed8;
+}
+
+/* STATUS */
+.status{
+    background:#1f2937;
+    padding:10px;
+    border-radius:8px;
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🧠 Floyd Cycle Visualizer (LeetCode 141 + 142)</h1>
+
+<div class="container">
+
+<!-- LEFT -->
+<div class="panel">
+
+<div class="controls">
+<select id="mode">
+<option value="141">141 - Detect Cycle</option>
+<option value="142">142 - Find Cycle Start</option>
+</select>
+
+<input id="input" value="3,2,0,-4"/>
+<input id="cycle" value="1" placeholder="cycle index (-1 none)"/>
+
+<button onclick="build()">Build</button>
+<button onclick="prev()">⏮ Prev</button>
+<button onclick="next()">⏭ Next</button>
+<button onclick="play()">▶ Play</button>
+<button onclick="pause()">⏸ Pause</button>
+<button onclick="reset()">🔄 Reset</button>
+</div>
+
+<svg id="svg"></svg>
+
+<div class="status" id="status">Ready</div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="panel">
+
+<h3>Code Execution</h3>
+
+<div id="code141">
+<div class="code-line" id="l1">slow = fast = head</div>
+<div class="code-line" id="l2">while fast and fast.next:</div>
+<div class="code-line" id="l3">slow = slow.next</div>
+<div class="code-line" id="l4">fast = fast.next.next</div>
+<div class="code-line" id="l5">if slow == fast:</div>
+<div class="code-line" id="l6">return True</div>
+</div>
+
+<div id="code142" style="display:none">
+<div class="code-line" id="m1">slow = fast = head</div>
+<div class="code-line" id="m2">detect cycle</div>
+<div class="code-line" id="m3">if found:</div>
+<div class="code-line" id="m4">slow = head</div>
+<div class="code-line" id="m5">while slow != fast:</div>
+<div class="code-line" id="m6">slow++, fast++</div>
+<div class="code-line" id="m7">return slow</div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let nodes=[], cycle=-1;
+let slow=0, fast=0;
+let steps=[];
+let idx=0;
+let running=false;
+
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+
+/* BUILD STEPS */
+function generateSteps(){
+
+    steps=[];
+    let s=0,f=0;
+
+    // PHASE 1 detect
+    for(let i=0;i<12;i++){
+
+        s=(s+1)%nodes.length;
+        f=(f+2)%nodes.length;
+
+        steps.push({s,f,type:"detect"});
+
+        if(s===f){
+            steps.push({s,f,type:"meet"});
+            break;
+        }
+    }
+
+    // PHASE 2 (only for 142)
+    if(document.getElementById("mode").value==="142"){
+
+        let a=0;
+        let meet=s;
+
+        steps.push({s:a,f:meet,type:"reset"});
+
+        while(a!==meet){
+            a=(a+1)%nodes.length;
+            meet=(meet+1)%nodes.length;
+
+            steps.push({s:a,f:meet,type:"find"});
+        }
+
+        steps.push({s:a,f:meet,type:"done"});
+    }
+}
+
+/* DRAW */
+function draw(){
+
+    let svg=document.getElementById("svg");
+    svg.innerHTML="";
+
+    let x=50,y=160;
+
+    for(let i=0;i<nodes.length;i++){
+
+        let c=document.createElementNS("http://www.w3.org/2000/svg","circle");
+        c.setAttribute("cx",x+i*100);
+        c.setAttribute("cy",y);
+        c.setAttribute("r",22);
+        c.setAttribute("class","node");
+        c.id="n"+i;
+        svg.appendChild(c);
+
+        let t=document.createElementNS("http://www.w3.org/2000/svg","text");
+        t.setAttribute("x",x+i*100);
+        t.setAttribute("y",y+5);
+        t.setAttribute("text-anchor","middle");
+        t.textContent=nodes[i];
+        svg.appendChild(t);
+
+        if(i<nodes.length-1){
+            let l=document.createElementNS("http://www.w3.org/2000/svg","line");
+            l.setAttribute("x1",x+i*100+22);
+            l.setAttribute("y1",y);
+            l.setAttribute("x2",x+(i+1)*100-22);
+            l.setAttribute("y2",y);
+            l.setAttribute("stroke","#64748b");
+            svg.appendChild(l);
+        }
+    }
+
+    if(cycle>=0){
+        let path=document.createElementNS("http://www.w3.org/2000/svg","path");
+
+        let start=x+(nodes.length-1)*100;
+        let end=x+cycle*100;
+
+        path.setAttribute("d",
+            `M ${start} ${y} C ${start+60} 40, ${end+60} 40, ${end} ${y}`
+        );
+
+        path.setAttribute("class","cycle");
+
+        svg.appendChild(path);
+    }
+}
+
+/* UPDATE UI */
+function renderState(state){
+
+    document.querySelectorAll(".node")
+    .forEach(n=>{
+        n.classList.remove("slow","fast","meet","start");
+    });
+
+    let s=state.s;
+    let f=state.f;
+
+    let ns=document.getElementById("n"+s);
+    let nf=document.getElementById("n"+f);
+
+    if(ns) ns.classList.add("slow");
+    if(nf) nf.classList.add("fast");
+
+    if(state.type==="meet"){
+        ns.classList.add("meet");
+    }
+
+    if(state.type==="done"){
+        ns.classList.add("start");
+    }
+
+    document.getElementById("status").innerText=
+    `Step ${idx+1}/${steps.length} | slow=${s} fast=${f} | ${state.type}`;
+}
+
+/* NAVIGATION */
+function next(){
+    if(idx<steps.length-1){
+        idx++;
+        renderState(steps[idx]);
+    }
+}
+
+function prev(){
+    if(idx>0){
+        idx--;
+        renderState(steps[idx]);
+    }
+}
+
+/* PLAY */
+async function play(){
+    running=true;
+    while(running && idx<steps.length-1){
+        next();
+        await sleep(800);
+    }
+}
+
+function pause(){
+    running=false;
+}
+
+/* BUILD */
+function build(){
+
+    nodes=document.getElementById("input").value.split(",");
+    cycle=parseInt(document.getElementById("cycle").value);
+
+    idx=0;
+
+    draw();
+    generateSteps();
+
+    renderState(steps[0]);
+
+    document.getElementById("status").innerText="Built ✔";
+}
+
+/* RESET */
+function reset(){
+    running=false;
+    idx=0;
+    build();
+}
+
+build();
+
+</script>
+
+</body>
+</html>

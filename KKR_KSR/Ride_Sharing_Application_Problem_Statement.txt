@@ -1,0 +1,95 @@
+===========================================================
+                    RIDE SHARING APPLICATION
+===========================================================
+
+Problem Statement
+-----------------
+You are developing a simplified Ride Sharing Application similar
+to Uber/Ola. The system should support multiple vehicle types
+and calculate ride fares based on vehicle-specific pricing rules.
+
+The application must demonstrate all four pillars of Object-
+Oriented Programming (OOP):
+
+1. Encapsulation
+2. Abstraction
+3. Inheritance
+4. Polymorphism
+
+===========================================================
+REQUIREMENTS
+===========================================================
+
+1. ABSTRACT BASE CLASS
+----------------------
+Create an abstract class named Vehicle.
+
+Attributes:
+- vehicle_id
+- driver_name
+
+Methods:
+- calculate_fare(distance)
+- display_details()
+
+Both methods must be declared as abstract methods.
+
+===========================================================
+
+2. VEHICLE TYPES
+----------------
+Create the following child classes inheriting from Vehicle.
+
+A. Car
+   - Base Fare = ₹50
+   - Per Kilometer Charge = ₹12
+
+B. Bike
+   - Base Fare = ₹20
+   - Per Kilometer Charge = ₹8
+
+C. Auto
+   - Base Fare = ₹30
+   - Per Kilometer Charge = ₹10
+
+Each vehicle type must implement its own fare calculation logic.
+
+Fare Formula:
+Fare = Base Fare + (Distance × Per Kilometer Charge)
+
+===========================================================
+
+3. ENCAPSULATION
+----------------
+Maintain ride history as a private attribute.
+
+Provide the following methods:
+
+- add_ride(distance)
+- view_ride_history()
+
+Direct access to ride history should not be allowed.
+
+===========================================================
+
+4. POLYMORPHISM
+---------------
+Store different vehicle objects in a single collection.
+
+The program must use the same method call:
+calculate_fare(distance)
+
+to generate fares for all vehicle types.
+
+===========================================================
+
+5. FUNCTIONALITIES
+------------------
+1. Book Ride
+2. View Vehicle Details
+3. View Ride History
+4. Exit
+
+===========================================================
+
+Time Limit: 40 Minutes

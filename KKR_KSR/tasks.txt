@@ -1,0 +1,14 @@
+Hi Ai, I wanted to automate the things which i am doing daily dasis, for the productive output in my creative world , i am techincal trainer who is freelancer workin for collages,uniaversitses,and companies , i can teach python ,C and dsa C,dsa,DA,DS and Dashboard buliding ...all excel sql and more IBM tools and Microsoft tools and i am ope for learing also ..for the new reuricment 
+and i my routie is if i ave project , i will be going to work[lace and tarin peoepl with code and code viuslaizer to understand better forthe leetcode and several compitive platfrms in diffrent domains and ,based on the rerueiment , i used to designe the modules , cicuralsuma nd schedule and i mantian a copany for the trainng sourses and i used to provide trainins for the trainings and i am looking for the company grow in by end of this year , with couple of leads and i am looking forthe 1Lk +inucome from my company ireseptive of my tranining income and next , in middle of the time in trianing , i use to dothe training propsals and to end to collages and i dont wated to directe ly go to collages , i wanted to conenent with the coempines who are looking for the traininers lllike the at ...and i used to look for leads and send mails and replies and all things and ......i wanted u to go through everyting and i wanted u to automtes the things whic u can in this 
+
+
+
+
+
+
+
+
+
+
+
+I wanted to Generate the Code Visualsizer plataform , with unilimited acces of varible , where i give the problem details  , the website need to generate the Code visulize as much detail it can generate , like for example if i copy paste te code of implenataion of queue using stacks , in that we are going use two stacks , the implenetaiosn and next , how the elemes are gonna move from one stack to anther one , with refrenc eof code of code which is pasted , need to create the vaible and need to untulize in animatied visula and give teh excele reuslete i wated o generet teh compelte standed websited , where its taking the input of problem stament(optional) , testcases(optional,if not given need to geenrete ) and able enter the values and the inputs also needed to genereta ethe automatically based on teh code , code solution mandatory sis , irrespetive of which coding language is given need to give teh vsialuser which is best 

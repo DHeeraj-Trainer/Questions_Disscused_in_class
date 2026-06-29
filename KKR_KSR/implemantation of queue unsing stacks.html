@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Queue Using Two Stacks Simulator</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<style>
+
+/* ==========================
+   GLOBAL RESET
+========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    --bg:#07111f;
+    --card:#111d30cc;
+
+    --accent:#00d4ff;
+    --purple:#8b5cf6;
+    --green:#22c55e;
+    --orange:#f97316;
+    --red:#ef4444;
+    --yellow:#facc15;
+
+    --glass:
+        rgba(255,255,255,.07);
+
+    --border:
+        rgba(255,255,255,.15);
+
+    --shadow:
+        0 8px 40px rgba(0,0,0,.35);
+
+}
+
+body{
+
+    min-height:100vh;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #123c6f,
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at bottom right,
+            #551a8b,
+            transparent 40%
+        ),
+        var(--bg);
+
+    color:white;
+
+    font-family:
+        Inter,
+        Segoe UI,
+        sans-serif;
+
+    padding:20px;
+
+    overflow-x:hidden;
+}
+
+/* ==========================
+   GLOWS
+========================== */
+
+.background-glow{
+
+    position:fixed;
+
+    width:400px;
+    height:400px;
+
+    border-radius:50%;
+
+    filter:blur(100px);
+
+    opacity:.25;
+
+    z-index:-1;
+
+    animation:
+        floatGlow
+        12s infinite ease-in-out;
+}
+
+.glow1{
+
+    top:-100px;
+    left:-100px;
+
+    background:#00d4ff;
+}
+
+.glow2{
+
+    bottom:-100px;
+    right:-100px;
+
+    background:#8b5cf6;
+}
+
+@keyframes floatGlow{
+
+    0%{
+        transform:
+            translateY(0px);
+    }
+
+    50%{
+        transform:
+            translateY(50px);
+    }
+
+    100%{
+        transform:
+            translateY(0px);
+    }
+}
+
+/* ==========================
+   GLASS CARD
+========================== */
+
+.glass{
+
+    background:var(--glass);
+
+    backdrop-filter:blur(20px);
+
+    border:
+        1px solid
+        var(--border);
+
+    border-radius:20px;
+
+    box-shadow:
+        var(--shadow);
+}
+
+/* ==========================
+   HEADER
+========================== */
+
+header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+
+    margin-bottom:20px;
+}
+
+.logo-section h1{
+
+    font-size:2rem;
+
+    margin-bottom:6px;
+}
+
+.logo-section p{
+
+    opacity:.8;
+}
+
+/* ==========================
+   STATS
+========================== */
+
+.stats-bar{
+
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+}
+
+.stat-card{
+
+    padding:12px 20px;
+
+    border-radius:15px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    min-width:120px;
+
+    text-align:center;
+}
+
+.stat-card span{
+
+    display:block;
+
+    font-size:.8rem;
+
+    opacity:.7;
+}
+
+.stat-card strong{
+
+    font-size:1.3rem;
+}
+
+/* ==========================
+   CONTROLS
+========================== */
+
+.control-panel{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    padding:20px;
+
+    margin-bottom:20px;
+}
+
+.control-panel input{
+
+    flex:1;
+
+    min-width:180px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color:white;
+
+    outline:none;
+}
+
+.control-panel button{
+
+    border:none;
+
+    cursor:pointer;
+
+    border-radius:12px;
+
+    padding:14px 18px;
+
+    font-weight:700;
+
+    color:white;
+
+    transition:.3s;
+}
+
+.control-panel button:hover{
+
+    transform:
+        translateY(-2px);
+}
+
+#pushBtn{
+    background:var(--green);
+}
+
+#popBtn{
+    background:var(--red);
+}
+
+#peekBtn{
+    background:#3b82f6;
+}
+
+#resetBtn{
+    background:#64748b;
+}
+
+#autoBtn{
+    background:var(--purple);
+}
+
+/* ==========================
+   SPEED PANEL
+========================== */
+
+.speed-panel{
+
+    padding:20px;
+
+    margin-bottom:20px;
+}
+
+.speed-panel h3{
+
+    margin-bottom:12px;
+}
+
+.speed-buttons{
+
+    display:flex;
+
+    gap:10px;
+}
+
+.speed-btn{
+
+    border:none;
+
+    cursor:pointer;
+
+    padding:10px 20px;
+
+    border-radius:12px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    color:white;
+}
+
+.speed-btn.active{
+
+    background:var(--accent);
+
+    color:black;
+
+    font-weight:700;
+}
+
+/* ==========================
+   MAIN GRID
+========================== */
+
+.main-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        1.5fr
+        1fr;
+
+    gap:20px;
+
+    margin-bottom:20px;
+}
+
+/* ==========================
+   PANEL TITLES
+========================== */
+
+.panel-title{
+
+    font-size:1.1rem;
+
+    font-weight:700;
+
+    margin-bottom:15px;
+}
+
+/* ==========================
+   CODE PANEL
+========================== */
+
+.code-panel{
+
+    padding:20px;
+
+    min-height:500px;
+}
+
+.code-container{
+
+    font-family:
+        Consolas,
+        monospace;
+
+    line-height:1.8;
+}
+
+.code-line{
+
+    padding:5px 10px;
+
+    border-radius:8px;
+
+    transition:.4s;
+}
+
+.active-line{
+
+    background:
+        rgba(250,204,21,.25);
+
+    border-left:
+        4px solid
+        var(--yellow);
+
+    box-shadow:
+        0 0 20px
+        rgba(250,204,21,.4);
+}
+
+/* ==========================
+   VISUAL AREA
+========================== */
+
+.visual-panel{
+
+    padding:20px;
+}
+
+.stack-area{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    min-height:500px;
+}
+
+.stack-column{
+
+    width:180px;
+}
+
+.stack-header{
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+    font-weight:700;
+}
+
+.stack{
+
+    height:420px;
+
+    border:
+        2px dashed
+        rgba(255,255,255,.2);
+
+    border-radius:20px;
+
+    padding:12px;
+
+    display:flex;
+
+    flex-direction:column-reverse;
+
+    gap:10px;
+}
+
+/* ==========================
+   STACK CARD
+========================== */
+
+.stack-card{
+
+    height:50px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:700;
+
+    color:white;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0,0,0,.3);
+
+    animation:
+        cardAppear .4s ease;
+}
+
+@keyframes cardAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            scale(.7);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            scale(1);
+    }
+}
+
+/* ==========================
+   SVG PATH
+========================== */
+
+.animation-zone{
+
+    position:relative;
+
+    width:400px;
+    height:300px;
+}
+
+.flow-svg{
+
+    width:100%;
+    height:100%;
+}
+
+#flowPath{
+
+    fill:none;
+
+    stroke:
+        rgba(255,255,255,.25);
+
+    stroke-width:4;
+
+    stroke-dasharray:12;
+}
+
+/* ==========================
+   MOVING CARD
+========================== */
+
+#movingCard{
+
+    position:absolute;
+
+    width:60px;
+    height:50px;
+
+    border-radius:12px;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-weight:700;
+
+    box-shadow:
+        0 0 20px
+        rgba(255,255,255,.4);
+}
+
+/* ==========================
+   TEACHER
+========================== */
+
+.teacher-panel{
+
+    padding:20px;
+
+    min-height:500px;
+}
+
+#teacherMessage{
+
+    line-height:1.8;
+
+    font-size:1rem;
+}
+
+/* ==========================
+   QUEUE PANEL
+========================== */
+
+.queue-panel{
+
+    padding:20px;
+
+    margin-bottom:20px;
+}
+
+.queue-labels{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:10px;
+}
+
+#queueContainer{
+
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+.queue-card{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:15px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:700;
+
+    color:white;
+}
+
+/* ==========================
+   TIMELINE
+========================== */
+
+.timeline-panel{
+
+    padding:20px;
+
+    margin-bottom:20px;
+}
+
+#timeline{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+}
+
+.timeline-item{
+
+    padding:10px 15px;
+
+    border-radius:10px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    font-size:.9rem;
+}
+
+/* ==========================
+   ARRAYS
+========================== */
+
+.array-panel{
+
+    padding:20px;
+
+    margin-bottom:20px;
+}
+
+.array-box{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    font-family:
+        Consolas,
+        monospace;
+}
+
+/* ==========================
+   COMPLEXITY
+========================== */
+
+.complexity-panel{
+
+    padding:20px;
+
+    margin-bottom:20px;
+}
+
+.complexity-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:15px;
+}
+
+.complexity-card{
+
+    text-align:center;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    background:
+        rgba(255,255,255,.06);
+}
+
+.complexity-card span{
+
+    display:block;
+
+    margin-bottom:8px;
+}
+
+/* ==========================
+   LEGEND
+========================== */
+
+.legend-panel{
+
+    padding:20px;
+
+    margin-bottom:40px;
+}
+
+#legendContainer{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+}
+
+.legend-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:10px;
+
+    border-radius:12px;
+
+    background:
+        rgba(255,255,255,.05);
+}
+
+.legend-color{
+
+    width:20px;
+    height:20px;
+
+    border-radius:50%;
+}
+
+/* ==========================
+   TOAST
+========================== */
+
+#toastContainer{
+
+    position:fixed;
+
+    top:20px;
+    right:20px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    z-index:9999;
+}
+
+.toast{
+
+    min-width:220px;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    background:
+        rgba(17,29,48,.95);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    animation:
+        toastIn .4s ease;
+}
+
+@keyframes toastIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateX(80px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateX(0);
+    }
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:1200px){
+
+    .main-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .stack-area{
+
+        flex-direction:column;
+
+        gap:40px;
+    }
+
+    .animation-zone{
+
+        width:100%;
+    }
+}
+
+@media(max-width:768px){
+
+    .complexity-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .control-panel{
+
+        flex-direction:column;
+    }
+
+    .control-panel button{
+
+        width:100%;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="background-glow glow1"></div>
+<div class="background-glow glow2"></div>
+
+<header>
+
+    <div class="logo-section">
+        <h1>🚀 Queue Using Two Stacks Simulator</h1>
+        <p>
+            Learn FIFO using two LIFO stacks with animations
+        </p>
+    </div>
+
+    <div class="stats-bar">
+
+        <div class="stat-card">
+            <span>Operations</span>
+            <strong id="operationCount">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Moves</span>
+            <strong id="moveCount">0</strong>
+        </div>
+
+        <div class="stat-card">
+            <span>Speed</span>
+            <strong id="speedLabel">1x</strong>
+        </div>
+
+    </div>
+
+</header>
+
+<section class="control-panel glass">
+
+    <input
+        id="valueInput"
+        type="number"
+        placeholder="Enter Value"
+    >
+
+    <button id="pushBtn">
+        ➕ Push
+    </button>
+
+    <button id="popBtn">
+        ➖ Pop
+    </button>
+
+    <button id="peekBtn">
+        👀 Peek
+    </button>
+
+    <button id="resetBtn">
+        🔄 Reset
+    </button>
+
+    <button id="autoBtn">
+        ▶ Auto Demo
+    </button>
+
+</section>
+
+<section class="speed-panel glass">
+
+    <h3>Animation Speed</h3>
+
+    <div class="speed-buttons">
+
+        <button class="speed-btn active" data-speed="1">
+            1x
+        </button>
+
+        <button class="speed-btn" data-speed="2">
+            2x
+        </button>
+
+        <button class="speed-btn" data-speed="4">
+            4x
+        </button>
+
+        <button class="speed-btn" data-speed="8">
+            8x
+        </button>
+
+    </div>
+
+</section>
+
+<div class="main-grid">
+
+    <!-- LEFT SIDE -->
+
+    <section class="code-panel glass">
+
+        <div class="panel-title">
+            💻 Algorithm Code
+        </div>
+
+        <pre class="code-container">
+
+<div class="code-line" id="line1">
+def push(self,x):
+</div>
+
+<div class="code-line" id="line2">
+    self.instack.append(x)
+</div>
+
+<div class="code-line" id="line3">
+</div>
+
+<div class="code-line" id="line4">
+def pop(self):
+</div>
+
+<div class="code-line" id="line5">
+    if not self.outstack:
+</div>
+
+<div class="code-line" id="line6">
+        while self.instack:
+</div>
+
+<div class="code-line" id="line7">
+            self.outstack.append(
+</div>
+
+<div class="code-line" id="line8">
+                self.instack.pop()
+</div>
+
+<div class="code-line" id="line9">
+            )
+</div>
+
+<div class="code-line" id="line10">
+    return self.outstack.pop()
+</div>
+
+<div class="code-line" id="line11">
+</div>
+
+<div class="code-line" id="line12">
+def peek(self):
+</div>
+
+<div class="code-line" id="line13">
+    if not self.outstack:
+</div>
+
+<div class="code-line" id="line14">
+        transfer()
+</div>
+
+<div class="code-line" id="line15">
+    return self.outstack[-1]
+</div>
+
+        </pre>
+
+    </section>
+
+    <!-- CENTER -->
+
+    <section class="visual-panel glass">
+
+        <div class="panel-title">
+            🎬 Animation Playground
+        </div>
+
+        <div class="stack-area">
+
+            <div class="stack-column">
+
+                <div class="stack-header">
+                    📥 Input Stack
+                </div>
+
+                <div
+                    class="stack"
+                    id="instackContainer"
+                >
+                </div>
+
+            </div>
+
+            <div class="animation-zone">
+
+                <svg
+                    class="flow-svg"
+                    viewBox="0 0 400 300"
+                >
+
+                    <path
+                        id="flowPath"
+                        d="M70 150 C170 50 240 50 330 150"
+                    />
+
+                </svg>
+
+                <div id="movingCard"></div>
+
+            </div>
+
+            <div class="stack-column">
+
+                <div class="stack-header">
+                    📤 Output Stack
+                </div>
+
+                <div
+                    class="stack"
+                    id="outstackContainer"
+                >
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- RIGHT SIDE -->
+
+    <section class="teacher-panel glass">
+
+        <div class="panel-title">
+            🤖 Queue Teacher
+        </div>
+
+        <div id="teacherMessage">
+
+            Welcome!
+
+            Start by pushing some values.
+
+            Then press POP and watch how
+            elements travel between stacks.
+
+        </div>
+
+    </section>
+
+</div>
+
+<section class="queue-panel glass">
+
+    <div class="panel-title">
+        📦 Queue View
+    </div>
+
+    <div class="queue-labels">
+
+        <span>Front</span>
+
+        <span>Rear</span>
+
+    </div>
+
+    <div id="queueContainer">
+
+    </div>
+
+</section>
+
+<section class="timeline-panel glass">
+
+    <div class="panel-title">
+        📜 Timeline
+    </div>
+
+    <div id="timeline">
+
+    </div>
+
+</section>
+
+<section class="array-panel glass">
+
+    <div class="panel-title">
+        🧠 Internal Arrays
+    </div>
+
+    <div class="array-box">
+
+        <div>
+            instack =
+            <span id="instackText">
+                []
+            </span>
+        </div>
+
+        <div>
+            outstack =
+            <span id="outstackText">
+                []
+            </span>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="complexity-panel glass">
+
+    <div class="panel-title">
+        📊 Complexity Dashboard
+    </div>
+
+    <div class="complexity-grid">
+
+        <div class="complexity-card">
+            <span>Push</span>
+            <strong>O(1)</strong>
+        </div>
+
+        <div class="complexity-card">
+            <span>Peek</span>
+            <strong>O(1)</strong>
+        </div>
+
+        <div class="complexity-card">
+            <span>Pop</span>
+            <strong>O(1) Amortized</strong>
+        </div>
+
+        <div class="complexity-card">
+            <span>Transfer</span>
+            <strong>O(n)</strong>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="legend-panel glass">
+
+    <div class="panel-title">
+        🎨 Element Legend
+    </div>
+
+    <div id="legendContainer">
+
+    </div>
+
+</section>
+
+<div id="toastContainer"></div>
+
+<script>
+
+/* =====================================
+   GLOBAL STATE
+===================================== */
+
+const instack = [];
+const outstack = [];
+
+let operationCount = 0;
+let moveCount = 0;
+
+let animationSpeed = 1;
+
+const timeline = [];
+
+const colors = [
+    "#3b82f6",
+    "#8b5cf6",
+    "#22c55e",
+    "#f97316",
+    "#ec4899",
+    "#14b8a6",
+    "#eab308",
+    "#ef4444"
+];
+
+const valueColors = new Map();
+
+/* =====================================
+   ELEMENT REFERENCES
+===================================== */
+
+const inputEl =
+    document.getElementById("valueInput");
+
+const instackContainer =
+    document.getElementById("instackContainer");
+
+const outstackContainer =
+    document.getElementById("outstackContainer");
+
+const queueContainer =
+    document.getElementById("queueContainer");
+
+const teacherMessage =
+    document.getElementById("teacherMessage");
+
+const timelineContainer =
+    document.getElementById("timeline");
+
+const legendContainer =
+    document.getElementById("legendContainer");
+
+const operationCountEl =
+    document.getElementById("operationCount");
+
+const moveCountEl =
+    document.getElementById("moveCount");
+
+const speedLabelEl =
+    document.getElementById("speedLabel");
+
+const instackText =
+    document.getElementById("instackText");
+
+const outstackText =
+    document.getElementById("outstackText");
+
+/* =====================================
+   HELPERS
+===================================== */
+
+function sleep(ms){
+
+    return new Promise(resolve =>
+        setTimeout(resolve, ms)
+    );
+}
+
+function getDelay(){
+
+    return 800 / animationSpeed;
+}
+
+function randomColor(){
+
+    return colors[
+        Math.floor(
+            Math.random() *
+            colors.length
+        )
+    ];
+}
+
+function assignColor(value){
+
+    if(!valueColors.has(value)){
+
+        valueColors.set(
+            value,
+            randomColor()
+        );
+    }
+
+    return valueColors.get(value);
+}
+
+/* =====================================
+   TOASTS
+===================================== */
+
+function showToast(message){
+
+    const container =
+        document.getElementById(
+            "toastContainer"
+        );
+
+    const toast =
+        document.createElement("div");
+
+    toast.className = "toast";
+
+    toast.innerText = message;
+
+    container.appendChild(toast);
+
+    setTimeout(()=>{
+
+        toast.remove();
+
+    },3000);
+}
+
+/* =====================================
+   TIMELINE
+===================================== */
+
+function addTimeline(text){
+
+    timeline.push(text);
+
+    const item =
+        document.createElement("div");
+
+    item.className =
+        "timeline-item";
+
+    item.innerText =
+        `${timeline.length}. ${text}`;
+
+    timelineContainer.appendChild(item);
+
+    timelineContainer.scrollTop =
+        timelineContainer.scrollHeight;
+}
+
+/* =====================================
+   STATS
+===================================== */
+
+function incrementOperations(){
+
+    operationCount++;
+
+    operationCountEl.innerText =
+        operationCount;
+}
+
+function incrementMoves(){
+
+    moveCount++;
+
+    moveCountEl.innerText =
+        moveCount;
+}
+
+/* =====================================
+   TEACHER PANEL
+===================================== */
+
+function teach(text){
+
+    teacherMessage.innerHTML =
+        text;
+}
+
+/* =====================================
+   CODE HIGHLIGHTING
+===================================== */
+
+function clearHighlight(){
+
+    document
+    .querySelectorAll(".code-line")
+    .forEach(line => {
+
+        line.classList.remove(
+            "active-line"
+        );
+
+    });
+}
+
+function highlightLine(id){
+
+    clearHighlight();
+
+    const line =
+        document.getElementById(id);
+
+    if(line){
+
+        line.classList.add(
+            "active-line"
+        );
+    }
+}
+
+/* =====================================
+   LEGEND
+===================================== */
+
+function renderLegend(){
+
+    legendContainer.innerHTML = "";
+
+    valueColors.forEach(
+        (color,value)=>{
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+        item.className =
+            "legend-item";
+
+        item.innerHTML =
+
+        `
+        <div
+            class="legend-color"
+            style="
+                background:${color}
+            "
+        ></div>
+
+        <span>${value}</span>
+        `;
+
+        legendContainer
+        .appendChild(item);
+
+    });
+}
+
+/* =====================================
+   STACK CARD CREATION
+===================================== */
+
+function createCard(value){
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+    card.className =
+        "stack-card";
+
+    card.innerText =
+        value;
+
+    card.style.background =
+        assignColor(value);
+
+    return card;
+}
+
+/* =====================================
+   RENDER STACKS
+===================================== */
+
+function renderStacks(){
+
+    instackContainer.innerHTML =
+        "";
+
+    outstackContainer.innerHTML =
+        "";
+
+    instack.forEach(value=>{
+
+        instackContainer
+        .appendChild(
+            createCard(value)
+        );
+
+    });
+
+    outstack.forEach(value=>{
+
+        outstackContainer
+        .appendChild(
+            createCard(value)
+        );
+
+    });
+
+    instackText.innerText =
+        JSON.stringify(instack);
+
+    outstackText.innerText =
+        JSON.stringify(outstack);
+
+    renderLegend();
+}
+
+/* =====================================
+   RENDER QUEUE VIEW
+===================================== */
+
+function renderQueue(){
+
+    queueContainer.innerHTML = "";
+
+    const queueState = [
+
+        ...outstack
+            .slice()
+            .reverse(),
+
+        ...instack
+
+    ];
+
+    queueState.forEach(value=>{
+
+        const card =
+            document.createElement(
+                "div"
+            );
+
+        card.className =
+            "queue-card";
+
+        card.innerText =
+            value;
+
+        card.style.background =
+            assignColor(value);
+
+        queueContainer
+        .appendChild(card);
+
+    });
+}
+
+/* =====================================
+   COMPLETE REFRESH
+===================================== */
+
+function renderAll(){
+
+    renderStacks();
+
+    renderQueue();
+}
+
+/* =====================================
+   SPEED CONTROL
+===================================== */
+
+document
+.querySelectorAll(".speed-btn")
+.forEach(button=>{
+
+    button.addEventListener(
+        "click",
+        ()=>{
+
+        document
+        .querySelectorAll(
+            ".speed-btn"
+        )
+        .forEach(btn=>{
+
+            btn.classList.remove(
+                "active"
+            );
+
+        });
+
+        button.classList.add(
+            "active"
+        );
+
+        animationSpeed =
+            Number(
+                button.dataset.speed
+            );
+
+        speedLabelEl.innerText =
+            animationSpeed + "x";
+
+    });
+
+});
+
+/* =====================================
+   PUSH OPERATION
+===================================== */
+
+async function pushOperation(){
+
+    const value =
+        inputEl.value.trim();
+
+    if(value === ""){
+
+        showToast(
+            "Enter a value"
+        );
+
+        return;
+    }
+
+    highlightLine("line1");
+
+    await sleep(
+        getDelay()/2
+    );
+
+    highlightLine("line2");
+
+    await sleep(
+        getDelay()/2
+    );
+
+    instack.push(
+        Number(value)
+    );
+
+    incrementOperations();
+
+    addTimeline(
+        `push(${value})`
+    );
+
+    teach(`
+        Value <b>${value}</b>
+        is pushed into
+        <b>Input Stack</b>.
+    `);
+
+    showToast(
+        `✨ Added ${value}`
+    );
+
+    inputEl.value = "";
+
+    renderAll();
+
+    clearHighlight();
+}
+
+/* =====================================
+   PEEK OPERATION
+===================================== */
+
+async function peekOperation(){
+
+    highlightLine("line12");
+
+    await sleep(
+        getDelay()/2
+    );
+
+    if(
+        instack.length===0 &&
+        outstack.length===0
+    ){
+
+        showToast(
+            "Queue Empty"
+        );
+
+        teach(
+            "Queue is empty."
+        );
+
+        return;
+    }
+
+    let front;
+
+    if(outstack.length){
+
+        front =
+            outstack[
+                outstack.length-1
+            ];
+    }
+    else{
+
+        front = instack[0];
+    }
+
+    highlightLine("line15");
+
+    await sleep(
+        getDelay()
+    );
+
+    incrementOperations();
+
+    addTimeline(
+        `peek() → ${front}`
+    );
+
+    showToast(
+        `👀 Front = ${front}`
+    );
+
+    teach(`
+        Front element is
+        <b>${front}</b>.
+    `);
+
+    clearHighlight();
+}
+
+/* =====================================
+   RESET
+===================================== */
+
+function resetAll(){
+
+    instack.length = 0;
+
+    outstack.length = 0;
+
+    timeline.length = 0;
+
+    valueColors.clear();
+
+    operationCount = 0;
+    moveCount = 0;
+
+    operationCountEl.innerText = 0;
+    moveCountEl.innerText = 0;
+
+    timelineContainer.innerHTML =
+        "";
+
+    teach(`
+        Simulator Reset.
+    `);
+
+    renderAll();
+
+    showToast(
+        "🔄 Reset Complete"
+    );
+}
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+document
+.getElementById("pushBtn")
+.addEventListener(
+    "click",
+    pushOperation
+);
+
+document
+.getElementById("peekBtn")
+.addEventListener(
+    "click",
+    peekOperation
+);
+
+document
+.getElementById("resetBtn")
+.addEventListener(
+    "click",
+    resetAll
+);
+
+/* =====================================
+   INITIAL RENDER
+===================================== */
+
+renderAll();
+
+teach(`
+Welcome!
+
+Push values into Input Stack
+and watch how Queue behaves.
+`);
+/* =====================================
+   MOVING CARD ELEMENT
+===================================== */
+
+const movingCard =
+    document.getElementById(
+        "movingCard"
+    );
+
+const svgPath =
+    document.getElementById(
+        "flowPath"
+    );
+
+/* =====================================
+   SVG PATH ANIMATION
+===================================== */
+
+async function animateTransfer(value){
+
+    return new Promise(resolve=>{
+
+        const color =
+            assignColor(value);
+
+        movingCard.style.display =
+            "flex";
+
+        movingCard.innerText =
+            value;
+
+        movingCard.style.background =
+            color;
+
+        const pathLength =
+            svgPath.getTotalLength();
+
+        let progress = 0;
+
+        const duration =
+            1200 / animationSpeed;
+
+        const startTime =
+            performance.now();
+
+        function frame(now){
+
+            const elapsed =
+                now - startTime;
+
+            progress =
+                Math.min(
+                    elapsed / duration,
+                    1
+                );
+
+            const point =
+                svgPath.getPointAtLength(
+                    progress * pathLength
+                );
+
+            movingCard.style.left =
+                point.x - 30 + "px";
+
+            movingCard.style.top =
+                point.y - 25 + "px";
+
+            if(progress < 1){
+
+                requestAnimationFrame(
+                    frame
+                );
+
+            }
+            else{
+
+                movingCard.style.display =
+                    "none";
+
+                resolve();
+            }
+        }
+
+        requestAnimationFrame(frame);
+
+    });
+
+}
+
+/* =====================================
+   TRANSFER OPERATION
+===================================== */
+
+async function transferStacks(){
+
+    highlightLine("line5");
+
+    await sleep(
+        getDelay()
+    );
+
+    teach(`
+        Output Stack is empty.<br><br>
+
+        We must reverse the order by
+        moving every element from
+        Input Stack ➜ Output Stack.
+    `);
+
+    while(instack.length){
+
+        highlightLine("line6");
+
+        await sleep(
+            getDelay()/2
+        );
+
+        const value =
+            instack.pop();
+
+        renderAll();
+
+        highlightLine("line7");
+
+        teach(`
+            Moving value
+            <b>${value}</b>
+            from Input Stack
+            to Output Stack.
+        `);
+
+        await animateTransfer(
+            value
+        );
+
+        highlightLine("line8");
+
+        outstack.push(value);
+
+        incrementMoves();
+
+        addTimeline(
+            `move(${value})`
+        );
+
+        renderAll();
+
+        await sleep(
+            getDelay()/2
+        );
+    }
+
+    clearHighlight();
+
+    teach(`
+        Transfer complete.<br><br>
+
+        The oldest element is now
+        on top of Output Stack,
+        ready for FIFO removal.
+    `);
+
+}
+
+/* =====================================
+   POP OPERATION
+===================================== */
+
+async function popOperation(){
+
+    if(
+        instack.length===0 &&
+        outstack.length===0
+    ){
+
+        showToast(
+            "Queue Empty"
+        );
+
+        teach(`
+            Queue is empty.
+        `);
+
+        return;
+    }
+
+    highlightLine("line4");
+
+    await sleep(
+        getDelay()/2
+    );
+
+    if(outstack.length===0){
+
+        await transferStacks();
+    }
+
+    highlightLine("line10");
+
+    await sleep(
+        getDelay()
+    );
+
+    const removed =
+        outstack.pop();
+
+    incrementOperations();
+
+    addTimeline(
+        `pop() → ${removed}`
+    );
+
+    renderAll();
+
+    showToast(
+        `💥 Removed ${removed}`
+    );
+
+    teach(`
+        FIFO Removal Successful.<br><br>
+
+        Removed:
+        <b>${removed}</b>
+    `);
+
+    clearHighlight();
+}
+
+/* =====================================
+   POP BUTTON
+===================================== */
+
+document
+.getElementById("popBtn")
+.addEventListener(
+    "click",
+    popOperation
+);
+
+/* =====================================
+   AUTO DEMO
+===================================== */
+
+let demoRunning = false;
+
+async function autoDemo(){
+
+    if(demoRunning){
+        return;
+    }
+
+    demoRunning = true;
+
+    resetAll();
+
+    teach(`
+        Auto Demo Started.
+    `);
+
+    await sleep(1000);
+
+    inputEl.value = "10";
+    await pushOperation();
+
+    await sleep(800);
+
+    inputEl.value = "20";
+    await pushOperation();
+
+    await sleep(800);
+
+    inputEl.value = "30";
+    await pushOperation();
+
+    await sleep(1200);
+
+    await popOperation();
+
+    await sleep(1200);
+
+    inputEl.value = "40";
+    await pushOperation();
+
+    await sleep(1200);
+
+    await peekOperation();
+
+    await sleep(1200);
+
+    await popOperation();
+
+    await sleep(1200);
+
+    await popOperation();
+
+    await sleep(1200);
+
+    teach(`
+        🎉 Demo Complete.<br><br>
+
+        Notice how Queue behavior
+        was achieved using only
+        two stacks.
+    `);
+
+    showToast(
+        "🚀 Demo Finished"
+    );
+
+    demoRunning = false;
+}
+
+/* =====================================
+   AUTO BUTTON
+===================================== */
+
+document
+.getElementById("autoBtn")
+.addEventListener(
+    "click",
+    autoDemo
+);
+
+/* =====================================
+   KEYBOARD SUPPORT
+===================================== */
+
+inputEl.addEventListener(
+    "keydown",
+    e=>{
+
+        if(e.key==="Enter"){
+
+            pushOperation();
+        }
+    }
+);
+
+/* =====================================
+   WELCOME MESSAGE
+===================================== */
+
+showToast(
+    "🚀 Queue Simulator Ready"
+);
+
+teach(`
+<b>Welcome Student!</b>
+
+<br><br>
+
+1. Push values into Input Stack.
+
+<br>
+
+2. Press POP.
+
+<br>
+
+3. Watch elements move to
+Output Stack.
+
+<br><br>
+
+This demonstrates how a Queue
+(FIFO) can be implemented using
+two Stacks (LIFO).
+`);
+</script>
+
+</body>
+</html>

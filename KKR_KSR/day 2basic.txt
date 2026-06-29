@@ -1,0 +1,370 @@
+Write a program to verify username and password.
+
+Test Cases
+
+Input: admin admin123
+Output: Login Successful
+
+Input: user pass
+Output: Invalid Credentials
+
+
+
+
+
+Write a program to determine whether a day is a weekday or weekend.
+
+Test Cases
+
+Input: Sunday
+Output: Weekend
+
+Input: Wednesday
+Output: Weekday
+
+
+
+
+
+
+Loops------------------------------
+
+Write a program to calculate the sum of first N natural numbers.
+
+Test Cases
+
+Input: 5
+
+Output: 15
+
+Input: 10
+
+Output: 55
+
+
+
+Write a program to print the multiplication table of a given number.
+
+Test Cases
+
+Input: 5
+
+Output: 5 10 15 20 25 30 35 40 45 50
+
+Input: 3
+
+Output: 3 6 9 12 15 18 21 24 27 30
+
+
+
+
+Write a program to count how many even numbers are present from 1 to N.
+
+Test Cases
+
+Input: 10
+
+Output: 5
+
+Input: 7
+
+Output: 3
+
+
+
+
+
+Write a program to print numbers from N to 1.
+
+Test Cases
+
+Input: 5
+
+Output: 5 4 3 2 1
+
+Input: 3
+
+Output: 3 2 1
+
+
+count even and odd numbers present in the list
+# list1=[5,8,9,6,3,66,8993,6332,5622,-9]
+
+
+
+
+# Python Program to check whether the given input is alphabet, number or special character
+# Input:  123%t
+# output:
+# 1-number
+# 2-number
+# 3-number
+# %-spl_char
+# t-Alphabet
+
+
+
+Write a program to check whether a number is prime or not.
+
+Test Cases
+
+Input: 7
+
+Output: Prime
+
+Input: 9
+
+Output: Not Prime
+
+
+# Write a program using only if and else to determine the ticket price for a person based on their age:
+
+# If the person is below 12 years old, the ticket costs $10.
+# If the person is between 12 and 60 years old, the ticket costs $15.
+# If the person is above 60 years old, the ticket costs $12.
+# list_of_ages=[15,65,19,68]
+
+
+
+
+Write a program to count the number of digits in a given number.
+
+Test Cases
+
+Input: 12345
+
+Output: 5
+
+Input: 89
+
+Output: 2
+
+
+
+
+
+
+
+
+
+
+Write a program to calculate the sum of digits of a number.
+
+Test Cases
+
+Input: 123
+
+Output: 6
+
+Input: 456
+
+Output: 15
+
+
+
+
+
+
+
+
+Write a program to check whether a number is an Armstrong number.
+
+Test Cases
+
+Input: 153
+
+Output: Armstrong
+
+Input: 125
+
+Output: Not Armstrong
+
+
+
+
+
+
+
+Write a program to count positive and negative numbers from N user inputs.
+
+Test Cases
+
+Input: 5 1 -2 3 -4 5
+
+Output: Positive: 3 Negative: 2
+
+Input: 4 -1 -2 5 6
+
+Output: Positive: 2 Negative: 2
+
+
+
+
+
+
+
+
+Write a program to find the largest number among N numbers.
+
+Test Cases
+
+Input: 5 2 8 1 9 4
+
+Output: 9
+
+Input: 4 10 5 7 3
+
+Output: 10
+
+
+
+
+
+
+
+Write a program to print numbers between 1 and N divisible by both 3 and 5.
+
+Test Cases
+
+Input: 30
+
+Output: 15 30
+
+Input: 50
+
+Output: 15 30 45
+
+
+
+
+
+
+
+
+
+Write a program to check whether a number is a perfect number.
+
+Test Cases
+
+Input: 6
+
+Output: Perfect Number
+
+Input: 10
+
+Output: Not Perfect
+
+
+
+
+
+
+
+Write a program to count the number of vowels and consonats in a string.
+
+Test Cases
+
+Input: python
+
+Output: 1,5
+
+Input: education
+
+Output: 5,4
+
+
+
+
+
+Write a program to allow a user 3 attempts to enter the correct password.
+
+Test Cases
+
+Input: abc 123 admin
+
+Output: Login Successful
+
+Input: 111 222 333
+
+Output: Account Blocked
+
+
+
+
+PATTERN SET - LEVEL 1 (Easy)
+
+Pattern 1                    Pattern 2                    Pattern 3                    Pattern 4
+Input: 5                     Input: 5                     Input: 5                     Input: 5
+
+*                            1                            * * * * *                  A
+* *                          1 2                          * * * *                    A B
+* * *                        1 2 3                        * * *                      A B C
+* * * *                      1 2 3 4                      * *                        A B C D
+* * * * *                    1 2 3 4 5                    *                          A B C D E
+
+
+
+=====================================================================================
+
+PATTERN SET - LEVEL 2 (Moderate)
+
+Pattern 5                    Pattern 6                    Pattern 7                    Pattern 8
+Input: 4                     Input: 5                     Input: 5                     Input: 5
+
+A                                *                         *                            A B C D E
+B C                            * * *                       **                           A B C D
+D E F                        * * * * *                     ***                          A B C
+G H I J                    * * * * * * *                   ****                         A B
+                         * * * * * * * * *                 *****                        A
+                                                           ****
+                                                           ***
+                                                           **
+                                                           *
+
+
+=====================================================================================
+
+PATTERN SET - LEVEL 3 (Hard)
+
+Pattern 9                    Pattern 10                   Pattern 11                   Pattern 12
+Input: 4                     Input: 5                     Input: 5                     Input: 5
+
+      *                      1                            A                            E
+    * * *                    2 3                          B B                          D E
+  * * * * *                  4 5 6                        C C C                        C D E
+* * * * * * *                7 8 9 10                     D D D D                      B C D E
+                             11 12 13 14 15               E E E E E                    A B C D E
+
+
+(Floyd's Triangle)         (Alphabet Repeat)          (Reverse Alphabet Start)
+
+
+
+=====================================================================================
+
+PATTERN SET - LEVEL 4 (Expert)
+
+Pattern 13                   Pattern 14                  Pattern 15                    Pattern 16
+Input: 5                     Input: 5                    Input: 5                      Input: 5
+
+1                            A                           *                             *
+2 2                          B B                         * *                           *   *
+3 3 3                        C C C                       * * *                         *     *
+4 4 4 4                      D D D D                     * * * *                       *       *
+5 5 5 5 5                    E E E E E                   * * * * *                     * * * * *
+
+(Number Triangle)          (Alphabet Triangle)        (Hollow Triangle)            Hollow Pyramid
+
+
+
+=====================================================================================
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python DSA — Introduction & Classification</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800;900&family=Nunito:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05050e;
+  --s1:#0b0b18;
+  --s2:#111120;
+  --card:#161626;
+  --card2:#1c1c2e;
+  --b:rgba(255,255,255,0.07);
+  --amber:#ffaa00;
+  --amberglow:rgba(255,170,0,0.22);
+  --pink:#ff4f8b;
+  --cyan:#00e5ff;
+  --lime:#a8ff3e;
+  --purple:#c084fc;
+  --blue:#4f8bff;
+  --green:#00ff99;
+  --text:#eeeefc;
+  --muted:#6b6b90;
+  --muted2:#9090b8;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;font-size:16px;line-height:1.75;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:rgba(255,170,0,0.4);border-radius:3px}
+#pgbar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--amber),var(--pink),var(--cyan));z-index:999;width:0;transition:width .1s}
+
+/* ===== NAV ===== */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,14,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--b)}
+.logo{font-family:'Lexend',sans-serif;font-weight:900;font-size:1.05rem;letter-spacing:-.02em;background:linear-gradient(135deg,var(--amber),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-pills{display:flex;gap:6px}
+.npill{padding:5px 14px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:.72rem;border:1px solid var(--b);color:var(--muted);text-decoration:none;transition:all .2s}
+.npill:hover,.npill.active{background:var(--amber);border-color:var(--amber);color:#05050e}
+
+/* ===== HERO ===== */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 48px 80px;position:relative;overflow:hidden}
+.hero-mesh{position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 20% 30%,rgba(255,170,0,.1),transparent),radial-gradient(ellipse 45% 45% at 80% 70%,rgba(255,79,139,.07),transparent),radial-gradient(ellipse 40% 40% at 55% 50%,rgba(0,229,255,.05),transparent)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,#000,transparent)}
+
+/* Floating ticker */
+.ticker-wrap{position:absolute;bottom:0;left:0;right:0;padding:14px 0;border-top:1px solid var(--b);overflow:hidden;background:rgba(5,5,14,.6)}
+.ticker{display:flex;gap:60px;animation:tick 22s linear infinite;white-space:nowrap}
+.ticker span{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);flex-shrink:0}
+.ticker span b{color:var(--amber)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.chip{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:.72rem;border:1px solid rgba(255,170,0,.35);color:var(--amber);background:rgba(255,170,0,.07);margin-bottom:24px;animation:fadeUp .6s ease both}
+.blink{width:7px;height:7px;border-radius:50%;background:var(--lime);animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+h1.htitle{font-family:'Lexend',sans-serif;font-size:clamp(2.8rem,8vw,5.5rem);font-weight:900;letter-spacing:-.035em;line-height:1.05;max-width:900px;animation:fadeUp .7s .1s ease both}
+.htitle .ga{color:var(--amber)}.htitle .gc{color:var(--cyan)}.htitle .gp{color:var(--pink)}
+.hsub{font-size:1.05rem;color:var(--muted2);max-width:500px;margin:18px auto 36px;animation:fadeUp .7s .2s ease both}
+.hbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fadeUp .7s .3s ease both}
+.btn{padding:13px 28px;border-radius:14px;font-family:'Lexend',sans-serif;font-weight:700;font-size:.9rem;cursor:pointer;text-decoration:none;border:none;transition:all .22s}
+.ba{background:var(--amber);color:#05050e;box-shadow:0 0 32px var(--amberglow)}
+.ba:hover{transform:translateY(-2px);box-shadow:0 0 52px var(--amberglow)}
+.bg2{background:transparent;color:var(--text);border:1px solid var(--b)}
+.bg2:hover{border-color:var(--amber);color:var(--amber)}
+
+.hstats{display:flex;gap:56px;margin-top:60px;animation:fadeUp .7s .4s ease both}
+.hstat{text-align:center}
+.hstat-n{font-family:'Lexend',sans-serif;font-weight:900;font-size:2.2rem;color:var(--amber)}
+.hstat-l{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);margin-top:2px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== SECTION WRAPPER ===== */
+.wrap{max-width:1140px;margin:0 auto;padding:90px 48px}
+.alt{background:var(--s1);border-top:1px solid var(--b);border-bottom:1px solid var(--b)}
+.stripe{height:1px;background:linear-gradient(90deg,transparent,rgba(255,170,0,.2),rgba(0,229,255,.15),transparent)}
+.sec-pill{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.08em;margin-bottom:14px;border:1px solid}
+.sp-a{color:var(--amber);border-color:rgba(255,170,0,.3);background:rgba(255,170,0,.06)}
+.sp-p{color:var(--pink);border-color:rgba(255,79,139,.3);background:rgba(255,79,139,.06)}
+.sp-c{color:var(--cyan);border-color:rgba(0,229,255,.3);background:rgba(0,229,255,.06)}
+.sp-g{color:var(--green);border-color:rgba(0,255,153,.3);background:rgba(0,255,153,.06)}
+.sp-pu{color:var(--purple);border-color:rgba(192,132,252,.3);background:rgba(192,132,252,.06)}
+h2.stitle{font-family:'Lexend',sans-serif;font-size:clamp(1.75rem,4vw,2.6rem);font-weight:800;letter-spacing:-.025em;line-height:1.15;margin-bottom:12px}
+.ssub{color:var(--muted2);font-size:.98rem;max-width:540px;margin-bottom:50px}
+
+/* ===== CONCEPT TRIO ===== */
+.ctrio{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:20px}
+.cc{background:var(--card);border:1px solid var(--b);border-radius:22px;padding:30px;position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;opacity:0;transform:translateY(24px)}
+.cc.vis{animation:cIn .45s ease forwards}
+@keyframes cIn{to{opacity:1;transform:translateY(0)}}
+.cc:hover{transform:translateY(-5px)}
+.cc-a:hover{border-color:rgba(255,170,0,.4);box-shadow:0 16px 48px rgba(255,170,0,.1)}
+.cc-p:hover{border-color:rgba(255,79,139,.4);box-shadow:0 16px 48px rgba(255,79,139,.1)}
+.cc-c:hover{border-color:rgba(0,229,255,.4);box-shadow:0 16px 48px rgba(0,229,255,.1)}
+.cc-ico{font-size:2.4rem;margin-bottom:16px}
+.cc h3{font-family:'Lexend',sans-serif;font-weight:700;font-size:1.18rem;margin-bottom:10px}
+.cc p{font-size:.91rem;color:var(--muted2);line-height:1.68}
+.cc .analogy{margin-top:16px;padding:13px 16px;border-radius:12px;background:rgba(255,255,255,.04);font-size:.84rem;line-height:1.65;border-left:3px solid var(--amber)}
+.analogy .alabel{font-family:'JetBrains Mono',monospace;font-size:.67rem;display:block;margin-bottom:4px;letter-spacing:.07em;color:var(--amber);opacity:.8}
+.cc-p .analogy{border-color:var(--pink)}.cc-p .analogy .alabel{color:var(--pink)}
+.cc-c .analogy{border-color:var(--cyan)}.cc-c .analogy .alabel{color:var(--cyan)}
+
+/* ===== CLASSIFICATION TREE ===== */
+.tree-outer{background:var(--card);border:1px solid var(--b);border-radius:28px;padding:48px 32px 40px;position:relative;overflow:hidden;margin-top:8px}
+.tree-outer::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(255,170,0,.07),transparent);pointer-events:none}
+.tree-svg-layer{position:absolute;inset:0;pointer-events:none;z-index:0}
+
+/* Row layouts */
+.tree-rows{display:flex;flex-direction:column;align-items:center;gap:0;position:relative;z-index:1}
+.tree-row{display:flex;justify-content:center;align-items:center;gap:0;position:relative;width:100%}
+.tree-vgap{height:44px}
+.tree-hgap{width:32px}
+
+/* Nodes */
+.tnode{display:inline-flex;align-items:center;justify-content:center;text-align:center;border-radius:50px;font-family:'Lexend',sans-serif;font-weight:700;cursor:pointer;transition:all .25s;position:relative;white-space:nowrap}
+.tnode-root{padding:14px 36px;font-size:1.05rem;background:linear-gradient(135deg,var(--amber),#ff7700);color:#05050e;box-shadow:0 0 40px rgba(255,170,0,.4)}
+.tnode-root:hover{transform:scale(1.06);box-shadow:0 0 60px rgba(255,170,0,.6)}
+.tnode-l1{padding:11px 24px;font-size:.92rem;border:2px solid}
+.tnp{border-color:rgba(0,255,153,.5);color:var(--green);background:rgba(0,255,153,.07)}
+.tnp:hover{background:rgba(0,255,153,.14);box-shadow:0 0 24px rgba(0,255,153,.2)}
+.tnnp{border-color:rgba(255,79,139,.5);color:var(--pink);background:rgba(255,79,139,.07)}
+.tnnp:hover{background:rgba(255,79,139,.14);box-shadow:0 0 24px rgba(255,79,139,.2)}
+.tnlin{border-color:rgba(0,229,255,.4);color:var(--cyan);background:rgba(0,229,255,.07)}
+.tnlin:hover{background:rgba(0,229,255,.14)}
+.tnnl{border-color:rgba(192,132,252,.4);color:var(--purple);background:rgba(192,132,252,.07)}
+.tnnl:hover{background:rgba(192,132,252,.14)}
+.tnode-leaf{padding:8px 16px;font-size:.78rem;border-radius:12px;border:1px solid var(--b);background:var(--s2);color:var(--text);font-family:'JetBrains Mono',monospace;transition:all .2s}
+.tnode-leaf:hover{transform:translateY(-3px);border-color:rgba(255,170,0,.35);color:var(--amber)}
+.leaf-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+
+/* Tooltip on node hover */
+.tnode .ttip{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);background:#1c1c2e;border:1px solid rgba(255,170,0,.3);border-radius:12px;padding:12px 16px;font-size:.78rem;color:var(--text);white-space:normal;min-width:200px;max-width:260px;pointer-events:none;opacity:0;transition:opacity .2s;z-index:50;text-align:left;font-family:'Nunito',sans-serif;font-weight:400;line-height:1.6;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.tnode:hover .ttip{opacity:1}
+.ttip code{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--amber);background:rgba(255,170,0,.1);padding:1px 5px;border-radius:4px}
+
+/* SVG connector lines */
+.conn-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+
+/* Tree node animation */
+.tnode,.leaf-row,.tree-vgap{opacity:0;transform:translateY(14px);transition:opacity .4s,transform .4s}
+.tnode.tvis,.leaf-row.tvis,.tree-vgap.tvis{opacity:1;transform:translateY(0)}
+
+/* ===== PRIMITIVE / NON-PRIMITIVE COMPARISON ===== */
+.pnp-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px}
+.pnp-card{background:var(--card);border-radius:22px;padding:34px;border:1px solid var(--b);opacity:0;transform:scale(.97)}
+.pnp-card.vis{animation:popIn .4s ease forwards}
+@keyframes popIn{to{opacity:1;transform:scale(1)}}
+.pnp-card:hover .pnp-bar{transform:scaleX(1)}
+.pnp-header{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.pnp-ico{font-size:2.2rem}
+.pnp-htxt h3{font-family:'Lexend',sans-serif;font-weight:800;font-size:1.25rem}
+.pnp-htxt p{font-size:.82rem;color:var(--muted2);margin-top:2px}
+.pnp-bar{height:3px;border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform .4s .2s}
+.pnp-prim .pnp-bar{background:linear-gradient(90deg,var(--green),var(--cyan))}
+.pnp-nonp .pnp-bar{background:linear-gradient(90deg,var(--pink),var(--purple))}
+.pnp-prim{border-top:3px solid var(--green)}
+.pnp-nonp{border-top:3px solid var(--pink)}
+
+.mem-visual{margin:20px 0;padding:18px;background:rgba(255,255,255,.03);border-radius:14px;border:1px solid var(--b)}
+.mem-label{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);margin-bottom:10px;letter-spacing:.06em}
+.mem-boxes{display:flex;gap:6px;flex-wrap:wrap}
+.mem-box{padding:8px 14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;border:1px solid;text-align:center}
+.mb-g{border-color:rgba(0,255,153,.35);color:var(--green);background:rgba(0,255,153,.07)}
+.mb-p{border-color:rgba(255,79,139,.35);color:var(--pink);background:rgba(255,79,139,.07)}
+.mb-ref{border:1px dashed rgba(192,132,252,.4);color:var(--purple);font-size:.72rem}
+
+.pnp-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.pnp-li{display:flex;align-items:flex-start;gap:10px;font-size:.88rem}
+.pnp-li::before{content:'›';color:var(--amber);font-size:1.1rem;line-height:1.5;flex-shrink:0}
+.pnp-li strong{color:var(--text)}
+.pnp-li span{color:var(--muted2)}
+
+.py-chip{display:inline-block;margin-top:16px;padding:5px 14px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:.75rem}
+.pyc-g{background:rgba(0,255,153,.08);color:var(--green);border:1px solid rgba(0,255,153,.2)}
+.pyc-p{background:rgba(255,79,139,.08);color:var(--pink);border:1px solid rgba(255,79,139,.2)}
+
+/* ===== LINEAR / NON-LINEAR ===== */
+.ds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.ds-card{background:var(--card);border:1px solid var(--b);border-radius:18px;padding:24px;cursor:pointer;transition:all .25s;opacity:0;transform:translateX(-14px);position:relative;overflow:hidden}
+.ds-card.vis{animation:slideX .4s ease forwards}
+@keyframes slideX{to{opacity:1;transform:translateX(0)}}
+.ds-card:hover{transform:translateY(-4px)}
+.ds-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;opacity:0;transition:opacity .25s}
+.ds-card:hover::before{opacity:1}
+.dc-lin::before{background:linear-gradient(90deg,var(--cyan),var(--blue))}
+.dc-nlin::before{background:linear-gradient(90deg,var(--purple),var(--pink))}
+.dc-lin:hover{border-color:rgba(0,229,255,.35);box-shadow:0 10px 36px rgba(0,229,255,.1)}
+.dc-nlin:hover{border-color:rgba(192,132,252,.35);box-shadow:0 10px 36px rgba(192,132,252,.1)}
+.ds-icon{font-size:2rem;margin-bottom:12px}
+.ds-card h4{font-family:'Lexend',sans-serif;font-weight:700;font-size:.98rem;margin-bottom:6px}
+.ds-card p{font-size:.83rem;color:var(--muted2);margin-bottom:12px}
+.ds-vis{display:flex;gap:5px;align-items:center;margin-top:10px;flex-wrap:wrap}
+.dv-box{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;border:1px solid}
+.dv-c{border-color:rgba(0,229,255,.35);color:var(--cyan);background:rgba(0,229,255,.08)}
+.dv-p{border-color:rgba(192,132,252,.35);color:var(--purple);background:rgba(192,132,252,.08)}
+.dv-arr{color:var(--muted);font-size:.9rem}
+.ds-tag{display:inline-block;padding:3px 10px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.68rem;margin-top:8px}
+.dt-lin{background:rgba(0,229,255,.08);color:var(--cyan);border:1px solid rgba(0,229,255,.2)}
+.dt-nlin{background:rgba(192,132,252,.08);color:var(--purple);border:1px solid rgba(192,132,252,.2)}
+
+/* ===== COMPLEXITY ===== */
+.notations{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px}
+.ncard{border-radius:20px;padding:30px;text-align:center;border:1px solid var(--b);background:var(--card);opacity:0;transform:scale(.95);transition:transform .25s}
+.ncard.vis{animation:popIn .4s ease forwards}
+.ncard:hover{transform:scale(1.03)}
+.nc-o{border-top:3px solid var(--pink)}
+.nc-w{border-top:3px solid var(--green)}
+.nc-t{border-top:3px solid var(--amber)}
+.nsym{font-family:'Lexend',sans-serif;font-weight:900;font-size:3.8rem;line-height:1;margin-bottom:10px}
+.nc-o .nsym{color:var(--pink)}.nc-w .nsym{color:var(--green)}.nc-t .nsym{color:var(--amber)}
+.ncard h3{font-family:'Lexend',sans-serif;font-weight:700;font-size:1rem;margin-bottom:8px}
+.ncard p{font-size:.86rem;color:var(--muted2);line-height:1.55}
+.nbadge{display:inline-block;margin-top:12px;padding:4px 14px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:.7rem}
+.nc-o .nbadge{background:rgba(255,79,139,.12);color:var(--pink)}.nc-w .nbadge{background:rgba(0,255,153,.12);color:var(--green)}.nc-t .nbadge{background:rgba(255,170,0,.12);color:var(--amber)}
+
+/* Canvas chart */
+.chart-wrap{background:var(--card);border:1px solid var(--b);border-radius:22px;padding:32px;margin-bottom:40px}
+.chart-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.chart-hdr span{font-family:'Lexend',sans-serif;font-weight:700;font-size:.98rem}
+.chart-sub{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted)}
+#cChart{width:100%;height:220px;display:block}
+.clegend{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px}
+.cleg{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted2)}
+.cleg-dot{width:10px;height:10px;border-radius:50%}
+
+/* O() table */
+.ctable{width:100%;border-collapse:collapse;border-radius:18px;overflow:hidden;font-size:.87rem}
+.ctable thead{background:rgba(255,170,0,.1)}
+.ctable th{padding:14px 20px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:.75rem;letter-spacing:.05em;color:var(--muted2)}
+.ctable td{padding:14px 20px;border-bottom:1px solid var(--b)}
+.ctable tbody tr{transition:background .2s}
+.ctable tbody tr:hover{background:rgba(255,255,255,.025)}
+.ctable td:first-child{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--amber)}
+.ctable td:nth-child(4){font-family:'JetBrains Mono',monospace;font-size:.82rem}
+.ctable td:last-child{font-size:.82rem;color:var(--muted2)}
+.spd{display:inline-flex;align-items:center;gap:4px}
+.dot-s{width:8px;height:8px;border-radius:50%;display:inline-block}
+
+/* code block */
+.cb{background:#06060f;border:1px solid rgba(255,255,255,.05);border-radius:14px;padding:20px;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.75;overflow-x:auto;margin-top:16px}
+.kw{color:#ff79c6}.fn{color:var(--cyan)}.st{color:var(--lime)}.cm{color:var(--muted)}.nu{color:var(--purple)}.op{color:var(--pink)}
+
+/* ===== FOOTER ===== */
+footer{text-align:center;padding:60px;border-top:1px solid var(--b)}
+footer .fe{font-size:2.5rem;display:block;margin-bottom:14px;animation:spin 8s linear infinite}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+footer h3{font-family:'Lexend',sans-serif;font-weight:800;font-size:1.2rem;margin-bottom:8px}
+footer h3 span{color:var(--amber)}
+footer p{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted)}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:800px){
+  nav{padding:12px 20px}.wrap{padding:60px 20px}
+  .notations{grid-template-columns:1fr}
+  .pnp-grid{grid-template-columns:1fr}
+  .hstats{gap:28px}
+  .npill{display:none}
+  .tree-outer{padding:24px 12px}
+}
+</style>
+</head>
+<body>
+
+<div id="pgbar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">🐍 DSA · Python</div>
+  <div class="nav-pills">
+    <a href="#intro" class="npill">Intro</a>
+    <a href="#tree" class="npill">Classification</a>
+    <a href="#pnp" class="npill">Primitive</a>
+    <a href="#complexity" class="npill">Complexity</a>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="s-hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-grid"></div>
+
+  <div class="chip"><span class="blink"></span>Python · Data Structures · Algorithms</div>
+  <h1 class="htitle">
+    <span class="ga">DSA</span> — The<br>
+    Brain of Every<br>
+    <span class="gc">Great</span> <span class="gp">Program</span>
+  </h1>
+  <p class="hsub">If programming is a superpower, DSA is the training. Clear, visual, no-fluff introduction.</p>
+  <div class="hbtns">
+    <a href="#intro" class="btn ba">Start from Zero →</a>
+    <a href="#tree" class="btn bg2">See Classification</a>
+  </div>
+  <div class="hstats">
+    <div class="hstat"><div class="hstat-n" data-count="7">0</div><div class="hstat-l">core topics</div></div>
+    <div class="hstat"><div class="hstat-n" data-count="12">0</div><div class="hstat-l">data structures</div></div>
+    <div class="hstat"><div class="hstat-n" data-count="5">0</div><div class="hstat-l">complexity types</div></div>
+  </div>
+
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span><b>Array</b> → O(1) access</span><span><b>Stack</b> → LIFO</span><span><b>Queue</b> → FIFO</span>
+      <span><b>Linked List</b> → O(1) insert</span><span><b>BST</b> → O(log n) search</span>
+      <span><b>Hash Table</b> → O(1) lookup</span><span><b>Graph</b> → BFS / DFS</span>
+      <span><b>Heap</b> → Priority Queue</span><span><b>Big O</b> → Worst Case</span>
+      <span><b>Theta</b> → Average Case</span><span><b>Omega</b> → Best Case</span>
+      <!-- duplicate for seamless loop -->
+      <span><b>Array</b> → O(1) access</span><span><b>Stack</b> → LIFO</span><span><b>Queue</b> → FIFO</span>
+      <span><b>Linked List</b> → O(1) insert</span><span><b>BST</b> → O(log n) search</span>
+      <span><b>Hash Table</b> → O(1) lookup</span><span><b>Graph</b> → BFS / DFS</span>
+      <span><b>Heap</b> → Priority Queue</span><span><b>Big O</b> → Worst Case</span>
+      <span><b>Theta</b> → Average Case</span><span><b>Omega</b> → Best Case</span>
+    </div>
+  </div>
+</section>
+<div class="stripe"></div>
+
+<!-- ===== SECTION 1: WHAT IS DSA ===== -->
+<section id="intro">
+<div class="wrap">
+  <div class="sec-pill sp-a">01 — WHAT IS DSA</div>
+  <h2 class="stitle">Data Structures &<br>Algorithms — Defined</h2>
+  <p class="ssub">Two separate ideas that work together. Master both and no coding problem will ever intimidate you.</p>
+
+  <div class="ctrio">
+    <div class="cc cc-a">
+      <div class="cc-ico">🗃️</div>
+      <h3>Data Structure</h3>
+      <p>A <strong>way of organizing data in memory</strong> so it can be stored, accessed, and modified efficiently. It answers: <em>"Where does this data live, and how do I find it fast?"</em></p>
+      <div class="analogy">
+        <span class="alabel">// REAL-WORLD ANALOGY</span>
+        A hospital organizes patients by ward (ICU, General, Pediatric). Finding a patient in the correct ward takes seconds. Searching through all rooms randomly = chaos. Same data, totally different structure = totally different speed.
+      </div>
+    </div>
+
+    <div class="cc cc-p">
+      <div class="cc-ico">⚙️</div>
+      <h3>Algorithm</h3>
+      <p>A <strong>step-by-step recipe to solve a problem</strong>. No vagueness. No "it depends". Just clear, executable instructions that always produce the right answer.</p>
+      <div class="analogy">
+        <span class="alabel">// REAL-WORLD ANALOGY</span>
+        Google Maps finding the shortest route is an algorithm — Dijkstra's. It doesn't guess. It has a precise set of rules it follows every single time, guaranteed to find the optimal path.
+      </div>
+    </div>
+
+    <div class="cc cc-c">
+      <div class="cc-ico">🔗</div>
+      <h3>Why DSA Together?</h3>
+      <p>The <strong>data structure you choose determines which algorithms work fast</strong> on it. A binary search only works on sorted arrays. A BFS needs a graph. They're inseparable in practice.</p>
+      <div class="analogy">
+        <span class="alabel">// THINK OF IT LIKE</span>
+        A chef (algorithm) needs the right kitchen (data structure). A Michelin-star chef in a campfire kitchen can't perform. Right tools + right process = magic.
+      </div>
+    </div>
+  </div>
+
+  <!-- Why it matters -->
+  <div style="margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div style="background:var(--card);border-radius:18px;padding:28px;border:1px solid var(--b)">
+      <div style="font-size:1.8rem;margin-bottom:12px">🎯</div>
+      <h4 style="font-family:'Lexend',sans-serif;font-weight:700;margin-bottom:10px">Why You MUST Learn DSA</h4>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="font-size:.87rem;display:flex;gap:10px;align-items:flex-start"><span style="color:var(--amber);font-size:1.1rem;line-height:1.5">›</span><span style="color:var(--muted2)"><strong style="color:var(--text)">FAANG interviews</strong> are almost entirely DSA questions</span></div>
+        <div style="font-size:.87rem;display:flex;gap:10px;align-items:flex-start"><span style="color:var(--amber);font-size:1.1rem;line-height:1.5">›</span><span style="color:var(--muted2)"><strong style="color:var(--text)">Real systems</strong> — Instagram, Google Search — are built on these exact structures</span></div>
+        <div style="font-size:.87rem;display:flex;gap:10px;align-items:flex-start"><span style="color:var(--amber);font-size:1.1rem;line-height:1.5">›</span><span style="color:var(--muted2)">Makes you think in <strong style="color:var(--text)">efficiency</strong>, not just correctness</span></div>
+        <div style="font-size:.87rem;display:flex;gap:10px;align-items:flex-start"><span style="color:var(--amber);font-size:1.1rem;line-height:1.5">›</span><span style="color:var(--muted2)">The difference between code that handles <strong style="color:var(--text)">10 users vs 10 million</strong></span></div>
+      </div>
+    </div>
+    <div style="background:var(--card);border-radius:18px;padding:28px;border:1px solid var(--b)">
+      <div style="font-size:1.8rem;margin-bottom:12px">🐍</div>
+      <h4 style="font-family:'Lexend',sans-serif;font-weight:700;margin-bottom:12px">Python for DSA</h4>
+      <div class="cb" style="margin-top:0">
+<span class="cm"># Python has DSA built-in</span>
+nums  = [<span class="nu">1</span>,<span class="nu">2</span>,<span class="nu">3</span>]       <span class="cm"># Array/List</span>
+stack = []             <span class="cm"># Stack (list)</span>
+d     = {<span class="st">"a"</span>:<span class="nu">1</span>}       <span class="cm"># Hash Map</span>
+s     = {<span class="nu">1</span>,<span class="nu">2</span>,<span class="nu">3</span>}       <span class="cm"># Set</span>
+<span class="kw">from</span> collections <span class="kw">import</span> deque
+q = deque()            <span class="cm"># Queue</span></div>
+    </div>
+  </div>
+</div>
+</section>
+<div class="stripe"></div>
+
+<!-- ===== SECTION 2: CLASSIFICATION TREE ===== -->
+<section id="tree" class="alt">
+<div class="wrap">
+  <div class="sec-pill sp-p">02 — CLASSIFICATION</div>
+  <h2 class="stitle">Full DSA Family Tree</h2>
+  <p class="ssub">Every data structure has a place in this hierarchy. Hover any node for a quick explanation + Python example.</p>
+
+  <div class="tree-outer" id="treeOuter">
+    <!-- SVG for connector lines — drawn by JS -->
+    <svg class="conn-svg" id="connSvg"></svg>
+
+    <div class="tree-rows" id="treeRows">
+
+      <!-- Row 0: Root -->
+      <div class="tree-row" id="tr0">
+        <div class="tnode tnode-root" id="tn-root">
+          📦 Data Structures
+          <div class="ttip">The umbrella term for all ways of organizing data. Every structure below has a specific strength. Python supports all of them either built-in or via custom classes.</div>
+        </div>
+      </div>
+
+      <div class="tree-vgap"></div>
+
+      <!-- Row 1: Primitive | Non-Primitive -->
+      <div class="tree-row" style="gap:80px" id="tr1">
+        <div class="tnode tnode-l1 tnp" id="tn-prim">
+          🟢 Primitive
+          <div class="ttip">Directly hold a single, simple value in memory. They are the building blocks — no references, no collections. Python's basic types.<br><code>x = 42 &nbsp;&nbsp;# integer</code></div>
+        </div>
+        <div class="tnode tnode-l1 tnnp" id="tn-nonp">
+          🔴 Non-Primitive
+          <div class="ttip">Store collections of values or references to other structures. Built from primitive types combined together. Far more powerful and flexible.<br><code>arr = [1,2,3]  # list</code></div>
+        </div>
+      </div>
+
+      <div class="tree-vgap"></div>
+
+      <!-- Row 2: Leaves of Primitive + Linear/Non-Linear -->
+      <div class="tree-row" style="gap:40px;align-items:flex-start" id="tr2">
+
+        <!-- Primitive leaves -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px" id="prim-leaves">
+          <div class="leaf-row">
+            <div class="tnode tnode-leaf" id="tn-int">int<div class="ttip">Integer: whole numbers.<br>Range: unlimited in Python.<br><code>age = 25</code></div></div>
+            <div class="tnode tnode-leaf" id="tn-float">float<div class="ttip">Decimal numbers.<br>64-bit precision.<br><code>pi = 3.14159</code></div></div>
+            <div class="tnode tnode-leaf" id="tn-bool">bool<div class="ttip">True or False. That's it.<br>Used in every if-statement.<br><code>flag = True</code></div></div>
+            <div class="tnode tnode-leaf" id="tn-char">str*<div class="ttip">Python has no char type.<br>Use single-char string instead.<br><code>c = "A"</code></div></div>
+            <div class="tnode tnode-leaf" id="tn-none">None<div class="ttip">Python's null value.<br>Represents "no value".<br><code>result = None</code></div></div>
+          </div>
+        </div>
+
+        <!-- Spacer -->
+        <div style="width:60px;flex-shrink:0"></div>
+
+        <!-- Non-Primitive branches: Linear + Non-Linear -->
+        <div style="display:flex;flex-direction:column;align-items:center;gap:0" id="nonp-tree">
+          <div style="display:flex;gap:60px" id="tr3">
+            <div class="tnode tnode-l1 tnlin" id="tn-lin">
+              📏 Linear
+              <div class="ttip">Elements arranged <strong>sequentially</strong>. One after another. Easy to traverse from start to end. Think of a queue at a coffee shop — everyone in a line.<br><code>stack = [1,2,3]</code></div>
+            </div>
+            <div class="tnode tnode-l1 tnnl" id="tn-nonlin">
+              🌐 Non-Linear
+              <div class="ttip">Elements arranged in <strong>hierarchical or connected networks</strong>. Not a simple line — could be a tree shape or a web. Think of a company org chart.<br><code># Tree, Graph</code></div>
+            </div>
+          </div>
+
+          <div class="tree-vgap" style="height:36px"></div>
+
+          <div style="display:flex;gap:40px;align-items:flex-start" id="tr4">
+            <!-- Linear leaves -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px" id="lin-leaves">
+              <div class="leaf-row">
+                <div class="tnode tnode-leaf">Array<div class="ttip">Fixed-size indexed collection. O(1) access by index. Python: <code>list</code><br><code>a = [1,2,3,4]</code></div></div>
+                <div class="tnode tnode-leaf">Stack<div class="ttip">LIFO — Last In First Out. Like a stack of plates. Push/Pop. Python: <code>list.append/pop</code></div></div>
+                <div class="tnode tnode-leaf">Queue<div class="ttip">FIFO — First In First Out. Like a line at a shop. Python: <code>collections.deque</code></div></div>
+                <div class="tnode tnode-leaf">Linked List<div class="ttip">Nodes pointing to next node. O(1) insert at head. No random access. Python: custom class.</div></div>
+              </div>
+            </div>
+            <!-- Non-linear leaves -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px" id="nlin-leaves">
+              <div class="leaf-row">
+                <div class="tnode tnode-leaf">Tree<div class="ttip">Hierarchical node structure. Root → children → leaves. BST gives O(log n) search. Python: custom class.</div></div>
+                <div class="tnode tnode-leaf">Graph<div class="ttip">Nodes + edges — any connections. Used in maps, social networks. Python: <code>dict of lists</code> (adjacency list).</div></div>
+                <div class="tnode tnode-leaf">Heap<div class="ttip">Complete binary tree. Min-heap: parent ≤ children. Python: <code>heapq</code> module. O(log n) insert.</div></div>
+                <div class="tnode tnode-leaf">Hash Table<div class="ttip">Key → hash → bucket. O(1) average access. Python's <code>dict</code> IS a hash table under the hood.</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end tr2 -->
+    </div><!-- end tree-rows -->
+  </div><!-- end tree-outer -->
+
+  <!-- Also: Static vs Dynamic note -->
+  <div style="margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div style="background:var(--card);border-radius:16px;padding:24px;border:1px solid var(--b);border-left:3px solid var(--cyan)">
+      <h4 style="font-family:'Lexend',sans-serif;font-weight:700;margin-bottom:8px;color:var(--cyan)">📌 Static Structures</h4>
+      <p style="font-size:.87rem;color:var(--muted2)">Fixed size decided at creation time. Memory allocated once, never resized. <strong style="color:var(--text)">Faster</strong>, but inflexible. Example: C arrays, Python <code style="color:var(--cyan)">tuple</code>.</p>
+    </div>
+    <div style="background:var(--card);border-radius:16px;padding:24px;border:1px solid var(--b);border-left:3px solid var(--amber)">
+      <h4 style="font-family:'Lexend',sans-serif;font-weight:700;margin-bottom:8px;color:var(--amber)">📌 Dynamic Structures</h4>
+      <p style="font-size:.87rem;color:var(--muted2)">Grow and shrink as needed at runtime. Memory managed automatically. <strong style="color:var(--text)">Flexible</strong>, slightly more overhead. Example: Python <code style="color:var(--amber)">list</code>, <code style="color:var(--amber)">dict</code>.</p>
+    </div>
+  </div>
+</div>
+</section>
+<div class="stripe"></div>
+
+<!-- ===== SECTION 3: PRIMITIVE vs NON-PRIMITIVE ===== -->
+<section id="pnp">
+<div class="wrap">
+  <div class="sec-pill sp-g">03 — PRIMITIVE vs NON-PRIMITIVE</div>
+  <h2 class="stitle">Breaking Down the<br>Two Families</h2>
+  <p class="ssub">Understanding this split is the foundation of how you'll think about data in every program you write.</p>
+
+  <div class="pnp-grid">
+    <div class="pnp-card pnp-prim">
+      <div class="pnp-bar"></div>
+      <div class="pnp-header">
+        <span class="pnp-ico">🟢</span>
+        <div class="pnp-htxt">
+          <h3>Primitive</h3>
+          <p>Directly stored · Single value · Fixed size</p>
+        </div>
+      </div>
+      <div class="mem-visual">
+        <div class="mem-label">MEMORY — DIRECT VALUE STORAGE</div>
+        <div class="mem-boxes">
+          <div class="mem-box mb-g" style="min-width:80px"><div style="font-size:.65rem;opacity:.6">addr 0x01</div>42</div>
+          <div class="mem-box mb-g" style="min-width:80px"><div style="font-size:.65rem;opacity:.6">addr 0x02</div>3.14</div>
+          <div class="mem-box mb-g" style="min-width:80px"><div style="font-size:.65rem;opacity:.6">addr 0x03</div>True</div>
+        </div>
+      </div>
+      <div class="pnp-list">
+        <div class="pnp-li"><strong>int</strong> <span>— Whole numbers. <code style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--green)">x = 42</code></span></div>
+        <div class="pnp-li"><strong>float</strong> <span>— Decimal numbers. <code style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--green)">pi = 3.14</code></span></div>
+        <div class="pnp-li"><strong>bool</strong> <span>— True/False only. <code style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--green)">flag = True</code></span></div>
+        <div class="pnp-li"><strong>str (single char)</strong> <span>— Python uses string for char. <code style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--green)">c = "A"</code></span></div>
+        <div class="pnp-li"><strong>complex</strong> <span>— Complex numbers. <code style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--green)">z = 2+3j</code></span></div>
+      </div>
+      <span class="py-chip pyc-g">Python built-in types</span>
+    </div>
+
+    <div class="pnp-card pnp-nonp">
+      <div class="pnp-bar"></div>
+      <div class="pnp-header">
+        <span class="pnp-ico">🔴</span>
+        <div class="pnp-htxt">
+          <h3>Non-Primitive</h3>
+          <p>Reference-based · Multiple values · Dynamic</p>
+        </div>
+      </div>
+      <div class="mem-visual">
+        <div class="mem-label">MEMORY — REFERENCE → ACTUAL DATA</div>
+        <div class="mem-boxes">
+          <div class="mem-box mb-p" style="min-width:90px"><div style="font-size:.65rem;opacity:.6">variable</div>ref 0xAF</div>
+          <span style="color:var(--muted);align-self:center">→</span>
+          <div class="mem-box mb-ref" style="min-width:130px"><div style="font-size:.65rem;opacity:.6">heap addr 0xAF</div>[1, 2, 3, 4]</div>
+        </div>
+      </div>
+      <div class="pnp-list">
+        <div class="pnp-li"><strong>List [ ]</strong> <span>— Ordered, mutable. <code style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--pink)">a = [1,2,3]</code></span></div>
+        <div class="pnp-li"><strong>Tuple ( )</strong> <span>— Ordered, immutable. <code style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--pink)">t = (1,2,3)</code></span></div>
+        <div class="pnp-li"><strong>Dict { }</strong> <span>— Key-value pairs. <code style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--pink)">d = {"a":1}</code></span></div>
+        <div class="pnp-li"><strong>Set { }</strong> <span>— Unique values. <code style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--pink)">s = {1,2,3}</code></span></div>
+        <div class="pnp-li"><strong>Custom (class)</strong> <span>— Stack, Tree, Graph, Linked List — you build these.</span></div>
+      </div>
+      <span class="py-chip pyc-p">Linear + Non-Linear</span>
+    </div>
+  </div>
+
+  <!-- Linear / Non-linear cards -->
+  <div style="margin-top:52px">
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px">
+      <div class="sec-pill sp-c" style="margin-bottom:0">LINEAR STRUCTURES</div>
+      <div style="flex:1;height:1px;background:var(--b)"></div>
+    </div>
+    <div class="ds-grid">
+      <div class="ds-card dc-lin">
+        <div class="ds-icon">📐</div>
+        <h4>Array / List</h4>
+        <p>Numbered boxes in a row. Access any box instantly using its index number.</p>
+        <div class="ds-vis">
+          <div class="dv-box dv-c">0</div><div class="dv-arr">→</div>
+          <div class="dv-box dv-c">1</div><div class="dv-arr">→</div>
+          <div class="dv-box dv-c">2</div><div class="dv-arr">→</div>
+          <div class="dv-box dv-c">3</div>
+        </div>
+        <div class="ds-tag dt-lin">O(1) access · O(n) search</div>
+        <div class="cb" style="margin-top:12px;padding:12px">
+<span class="kw">a</span> = [<span class="nu">10</span>,<span class="nu">20</span>,<span class="nu">30</span>]
+<span class="fn">print</span>(a[<span class="nu">1</span>]) <span class="cm"># → 20</span></div>
+      </div>
+
+      <div class="ds-card dc-lin">
+        <div class="ds-icon">🥞</div>
+        <h4>Stack</h4>
+        <p>LIFO — Last In, First Out. Like a stack of plates. Add on top, remove from top.</p>
+        <div class="ds-vis" style="flex-direction:column;align-items:flex-start;gap:4px">
+          <div class="dv-box dv-c" style="width:90px">← TOP</div>
+          <div class="dv-box dv-c" style="width:90px"></div>
+          <div class="dv-box dv-c" style="width:90px">BOTTOM</div>
+        </div>
+        <div class="ds-tag dt-lin">push O(1) · pop O(1)</div>
+        <div class="cb" style="margin-top:12px;padding:12px">
+s = []
+s.append(<span class="nu">5</span>)  <span class="cm"># push</span>
+s.pop()    <span class="cm"># → 5</span></div>
+      </div>
+
+      <div class="ds-card dc-lin">
+        <div class="ds-icon">🎫</div>
+        <h4>Queue</h4>
+        <p>FIFO — First In, First Out. Like a line at a ticket counter. Enter at back, exit at front.</p>
+        <div class="ds-vis">
+          <div class="dv-box dv-c" style="font-size:.6rem">FRONT</div>
+          <div class="dv-arr">→</div>
+          <div class="dv-box dv-c"></div>
+          <div class="dv-arr">→</div>
+          <div class="dv-box dv-c" style="font-size:.6rem">BACK</div>
+        </div>
+        <div class="ds-tag dt-lin">enqueue O(1) · dequeue O(1)</div>
+        <div class="cb" style="margin-top:12px;padding:12px">
+<span class="kw">from</span> collections <span class="kw">import</span> deque
+q = deque()
+q.append(<span class="nu">1</span>); q.popleft()</div>
+      </div>
+
+      <div class="ds-card dc-lin">
+        <div class="ds-icon">🔗</div>
+        <h4>Linked List</h4>
+        <p>Nodes that point to the next node. No fixed size. O(1) insert at head — no shifting needed.</p>
+        <div class="ds-vis">
+          <div class="dv-box dv-c">A</div><div class="dv-arr">→</div>
+          <div class="dv-box dv-c">B</div><div class="dv-arr">→</div>
+          <div class="dv-box dv-c">C</div><div class="dv-arr">→</div>
+          <div class="dv-box dv-c" style="font-size:.6rem">None</div>
+        </div>
+        <div class="ds-tag dt-lin">insert O(1) · search O(n)</div>
+        <div class="cb" style="margin-top:12px;padding:12px">
+<span class="kw">class</span> <span class="fn">Node</span>:
+  <span class="kw">def</span> <span class="fn">__init__</span>(self, val):
+    self.val = val
+    self.next = <span class="kw">None</span></div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:16px;margin:40px 0 28px">
+      <div class="sec-pill sp-pu" style="margin-bottom:0">NON-LINEAR STRUCTURES</div>
+      <div style="flex:1;height:1px;background:var(--b)"></div>
+    </div>
+
+    <div class="ds-grid">
+      <div class="ds-card dc-nlin">
+        <div class="ds-icon">🌲</div>
+        <h4>Binary Search Tree</h4>
+        <p>Hierarchical. Left child &lt; parent &lt; right child. O(log n) search — cuts search space in half each step.</p>
+        <div class="ds-vis" style="flex-direction:column;align-items:center;gap:4px">
+          <div class="dv-box dv-p" style="width:40px">10</div>
+          <div style="display:flex;gap:24px">
+            <div class="dv-box dv-p" style="width:40px">5</div>
+            <div class="dv-box dv-p" style="width:40px">15</div>
+          </div>
+        </div>
+        <div class="ds-tag dt-nlin">search O(log n) · avg</div>
+      </div>
+
+      <div class="ds-card dc-nlin">
+        <div class="ds-icon">🕸️</div>
+        <h4>Graph</h4>
+        <p>Nodes (vertices) connected by edges. The most general structure — everything from maps to social networks.</p>
+        <div class="ds-vis">
+          <div class="dv-box dv-p">A</div>
+          <div style="display:flex;flex-direction:column;gap:4px;align-items:center">
+            <div class="dv-arr" style="transform:rotate(-45deg)">→</div>
+            <div class="dv-arr" style="transform:rotate(45deg)">→</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="dv-box dv-p">B</div>
+            <div class="dv-box dv-p">C</div>
+          </div>
+        </div>
+        <div class="ds-tag dt-nlin">BFS O(V+E) · DFS O(V+E)</div>
+        <div class="cb" style="margin-top:12px;padding:12px">
+g = {<span class="st">"A"</span>:[<span class="st">"B"</span>,<span class="st">"C"</span>],
+     <span class="st">"B"</span>:[<span class="st">"D"</span>]}</div>
+      </div>
+
+      <div class="ds-card dc-nlin">
+        <div class="ds-icon">⛰️</div>
+        <h4>Heap</h4>
+        <p>Complete binary tree. Min-heap: smallest element always at the top. Perfect for priority queues.</p>
+        <div class="ds-vis" style="flex-direction:column;align-items:center;gap:4px">
+          <div class="dv-box dv-p" style="width:40px;background:rgba(255,79,139,.18)">1</div>
+          <div style="display:flex;gap:16px">
+            <div class="dv-box dv-p" style="width:40px">3</div>
+            <div class="dv-box dv-p" style="width:40px">5</div>
+          </div>
+        </div>
+        <div class="ds-tag dt-nlin">push O(log n) · peek O(1)</div>
+        <div class="cb" style="margin-top:12px;padding:12px">
+<span class="kw">import</span> heapq
+h = []; heapq.heappush(h,<span class="nu">3</span>)
+heapq.heappop(h) <span class="cm"># → 3</span></div>
+      </div>
+
+      <div class="ds-card dc-nlin">
+        <div class="ds-icon">🗄️</div>
+        <h4>Hash Table</h4>
+        <p>key → hash function → bucket index. Average O(1) for get/set/delete. Python's dict is a hash table.</p>
+        <div class="ds-vis">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--purple)">"name"</div>
+          <div class="dv-arr">→</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted)">hash()</div>
+          <div class="dv-arr">→</div>
+          <div class="dv-box dv-p">idx</div>
+        </div>
+        <div class="ds-tag dt-nlin">get/set/del O(1) avg</div>
+        <div class="cb" style="margin-top:12px;padding:12px">
+d = {<span class="st">"name"</span>:<span class="st">"Alice"</span>}
+d[<span class="st">"name"</span>] <span class="cm"># → "Alice" O(1)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<div class="stripe"></div>
+
+<!-- ===== SECTION 4: COMPLEXITY ===== -->
+<section id="complexity" class="alt">
+<div class="wrap">
+  <div class="sec-pill sp-p">04 — COMPLEXITY ANALYSIS</div>
+  <h2 class="stitle">Time & Space<br>Complexity</h2>
+  <p class="ssub">This is how you measure how good your code actually is. Not by how it runs today — but how it scales tomorrow.</p>
+
+  <!-- Two kinds -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:48px">
+    <div style="background:var(--card);border-radius:18px;padding:28px;border:1px solid var(--b);border-left:4px solid var(--cyan)">
+      <div style="font-size:2rem;margin-bottom:12px">⏱️</div>
+      <h4 style="font-family:'Lexend',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:8px">Time Complexity</h4>
+      <p style="font-size:.88rem;color:var(--muted2);margin-bottom:12px">How many <strong style="color:var(--text)">steps/operations</strong> your algorithm takes as input size grows. Not actual seconds — the <em>pattern of growth</em>.</p>
+      <div style="background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.2);border-radius:10px;padding:12px;font-size:.83rem;color:var(--muted2)">
+        Find one name in a list of 1 million? O(n) means 1M checks. O(log n) means only 20. Same result, wildly different cost.
+      </div>
+    </div>
+    <div style="background:var(--card);border-radius:18px;padding:28px;border:1px solid var(--b);border-left:4px solid var(--purple)">
+      <div style="font-size:2rem;margin-bottom:12px">💾</div>
+      <h4 style="font-family:'Lexend',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:8px">Space Complexity</h4>
+      <p style="font-size:.88rem;color:var(--muted2);margin-bottom:12px">How much <strong style="color:var(--text)">extra memory</strong> your algorithm needs. Sometimes you can trade memory for speed — that's an art.</p>
+      <div style="background:rgba(192,132,252,.06);border:1px solid rgba(192,132,252,.2);border-radius:10px;padding:12px;font-size:.83rem;color:var(--muted2)">
+        Caching search results = faster app but uses RAM. O(n) space means you store one extra thing per input element.
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 Notations -->
+  <div style="margin-bottom:40px">
+    <div style="font-family:'Lexend',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:20px">The Three Notations — Three Ways to Describe an Algorithm</div>
+    <div class="notations">
+      <div class="ncard nc-o">
+        <div class="nsym">O</div>
+        <h3>Big O — Worst Case</h3>
+        <p>The <strong>ceiling</strong> — your algorithm can never run slower than this. The most important one. What engineers talk about in interviews.</p>
+        <div class="nbadge">Upper Bound</div>
+      </div>
+      <div class="ncard nc-w">
+        <div class="nsym">Ω</div>
+        <h3>Omega — Best Case</h3>
+        <p>The <strong>floor</strong> — the absolute fastest your algorithm could run. Usually the lucky scenario (e.g., element found at index 0).</p>
+        <div class="nbadge">Lower Bound</div>
+      </div>
+      <div class="ncard nc-t">
+        <div class="nsym">Θ</div>
+        <h3>Theta — Tight Bound</h3>
+        <p>When <strong>best and worst match</strong>. The algorithm always performs in this range regardless of input. The most honest description.</p>
+        <div class="nbadge">Exact Bound</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Canvas chart -->
+  <div class="chart-wrap">
+    <div class="chart-hdr">
+      <span>Complexity Growth — as input size increases</span>
+      <span class="chart-sub">x-axis = n (input size) · y-axis = operations</span>
+    </div>
+    <canvas id="cChart"></canvas>
+    <div class="clegend">
+      <div class="cleg"><div class="cleg-dot" style="background:#00ff99"></div>O(1) Constant</div>
+      <div class="cleg"><div class="cleg-dot" style="background:#00e5ff"></div>O(log n)</div>
+      <div class="cleg"><div class="cleg-dot" style="background:#c084fc"></div>O(n) Linear</div>
+      <div class="cleg"><div class="cleg-dot" style="background:#ffaa00"></div>O(n log n)</div>
+      <div class="cleg"><div class="cleg-dot" style="background:#ff4f8b"></div>O(n²) Quadratic</div>
+      <div class="cleg"><div class="cleg-dot" style="background:#ff3030"></div>O(2ⁿ) Exponential</div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <h3 style="font-family:'Lexend',sans-serif;font-weight:700;font-size:1.1rem;margin-bottom:18px">Quick Reference — Common Complexities</h3>
+  <div style="background:var(--card);border:1px solid var(--b);border-radius:18px;overflow:hidden">
+  <table class="ctable">
+    <thead><tr><th>Notation</th><th>Name</th><th>Speed</th><th>Python Example</th><th>When You See It</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>O(1)</td><td>Constant</td>
+        <td><div class="spd"><div class="dot-s" style="background:#00ff99"></div><span style="color:#00ff99;font-size:.8rem">Instant</span></div></td>
+        <td>dict["key"], list[0]</td><td>Hash lookups, array index access</td>
+      </tr>
+      <tr>
+        <td>O(log n)</td><td>Logarithmic</td>
+        <td><div class="spd"><div class="dot-s" style="background:#00e5ff"></div><span style="color:#00e5ff;font-size:.8rem">Excellent</span></div></td>
+        <td>binary search</td><td>Halving the search space each step</td>
+      </tr>
+      <tr>
+        <td>O(n)</td><td>Linear</td>
+        <td><div class="spd"><div class="dot-s" style="background:#c084fc"></div><span style="color:#c084fc;font-size:.8rem">Good</span></div></td>
+        <td>for x in list</td><td>Visiting every element once</td>
+      </tr>
+      <tr>
+        <td>O(n log n)</td><td>Linearithmic</td>
+        <td><div class="spd"><div class="dot-s" style="background:#ffaa00"></div><span style="color:#ffaa00;font-size:.8rem">Acceptable</span></div></td>
+        <td>sorted(), merge sort</td><td>Efficient sorting algorithms</td>
+      </tr>
+      <tr>
+        <td>O(n²)</td><td>Quadratic</td>
+        <td><div class="spd"><div class="dot-s" style="background:#ff4f8b"></div><span style="color:#ff4f8b;font-size:.8rem">Slow</span></div></td>
+        <td>nested for loops</td><td>Comparing every pair of elements</td>
+      </tr>
+      <tr>
+        <td>O(2ⁿ)</td><td>Exponential</td>
+        <td><div class="spd"><div class="dot-s" style="background:#ff3030"></div><span style="color:#ff3030;font-size:.8rem">Dangerous</span></div></td>
+        <td>naive recursion</td><td>Brute-force, some recursive problems</td>
+      </tr>
+      <tr>
+        <td>O(n!)</td><td>Factorial</td>
+        <td><div class="spd"><div class="dot-s" style="background:#ff0000"></div><span style="color:#ff0000;font-size:.8rem">Unusable</span></div></td>
+        <td>permutations()</td><td>Generating all arrangements of n items</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- Code example -->
+  <div style="margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);margin-bottom:8px;letter-spacing:.06em">O(1) — CONSTANT · ALWAYS FAST</div>
+      <div class="cb">
+<span class="cm"># Same cost regardless of list size</span>
+nums = [<span class="nu">1</span>,<span class="nu">2</span>,<span class="nu">3</span>,<span class="nu">4</span>,<span class="nu">5</span>]
+
+<span class="cm"># O(1) — instant, always</span>
+first = nums[<span class="nu">0</span>]        <span class="cm"># index access</span>
+last  = nums[-<span class="nu">1</span>]       <span class="cm"># last element</span>
+length = len(nums)      <span class="cm"># built-in len</span>
+
+nums.append(<span class="nu">6</span>)         <span class="cm"># O(1) add end</span></div>
+    </div>
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);margin-bottom:8px;letter-spacing:.06em">O(n) vs O(n²) — SEE THE DIFFERENCE</div>
+      <div class="cb">
+<span class="cm"># O(n) — one loop, linear</span>
+<span class="kw">for</span> x <span class="kw">in</span> nums:
+    <span class="fn">print</span>(x)         <span class="cm"># visits n times</span>
+
+<span class="cm"># O(n²) — nested loops, quadratic</span>
+<span class="kw">for</span> i <span class="kw">in</span> nums:
+    <span class="kw">for</span> j <span class="kw">in</span> nums:    <span class="cm"># n × n = n²</span>
+        <span class="fn">print</span>(i,j)   <span class="cm"># AVOID on big data</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <span class="fe">⚡</span>
+  <h3>You now know the <span>backbone of programming.</span></h3>
+  <p>DSA is the difference between writing code and writing fast code.</p>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const p=window.scrollY/(document.body.scrollHeight-window.innerHeight);
+  document.getElementById('pgbar').style.width=(p*100)+'%';
+});
+
+// Intersection Observer — general
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
+},{threshold:0.1});
+document.querySelectorAll('.cc,.pnp-card,.ncard,.ds-card,.env-card').forEach(el=>obs.observe(el));
+
+// Staggered delays
+document.querySelectorAll('.cc').forEach((el,i)=>el.style.animationDelay=(i*.09)+'s');
+document.querySelectorAll('.ds-card').forEach((el,i)=>el.style.animationDelay=(i*.07)+'s');
+document.querySelectorAll('.ncard').forEach((el,i)=>el.style.animationDelay=(i*.12)+'s');
+
+// Tree animate
+const treeObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting) animTree();
+},{threshold:0.15});
+treeObs.observe(document.getElementById('treeOuter'));
+
+function animTree(){
+  const els=document.querySelectorAll('.tnode,.leaf-row,.tree-vgap');
+  els.forEach((el,i)=>{
+    setTimeout(()=>el.classList.add('tvis'),i*55);
+  });
+  setTimeout(drawConnectors,400);
+}
+
+// Counter animation
+function animCount(el){
+  const target=parseInt(el.dataset.count);
+  let cur=0;const inc=target/60;
+  const t=setInterval(()=>{cur+=inc;if(cur>=target){cur=target;clearInterval(t)}
+    el.textContent=Math.floor(cur);
+  },18);
+}
+const cntObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){animCount(e.target);cntObs.unobserve(e.target)}});
+},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>cntObs.observe(el));
+
+// PNP bar animate
+const pnpObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('vis');
+      const bar=e.target.querySelector('.pnp-bar');
+      if(bar)setTimeout(()=>bar.style.transform='scaleX(1)',300);
+    }
+  });
+},{threshold:.2});
+document.querySelectorAll('.pnp-card').forEach(el=>pnpObs.observe(el));
+
+// ===== CANVAS CHART =====
+const chartObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){drawChart();chartObs.disconnect();}
+},{threshold:.3});
+chartObs.observe(document.getElementById('cChart'));
+
+function drawChart(){
+  const canvas=document.getElementById('cChart');
+  const W=canvas.parentElement.clientWidth-64;
+  const H=220;
+  canvas.width=W;canvas.height=H;
+  const ctx=canvas.getContext('2d');
+  const pad={t:10,r:20,b:34,l:46};
+  const cw=W-pad.l-pad.r,ch=H-pad.t-pad.b;
+  const N=28;const maxY=180;
+
+  function drawGrid(){
+    ctx.strokeStyle='rgba(255,255,255,0.045)';ctx.lineWidth=1;
+    [0,.25,.5,.75,1].forEach(f=>{const y=pad.t+ch*(1-f);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke()});
+    ctx.fillStyle='rgba(100,100,150,.8)';ctx.font='10px JetBrains Mono';ctx.textAlign='right';
+    [0,50,100,150].forEach(v=>{const y=pad.t+ch*(1-v/maxY);ctx.fillText(v,pad.l-6,y+4)});
+    ctx.textAlign='center';
+    [0,7,14,21,28].forEach(v=>{ctx.fillText(v===0?'0':'n='+v,pad.l+cw*(v/N),H-pad.b+18)});
+  }
+
+  const curves=[
+    {fn:n=>1,           color:'#00ff99'},
+    {fn:n=>Math.log2(n+1)*7, color:'#00e5ff'},
+    {fn:n=>n*5.5,       color:'#c084fc'},
+    {fn:n=>n*Math.log2(n+1)*1.5, color:'#ffaa00'},
+    {fn:n=>n*n*.22,     color:'#ff4f8b'},
+    {fn:n=>Math.min(Math.pow(2,n*.45)*0.5,maxY), color:'#ff3030'},
+  ];
+
+  let start=null;
+  function frame(ts){
+    if(!start)start=ts;
+    const prog=Math.min((ts-start)/1400,1);
+    ctx.clearRect(0,0,W,H);
+    drawGrid();
+    curves.forEach(c=>{
+      const pts=[];
+      for(let i=0;i<=Math.floor(prog*N);i++){
+        const x=pad.l+cw*(i/N);
+        const raw=Math.min(c.fn(i),maxY);
+        const y=pad.t+ch*(1-raw/maxY);
+        pts.push([x,y]);
+      }
+      if(pts.length<2)return;
+      ctx.beginPath();ctx.moveTo(pts[0][0],pts[0][1]);
+      pts.forEach(p=>ctx.lineTo(p[0],p[1]));
+      ctx.strokeStyle=c.color;ctx.lineWidth=2.2;ctx.lineJoin='round';
+      ctx.shadowColor=c.color;ctx.shadowBlur=5;ctx.stroke();ctx.shadowBlur=0;
+    });
+    if(prog<1)requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+// ===== TREE SVG CONNECTORS =====
+function drawConnectors(){
+  const svg=document.getElementById('connSvg');
+  const outer=document.getElementById('treeOuter');
+  const ob=outer.getBoundingClientRect();
+  svg.setAttribute('viewBox',`0 0 ${outer.clientWidth} ${outer.clientHeight}`);
+
+  function rel(el){
+    const r=el.getBoundingClientRect();
+    return{
+      x:r.left-ob.left+r.width/2,
+      y:r.top-ob.top+r.height/2,
+      bottom:r.top-ob.top+r.height,
+      top:r.top-ob.top
+    };
+  }
+
+  function line(x1,y1,x2,y2,color='rgba(255,170,0,.3)'){
+    const p=document.createElementNS('http://www.w3.org/2000/svg','path');
+    const mx=x1,my=(y1+y2)/2;
+    p.setAttribute('d',`M${x1},${y1} C${mx},${my} ${x2},${my} ${x2},${y2}`);
+    p.setAttribute('stroke',color);p.setAttribute('stroke-width','1.5');
+    p.setAttribute('fill','none');p.setAttribute('stroke-dasharray','4,3');
+    p.setAttribute('opacity','0.6');
+    svg.appendChild(p);
+  }
+
+  try{
+    const root=rel(document.getElementById('tn-root'));
+    const prim=rel(document.getElementById('tn-prim'));
+    const nonp=rel(document.getElementById('tn-nonp'));
+    line(root.x,root.bottom,prim.x,prim.top,'rgba(0,255,153,.4)');
+    line(root.x,root.bottom,nonp.x,nonp.top,'rgba(255,79,139,.4)');
+
+    const lin=rel(document.getElementById('tn-lin'));
+    const nlin=rel(document.getElementById('tn-nonlin'));
+    line(nonp.x,nonp.bottom,lin.x,lin.top,'rgba(0,229,255,.35)');
+    line(nonp.x,nonp.bottom,nlin.x,nlin.top,'rgba(192,132,252,.35)');
+
+    // leaf connections from primitive
+    ['tn-int','tn-float','tn-bool','tn-char','tn-none'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el){const r=rel(el);line(prim.x,prim.bottom,r.x,r.top,'rgba(0,255,153,.25)');}
+    });
+  }catch(e){}
+}
+
+window.addEventListener('resize',()=>{
+  const svg=document.getElementById('connSvg');
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  drawConnectors();
+  const canvas=document.getElementById('cChart');
+  canvas.width=0;drawChart();
+});
+</script>
+</body>
+</html>

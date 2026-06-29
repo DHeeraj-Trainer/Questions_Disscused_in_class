@@ -1,0 +1,415 @@
+Problem Statement:
+A hotel offers two types of rooms: AC and Non-AC. During the peak season, an additional 10% charge is added to the room tariff.
+Room Tariffs:
+1. AC Room → ₹3000
+2. Non-AC Room → ₹2000
+Conditions:
+1. If the customer selects an AC room, the base tariff is ₹3000.
+2. If the customer selects a Non-AC room, the base tariff is ₹2000.
+3. If it is peak season (Yes), add 10% to the room tariff.
+4. If it is not peak season (No), charge only the base tariff.
+5. Display the final room tariff.
+Input:
+Room Type (AC / Non-AC)
+Peak Season (Yes / No)
+Output:Display the final room tariff.
+Test Case 1:
+Input:
+AC
+Yes
+Output:3300
+
+Test Case 2:
+Input:
+Non-AC
+No
+
+Output:
+2000
+
+
+
+ ATM Cash Dispensing System
+
+1
+
+
+
+ Smart Home Temperature Alert System
+
+Problem Statement:
+A smart home monitors the room temperature and automatically controls appliances based on the temperature.
+
+Conditions:
+1. If the temperature is below 18°C, turn ON the Heater.
+2. If the temperature is above 30°C, turn ON the AC.
+3. Otherwise, keep the system in Normal Mode.
+4. Display the corresponding alert message.
+Input:
+An integer representing the room temperature.
+Output:
+Display Heater ON, AC ON, or Normal Mode.
+Test Case 1:
+Input:15
+Output:Heater ON
+Test Case 2:
+Input:35
+Output:AC ON
+
+
+TV Remote Function Validation
+
+Problem Statement:
+Write a Python program that accepts a remote control button input from the user and checks whether it is valid or not using only conditional statements.
+Valid Inputs and Functions:
+'+'   -> Volume Up
+'-'   -> Volume Down
+'Ch+' -> Channel Increased
+'Ch-' -> Channel Decreased
+'On'  -> Power On
+'Off' -> Power Off
+If the input is valid, display the corresponding function.
+Otherwise, display "Invalid Input".
+Input:
+A string representing the remote button.
+Output:
+Display the corresponding function or "Invalid Input".
+
+Test Case 1:
+Input:
++
+Output:
+Volume Up
+
+Test Case 2:
+Input:
+Ch-
+Output:
+Channel Decreased
+
+
+
+Password Validation
+
+Problem Statement:
+Write a Python program to check whether a password is valid or not using only conditional statements.
+
+Conditions:
+1. Password length should be a minimum of 8 characters and a maximum of 15 characters.
+2. Only the special characters $, %, ^, and & are allowed.
+3. At least one special character must be present in the password.
+4. If all conditions are satisfied, print "Valid Password".
+5. Otherwise, print "Invalid Password".
+Input:
+A string representing the password.
+Output:
+Display "Valid Password" or "Invalid Password".
+Test Case 1:
+Input:
+Python$123
+Output:
+Valid Password
+
+Test Case 2:
+Input:
+Python123
+Output:
+Invalid Password
+
+
+
+
+
+
+
+Month Days Finder
+
+Problem Statement:
+Write a Python program that accepts the name of a month from the user and displays the number of days in that month.
+
+Conditions:
+1. April, June, September, and November have 30 days.
+2. January, March, May, July, August, October, and December have 31 days.
+3. February has 28 days (ignore leap years).
+4. If the entered month name is valid, display the month name along with the number of days.
+5. If the entered month name is invalid, display "invalid month".
+
+Input:
+A string representing the month name.
+
+Output:
+Display the month name along with the number of days it contains, or "invalid month" if the input is not a valid month.
+
+Test Case 1:
+Input:
+April
+
+Output:
+April : 30 days
+
+Test Case 2:
+Input:
+January
+
+Output:
+January : 31 days
+
+Test Case 3:
+Input:
+Hello
+
+Output:
+invalid month
+
+
+
+loops----------------
+
+
+
+
+
+7. ATM Transaction Simulator
+
+Problem Statement:
+A bank wants to create a simple ATM transaction system. The user can perform multiple operations such as Deposit, Withdraw, and Check Balance. The program should continue accepting operations until the user chooses Exit.
+
+Conditions:
+1. Initially, the account balance is ₹0.
+2. Deposit adds money to the account balance.
+3. Withdraw deducts money from the account balance if sufficient funds are available.
+4. If the withdrawal amount exceeds the balance, display "Insufficient Balance".
+5. The program should continue running until the user selects Exit.
+6. Display the final account balance before exiting.
+
+Input:
+A sequence of ATM operations.
+
+Output:
+Display the updated balance or appropriate messages.
+
+Test Case 1:
+Input:
+Deposit 500
+Withdraw 200
+Exit
+
+Output:
+Balance: 300
+
+Test Case 2:
+Input:
+Withdraw 100
+Exit
+
+Output:
+Insufficient Balance
+
+
+
+8. Student Grade Calculator
+
+Problem Statement:
+A school wants to automate grade calculation for students. Write a program that accepts marks of N students and displays the corresponding grade for each student.
+
+Grade Criteria:
+90 and above → A
+75 to 89 → B
+50 to 74 → C
+Below 50 → Fail
+
+Conditions:
+1. Read the number of students (N).
+2. Accept marks for each student.
+3. Determine the grade based on the given criteria.
+4. Display all grades.
+
+Input:
+N followed by marks of N students.
+
+Output:
+Display the corresponding grades.
+
+Test Case 1:
+Input:
+3
+95
+65
+30
+
+Output:
+A C Fail
+
+Test Case 2:
+Input:
+2
+80
+92
+
+Output:
+B A
+
+
+
+9. Number Guessing Game
+
+Problem Statement:
+A game allows the user five chances to guess a secret number. If the correct number is guessed within five attempts, display "Correct Guess". Otherwise, display "Game Over".
+
+Conditions:
+1. The user gets a maximum of 5 attempts.
+2. If the guessed number matches the secret number, display "Correct Guess".
+3. If all attempts are used without guessing correctly, display "Game Over".
+
+Input:
+Five guessed numbers.
+
+Output:
+Display "Correct Guess" or "Game Over".
+
+Test Case 1:
+Input:
+10 15 20 25 30
+
+Output:
+Correct Guess
+
+Test Case 2:
+Input:
+1 2 3 4 5
+
+Output:
+Game Over
+
+
+
+10. Shopping Bill Calculator
+
+Problem Statement:
+A supermarket wants to calculate the final bill amount after applying discounts. The customer purchases N items, and discounts are applied based on the total purchase amount.
+
+Discount Rules:
+Total above ₹5000 → 20% discount
+Total above ₹2000 → 10% discount
+Otherwise → No discount
+
+Conditions:
+1. Accept the number of items (N).
+2. Accept the price of each item.
+3. Calculate the total amount.
+4. Apply the appropriate discount.
+5. Display the final payable amount.
+
+Input:
+N followed by prices of N items.
+
+Output:
+Display the final amount after discount.
+
+Test Case 1:
+Input:
+3
+1000
+2000
+3000
+
+Output:
+4800
+
+Test Case 2:
+Input:
+2
+500
+700
+
+Output:
+1200
+
+
+
+11. Password Validation System
+
+Problem Statement:
+A website requires users to create a strong password. The program should repeatedly ask for a password until it satisfies all validation rules.
+
+Conditions:
+1. Password must contain at least 8 characters.
+2. Password must contain at least one digit.
+3. Password must contain at least one uppercase letter.
+4. If all conditions are satisfied, display "Valid Password".
+5. Otherwise, continue asking for a password.
+
+Input:
+Passwords entered by the user.
+
+Output:
+Display "Valid Password" when a valid password is entered.
+
+Test Case 1:
+Input:
+hello
+Hello1
+StrongPass1
+
+Output:
+Valid Password
+
+Test Case 2:
+Input:
+abc
+abcd
+abcdef
+
+Output:
+Invalid Password
+
+
+
+12. Bus Seat Reservation System
+
+Problem Statement:
+A bus has a fixed number of seats. Passengers reserve seats one by one. The program should display the remaining seats after each booking and stop when all seats are filled.
+Conditions:
+1. Accept the total number of seats available.
+2. Accept the number of seats booked in each transaction.
+3. Reduce the available seats accordingly.
+4. Display remaining seats after every booking.
+5. If all seats are booked, display "Seats Filled".
+Input:Total seats followed by booking requests.
+Output:Display remaining seats or "Seats Filled".
+Test Case 1:
+Input:5 2 2 1
+Output:Seats Filled
+Test Case 2:
+Input:3 1 1
+Output:1 Seat Remaining
+
+
+
+
+
+
+
+# Scenario: ATM Withdrawal System
+# Problem:
+# Write a program to simulate an ATM withdrawal system.
+# The user has an initial account balance of $10,000.
+# The program should:
+# 1. Ask the user how much they want to withdraw.
+# 2. Check if the amount is a multiple of 100.
+# 3. Ensure the withdrawal amount does not exceed the account balance.
+# 4. Deduct the amount if valid and display the remaining balance.
+# 5. Allow multiple withdrawals until the user decides to exit or the balance is insufficient.
+
+
+# Scenario: Pizza Shop Ordering System
+# Problem:
+# Write a program to simulate a pizza shop ordering system.
+# • The shop offers three sizes of pizza: Small ($10), Medium ($15), and Large ($20).
+# • Customers can also add extra toppings:
+# • Cheese ($2)
+# Pepperoni ($3)
+# • The program calculates the total cost of the order 
+# and allows customers to place multiple orders until they decide to exit.
+
+

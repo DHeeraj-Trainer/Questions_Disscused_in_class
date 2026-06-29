@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DSA — Complete Visual Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#06090f;--bg2:#0c1220;--bg3:#111827;--bg4:#1a2540;--card:#0e1628;--c:#04d9c8;--amb:#f0a030;--pur:#8b5cf6;--grn:#22c994;--red:#f06060;--pnk:#e879a0;--tx:#dde6f5;--tx2:#7a90b8;--tx3:#3a4d6e;--brd:#1a2d48;--r:14px;--r2:8px}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(6,9,15,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);height:56px;display:flex;align-items:center;padding:0 2rem;gap:2rem}
+.nav-brand{font-weight:700;font-size:1rem;color:var(--c);letter-spacing:.08em;text-decoration:none;font-family:'Fira Code',monospace}
+.nav-links{display:flex;gap:1.5rem;margin-left:auto}
+.nav-links a{color:var(--tx2);text-decoration:none;font-size:.8rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--c)}
+#hero{position:relative;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:56px}
+#hc{position:absolute;inset:0}
+.hcnt{position:relative;text-align:center;z-index:2;max-width:700px;padding:0 2rem}
+.htag{font-family:'Fira Code',monospace;font-size:.72rem;color:var(--c);letter-spacing:.22em;text-transform:uppercase;margin-bottom:1.2rem;opacity:0;animation:fadeUp .7s ease forwards .2s}
+.htitle{font-size:clamp(2.6rem,7vw,5rem);font-weight:700;line-height:1.05;letter-spacing:-.03em;opacity:0;animation:fadeUp .8s ease forwards .4s}
+.htitle .grad{background:linear-gradient(120deg,var(--c),var(--pur),var(--pnk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hsub{color:var(--tx2);font-size:.95rem;margin:1.2rem auto 2rem;line-height:1.75;opacity:0;animation:fadeUp .8s ease forwards .6s}
+.hbtns{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease forwards .8s}
+.btn{padding:.65rem 1.6rem;border-radius:40px;font-size:.85rem;font-weight:600;cursor:pointer;text-decoration:none;transition:all .22s;border:none;display:inline-flex;align-items:center;gap:.4rem}
+.btn-p{background:var(--c);color:#06090f}.btn-p:hover{background:#08ede0;transform:translateY(-2px)}
+.btn-g{background:transparent;border:1px solid var(--brd);color:var(--tx2)}.btn-g:hover{border-color:var(--c);color:var(--c);transform:translateY(-2px)}
+section{padding:5rem 0}
+.ctr{max-width:1100px;margin:0 auto;padding:0 2rem}
+.slbl{font-family:'Fira Code',monospace;font-size:.68rem;color:var(--c);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.7rem}
+.stitle{font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;letter-spacing:-.02em;margin-bottom:.8rem}
+.stitle span{color:var(--c)}
+.sdesc{color:var(--tx2);max-width:580px;font-size:.9rem;line-height:1.75;margin-bottom:2.5rem}
+#what{background:var(--bg)}
+.icards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+.icard{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:1.8rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s}
+.icard::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ac,var(--c))}
+.icard:hover{border-color:var(--ac,var(--c));transform:translateY(-4px)}
+.ici{font-size:1.5rem;margin-bottom:.9rem}.icn{font-size:1rem;font-weight:600;margin-bottom:.45rem}
+.icd{color:var(--tx2);font-size:.83rem;line-height:1.65}
+.ictag{display:inline-block;margin-top:.75rem;font-family:'Fira Code',monospace;font-size:.64rem;background:rgba(4,217,200,.08);color:var(--c);padding:.18rem .5rem;border-radius:4px}
+#types{background:var(--bg2)}
+.diag-wrap{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:1.8rem 1rem;overflow-x:auto;margin-top:1.5rem}
+.diag-wrap svg{min-width:1000px;display:block;margin:0 auto}
+.dnode{cursor:pointer}.dnode rect{transition:fill .2s}.dnode:hover rect{fill:rgba(4,217,200,.1)!important}
+#time{background:var(--bg)}
+.tc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1.5rem}
+@media(max-width:720px){.tc-grid{grid-template-columns:1fr}}
+.chart-card{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:1.4rem}
+.cc-title{font-size:.82rem;font-weight:600;color:var(--tx2);margin-bottom:.9rem}
+.bot{width:100%;border-collapse:collapse;font-size:.8rem}
+.bot th{text-align:left;padding:.42rem .7rem;font-size:.66rem;font-family:'Fira Code',monospace;color:var(--tx3);letter-spacing:.08em;border-bottom:1px solid var(--brd)}
+.bot td{padding:.46rem .7rem;border-bottom:1px solid rgba(26,45,72,.4);color:var(--tx2)}
+.bot td:first-child{font-family:'Fira Code',monospace;color:var(--c)}
+.bdg{display:inline-block;padding:.1rem .4rem;border-radius:4px;font-size:.66rem;font-weight:600}
+.bg{background:rgba(34,201,148,.12);color:var(--grn)}.by{background:rgba(240,160,48,.12);color:var(--amb)}.br{background:rgba(240,96,96,.12);color:var(--red)}
+#ds{background:var(--bg2)}
+.ds-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:1.2rem;margin-top:1.5rem}
+.dsc{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:1.4rem;display:flex;flex-direction:column;gap:.8rem;transition:border-color .3s,transform .25s;position:relative;overflow:hidden}
+.dsc::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--ac,var(--c))}
+.dsc:hover{border-color:var(--ac,var(--c));transform:translateY(-3px)}
+.dsc-head{display:flex;align-items:center;gap:.75rem}
+.dsc-icon{width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0}
+.dsc-name{font-size:.98rem;font-weight:600}.dsc-tag{font-family:'Fira Code',monospace;font-size:.61rem;color:var(--tx3)}
+.dsc-def{color:var(--tx2);font-size:.79rem;line-height:1.6}
+.dsc-cplx{display:grid;grid-template-columns:repeat(4,1fr);gap:.35rem;padding:.6rem;background:var(--bg3);border-radius:var(--r2)}
+.cc{text-align:center}.cc-lbl{font-size:.57rem;color:var(--tx3);font-family:'Fira Code',monospace;text-transform:uppercase}
+.cc-val{font-size:.73rem;font-weight:600;font-family:'Fira Code',monospace}
+.dsc-btn{border:none;border-radius:40px;padding:.52rem 1.1rem;font-size:.78rem;font-weight:600;cursor:pointer;width:100%;transition:opacity .2s,transform .2s;letter-spacing:.02em;color:#06090f}
+.dsc-btn:hover{opacity:.84;transform:translateY(-1px)}
+#ops{background:var(--bg)}
+.ot-wrap{overflow-x:auto;margin-top:1.5rem}
+.ot{width:100%;border-collapse:collapse;font-size:.79rem;min-width:680px}
+.ot th{background:var(--bg4);padding:.65rem .9rem;text-align:left;font-size:.65rem;font-family:'Fira Code',monospace;color:var(--tx3);letter-spacing:.08em;border-bottom:1px solid var(--brd);white-space:nowrap}
+.ot td{padding:.58rem .9rem;border-bottom:1px solid rgba(26,45,72,.35);color:var(--tx2)}
+.ot td:first-child{color:var(--tx);font-weight:600}.ot tr:hover td{background:rgba(255,255,255,.014)}
+#modal-overlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);display:flex;align-items:stretch;justify-content:flex-end;opacity:0;pointer-events:none;transition:opacity .3s}
+#modal-overlay.open{opacity:1;pointer-events:all}
+#modal{width:min(960px,100vw);max-height:100vh;background:var(--bg2);border-left:1px solid var(--brd);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);overflow:hidden}
+#modal-overlay.open #modal{transform:translateX(0)}
+.mhdr{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.4rem;border-bottom:1px solid var(--brd);flex-shrink:0}
+.mhdr-icon{width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.mhdr-info{flex:1;min-width:0}
+.mhdr-name{font-size:1.25rem;font-weight:700}.mhdr-sub{font-size:.74rem;color:var(--tx2);font-family:'Fira Code',monospace;margin-top:.1rem}
+.mclose{width:33px;height:33px;border:1px solid var(--brd);border-radius:50%;background:transparent;color:var(--tx2);font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.mclose:hover{border-color:var(--red);color:var(--red)}
+.mtabs{display:flex;border-bottom:1px solid var(--brd);padding:0 1.4rem;flex-shrink:0;overflow-x:auto}
+.mtab{padding:.68rem 1rem;font-size:.79rem;font-weight:500;cursor:pointer;background:transparent;border:none;color:var(--tx2);position:relative;white-space:nowrap;transition:color .2s}
+.mtab.active{color:var(--c)}.mtab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--c)}
+.mbody{flex:1;overflow-y:auto;padding:1.4rem}
+.tpane{display:none;animation:fadeIn .25s ease}.tpane.active{display:block}
+.def-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:.8rem}
+@media(max-width:560px){.def-grid{grid-template-columns:1fr}}
+.def-text p{color:var(--tx2);font-size:.85rem;line-height:1.75;margin-bottom:.9rem}.def-text strong{color:var(--tx)}
+.cplx-card{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);overflow:hidden}
+.cplx-title{padding:.62rem 1rem;font-size:.7rem;font-weight:600;color:var(--tx3);font-family:'Fira Code',monospace;background:var(--bg3);border-bottom:1px solid var(--brd)}
+.cplx-row{display:flex;justify-content:space-between;align-items:center;padding:.48rem 1rem;border-bottom:1px solid rgba(26,45,72,.3);font-size:.79rem}
+.cplx-row:last-child{border:none}.cplx-op{color:var(--tx2)}.cplx-val{font-family:'Fira Code',monospace;font-weight:600}
+.types-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:.9rem;margin-top:.8rem}
+.type-card{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:1.05rem;transition:border-color .25s}.type-card:hover{border-color:var(--c)}
+.type-name{font-size:.87rem;font-weight:600;margin-bottom:.32rem}.type-desc{font-size:.77rem;color:var(--tx2);line-height:1.58;margin-bottom:.5rem}
+.type-tag{font-family:'Fira Code',monospace;font-size:.62rem;padding:.16rem .4rem;border-radius:4px;background:rgba(139,92,246,.1);color:var(--pur)}
+.mini-viz{margin:.55rem 0;height:48px;display:flex;align-items:center;gap:3px;font-family:'Fira Code',monospace;font-size:.68rem;overflow:hidden}
+.mc{width:26px;height:26px;border:1px solid rgba(4,217,200,.3);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--c);background:rgba(4,217,200,.05);flex-shrink:0}
+.mn{padding:2px 5px;border:1px solid rgba(139,92,246,.35);border-radius:4px;color:var(--pur);background:rgba(139,92,246,.07);display:flex;align-items:center;gap:2px;flex-shrink:0;font-size:.66rem}
+.marr{color:var(--tx3);flex-shrink:0}
+.uc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:.9rem;margin-top:.8rem}
+.uc-card{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:1.05rem}
+.uc-icon{font-size:1.2rem;margin-bottom:.42rem}.uc-title{font-size:.86rem;font-weight:600;margin-bottom:.28rem}
+.uc-desc{font-size:.76rem;color:var(--tx2);line-height:1.58}
+.uc-badge{margin-top:.5rem;display:inline-block;font-family:'Fira Code',monospace;font-size:.62rem;padding:.14rem .4rem;border-radius:4px}
+.ops-wrap{display:grid;grid-template-columns:165px 1fr;gap:1rem;margin-top:.8rem}
+@media(max-width:540px){.ops-wrap{grid-template-columns:1fr}}
+.ops-btns{display:flex;flex-direction:column;gap:.42rem}
+.opbtn{padding:.55rem .82rem;border-radius:var(--r2);border:1px solid var(--brd);background:var(--card);color:var(--tx2);font-size:.77rem;font-weight:500;cursor:pointer;text-align:left;transition:all .2s}
+.opbtn.active,.opbtn:hover{border-color:var(--c);color:var(--c);background:rgba(4,217,200,.06)}
+.ops-vis{background:var(--card);border:1px solid var(--brd);border-radius:var(--r);padding:1.1rem;display:flex;flex-direction:column;gap:.85rem;min-height:310px}
+.vis-area{flex:1;display:flex;align-items:center;justify-content:center;min-height:170px;padding:.4rem}
+.vis-desc{background:var(--bg3);border-radius:var(--r2);padding:.6rem .85rem;font-size:.77rem;color:var(--tx2);border-left:3px solid var(--c);line-height:1.55}
+.vis-desc strong{color:var(--c)}
+.vis-ctrl{display:flex;align-items:center;gap:.55rem;flex-wrap:wrap}
+.vstep{font-family:'Fira Code',monospace;font-size:.68rem;color:var(--tx3);min-width:68px}
+.vbtn{padding:.36rem .82rem;border-radius:40px;border:1px solid var(--brd);background:transparent;color:var(--tx2);font-size:.72rem;cursor:pointer;transition:all .2s}
+.vbtn:hover:not(:disabled){border-color:var(--c);color:var(--c)}.vbtn:disabled{opacity:.25;cursor:default}
+.vauto{padding:.36rem .82rem;border-radius:40px;border:none;background:var(--c);color:#06090f;font-size:.72rem;font-weight:600;cursor:pointer;margin-left:auto}
+.varr{display:flex;gap:3px;align-items:flex-end;flex-wrap:wrap;justify-content:center}
+.vc{width:38px;height:38px;background:var(--bg3);border:1px solid var(--brd);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;font-size:.8rem;transition:all .3s;position:relative;flex-direction:column}
+.vc .vi{font-size:.54rem;color:var(--tx3);position:absolute;top:2px;left:3px}
+.vc.ch{background:rgba(4,217,200,.15);border-color:var(--c);color:var(--c)}
+.vc.ins{background:rgba(34,201,148,.15);border-color:var(--grn);color:var(--grn);animation:popIn .3s ease}
+.vc.scan{background:rgba(240,160,48,.1);border-color:var(--amb);color:var(--amb)}
+.vc.found{background:rgba(34,201,148,.2);border-color:var(--grn);color:var(--grn);animation:popIn .3s ease}
+.vc.del{opacity:.2;transform:scale(.78)}
+.vll{display:flex;align-items:center;gap:2px;flex-wrap:wrap;justify-content:center}
+.vn{padding:3px 7px;border:1px solid var(--brd);border-radius:6px;font-family:'Fira Code',monospace;font-size:.74rem;background:var(--bg3);transition:all .3s;white-space:nowrap}
+.vn.ch{border-color:var(--pur);background:rgba(139,92,246,.12);color:var(--pur)}
+.vn.new{border-color:var(--grn);background:rgba(34,201,148,.12);color:var(--grn);animation:popIn .3s ease}
+.vn.del{opacity:.18;transform:scale(.78)}
+.varrow{color:var(--tx3);font-size:.8rem;margin:0 1px}.vnull{font-family:'Fira Code',monospace;font-size:.7rem;color:var(--tx3)}
+.vstk{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:110px}
+.vsi{width:106px;height:33px;border:1px solid var(--brd);border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;font-size:.78rem;transition:all .3s}
+.vsi.top{border-color:var(--amb);background:rgba(240,160,48,.1);color:var(--amb)}
+.vsi.new{border-color:var(--grn);background:rgba(34,201,148,.12);color:var(--grn);animation:slideDown .3s ease}
+.vsi.pop{animation:slideUp .3s ease forwards}
+.vsi.peek{border-color:var(--c)!important;background:rgba(4,217,200,.1)!important;color:var(--c)!important}
+.vstk-lbl{font-size:.6rem;color:var(--tx3);font-family:'Fira Code',monospace}
+.vqi{width:44px;height:38px;border:1px solid var(--brd);border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;font-size:.78rem;transition:all .3s}
+.vqi.front{border-color:var(--grn);background:rgba(34,201,148,.12);color:var(--grn)}
+.vqi.new{border-color:var(--c);background:rgba(4,217,200,.12);color:var(--c);animation:slideLeft .3s ease}
+.vqi.deq{animation:slideLeftOut .3s ease forwards}
+.vqi.peek{border-color:var(--c)!important;background:rgba(4,217,200,.1)!important;color:var(--c)!important}
+.vhslot{display:flex;gap:.32rem;padding:.2rem .36rem;border-radius:4px;font-family:'Fira Code',monospace;font-size:.67rem;align-items:center}
+.vhslot.empty{color:var(--tx3)}.vhslot.filled{background:rgba(4,217,200,.07);color:var(--c)}
+.vhslot.hl{background:rgba(34,201,148,.12);color:var(--grn);animation:popIn .3s ease}
+.vhslot.del{background:rgba(240,96,96,.07);color:var(--red);text-decoration:line-through}
+.vhslot.chain{background:rgba(240,160,48,.08);color:var(--amb)}
+.vhk{background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.25);border-radius:5px;padding:.28rem .52rem;font-family:'Fira Code',monospace;font-size:.69rem;color:var(--pur)}
+.vhfn{background:rgba(240,160,48,.08);border:1px solid rgba(240,160,48,.25);border-radius:5px;padding:.28rem .52rem;font-size:.67rem;color:var(--amb);white-space:nowrap}
+footer{background:var(--bg);border-top:1px solid var(--brd);padding:2rem;text-align:center;color:var(--tx3);font-size:.77rem}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}.rv.vis{opacity:1;transform:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{0%{transform:scale(.72);opacity:0}100%{transform:scale(1);opacity:1}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:none}}
+@keyframes slideUp{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-18px)}}
+@keyframes slideLeft{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+@keyframes slideLeftOut{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-18px)}}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--brd);border-radius:3px}
+</style></head><body>
+
+<nav>
+  <a class="nav-brand" href="#">&lt;DSA/&gt;</a>
+  <div class="nav-links">
+    <a href="#what">Intro</a><a href="#types">Diagram</a>
+    <a href="#time">Big O</a><a href="#ds">Structures</a><a href="#ops">Reference</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <canvas id="hc"></canvas>
+  <div class="hcnt">
+    <p class="htag">// Computer Science Fundamentals</p>
+    <h1 class="htitle">Data Structures<br><span class="grad">&amp; Algorithms</span></h1>
+    <p class="hsub">Every data structure visualized, animated and explained — definitions, real-world use cases, types and step-by-step operation walkthroughs.</p>
+    <div class="hbtns">
+      <a href="#ds" class="btn btn-p">Explore All Structures ↓</a>
+      <a href="#types" class="btn btn-g">View Diagram</a>
+    </div>
+  </div>
+</section>
+
+<section id="what">
+  <div class="ctr">
+    <p class="slbl rv">// foundations</p>
+    <h2 class="stitle rv">What is <span>DSA</span>?</h2>
+    <div class="icards rv">
+      <div class="icard" style="--ac:var(--c)">
+        <div class="ici">🗂️</div><div class="icn">Data Structure</div>
+        <div class="icd">A way of organizing and storing data so it can be accessed and modified efficiently. Different containers suit different jobs — choosing the right one is the craft.</div>
+        <span class="ictag">organized storage</span>
+      </div>
+      <div class="icard" style="--ac:var(--amb)">
+        <div class="ici">⚙️</div><div class="icn">Algorithm</div>
+        <div class="icd">A precise step-by-step set of instructions that solves a problem. Without a data structure to operate on, an algorithm has nothing. They always go together.</div>
+        <span class="ictag">step-by-step logic</span>
+      </div>
+      <div class="icard" style="--ac:var(--pur)">
+        <div class="ici">⚡</div><div class="icn">Why It Matters</div>
+        <div class="icd">The right data structure can turn hours into milliseconds. DSA knowledge is the foundation of scalable software — it's what separates writing code from engineering systems.</div>
+        <span class="ictag">efficiency + scale</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="types">
+  <div class="ctr">
+    <p class="slbl rv">// taxonomy</p>
+    <h2 class="stitle rv">Types of <span>Data Structures</span></h2>
+    <p class="sdesc rv">All structures belong to one of two families — <strong>Linear</strong> (sequential) or <strong>Non-Linear</strong> (hierarchical/networked) — plus <strong>Hash-Based</strong> as a third pillar. Click any node to explore.</p>
+    <div class="diag-wrap rv">
+      <svg id="dsvg" viewBox="0 0 1300 288" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- ══════════════════════════════════════════════════════════════
+       LEVEL 1 — ROOT
+       ═══════════════════════════════════════════════════════════ -->
+  <g class="dnode" onclick="openModal('array')">
+    <rect x="560" y="12" width="220" height="48" rx="11" fill="#0e1628" stroke="#04d9c8" stroke-width="1.6"/>
+    <text x="670" y="42" text-anchor="middle" fill="#04d9c8" font-size="15"
+          font-family="Space Grotesk,sans-serif" font-weight="700">Data Structures</text>
+  </g>
+
+  <!-- Root trunk: vertical down, then horizontal bar, then 3 drops -->
+  <line x1="670" y1="60"  x2="670" y2="80"  stroke="#04d9c8" stroke-width="1"   opacity=".45"/>
+  <line x1="280" y1="80"  x2="1060" y2="80" stroke="#04d9c8" stroke-width="1"   opacity=".32"/>
+  <line x1="280" y1="80"  x2="280"  y2="102" stroke="#f0a030" stroke-width="1"  opacity=".65"/>
+  <line x1="670" y1="80"  x2="670"  y2="102" stroke="#22c994" stroke-width="1"  opacity=".65"/>
+  <line x1="1060" y1="80" x2="1060" y2="102" stroke="#8b5cf6" stroke-width="1"  opacity=".65"/>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       LEVEL 2 — CATEGORIES
+       ═══════════════════════════════════════════════════════════ -->
+
+  <!-- LINEAR (cx=280) -->
+  <rect x="200" y="102" width="160" height="44" rx="9" fill="#0e1628" stroke="#f0a030" stroke-width="1.3"/>
+  <text x="280" y="129" text-anchor="middle" fill="#f0a030" font-size="13"
+        font-family="Space Grotesk,sans-serif" font-weight="600">Linear</text>
+
+  <!-- HASH-BASED (cx=670) -->
+  <rect x="582" y="102" width="176" height="44" rx="9" fill="#0e1628" stroke="#22c994" stroke-width="1.3"/>
+  <text x="670" y="129" text-anchor="middle" fill="#22c994" font-size="13"
+        font-family="Space Grotesk,sans-serif" font-weight="600">Hash-Based</text>
+
+  <!-- NON-LINEAR (cx=1060) -->
+  <rect x="972" y="102" width="176" height="44" rx="9" fill="#0e1628" stroke="#8b5cf6" stroke-width="1.3"/>
+  <text x="1060" y="129" text-anchor="middle" fill="#8b5cf6" font-size="13"
+        font-family="Space Grotesk,sans-serif" font-weight="600">Non-Linear</text>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       LEVEL 2 → LEVEL 3 CONNECTORS
+       ═══════════════════════════════════════════════════════════ -->
+
+  <!-- Linear → 4 children (cx: 97, 219, 341, 463) -->
+  <line x1="280"  y1="146" x2="280"  y2="166" stroke="#f0a030" stroke-width="1"   opacity=".42"/>
+  <line x1="97"   y1="166" x2="463"  y2="166" stroke="#f0a030" stroke-width="1"   opacity=".32"/>
+  <line x1="97"   y1="166" x2="97"   y2="186" stroke="#f0a030" stroke-width=".85" opacity=".52"/>
+  <line x1="219"  y1="166" x2="219"  y2="186" stroke="#f0a030" stroke-width=".85" opacity=".52"/>
+  <line x1="341"  y1="166" x2="341"  y2="186" stroke="#f0a030" stroke-width=".85" opacity=".52"/>
+  <line x1="463"  y1="166" x2="463"  y2="186" stroke="#f0a030" stroke-width=".85" opacity=".52"/>
+
+  <!-- Hash → 2 children (cx: 614, 726) -->
+  <line x1="670"  y1="146" x2="670"  y2="166" stroke="#22c994" stroke-width="1"   opacity=".42"/>
+  <line x1="614"  y1="166" x2="726"  y2="166" stroke="#22c994" stroke-width="1"   opacity=".32"/>
+  <line x1="614"  y1="166" x2="614"  y2="186" stroke="#22c994" stroke-width=".85" opacity=".52"/>
+  <line x1="726"  y1="166" x2="726"  y2="186" stroke="#22c994" stroke-width=".85" opacity=".52"/>
+
+  <!-- NonLinear → 3 children (cx: 938, 1060, 1182) -->
+  <line x1="1060" y1="146" x2="1060" y2="166" stroke="#8b5cf6" stroke-width="1"   opacity=".42"/>
+  <line x1="938"  y1="166" x2="1182" y2="166" stroke="#8b5cf6" stroke-width="1"   opacity=".32"/>
+  <line x1="938"  y1="166" x2="938"  y2="186" stroke="#8b5cf6" stroke-width=".85" opacity=".52"/>
+  <line x1="1060" y1="166" x2="1060" y2="186" stroke="#8b5cf6" stroke-width=".85" opacity=".52"/>
+  <line x1="1182" y1="166" x2="1182" y2="186" stroke="#8b5cf6" stroke-width=".85" opacity=".52"/>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       LEVEL 3 — STRUCTURES  (node w=112, cx as above, y=186 h=44)
+       ═══════════════════════════════════════════════════════════ -->
+
+  <!-- Array (cx=97) -->
+  <g class="dnode" onclick="openModal('array')">
+    <rect x="41"   y="186" width="112" height="44" rx="8" fill="#130d02" stroke="#f0a030" stroke-width="1"/>
+    <text x="97"   y="213" text-anchor="middle" fill="#f0a030" font-size="12"
+          font-family="Space Grotesk,sans-serif">Array</text>
+  </g>
+
+  <!-- Linked List (cx=219) -->
+  <g class="dnode" onclick="openModal('linkedlist')">
+    <rect x="163"  y="186" width="112" height="44" rx="8" fill="#130d02" stroke="#f0a030" stroke-width="1"/>
+    <text x="219"  y="213" text-anchor="middle" fill="#f0a030" font-size="12"
+          font-family="Space Grotesk,sans-serif">Linked List</text>
+  </g>
+
+  <!-- Stack (cx=341) -->
+  <g class="dnode" onclick="openModal('stack')">
+    <rect x="285"  y="186" width="112" height="44" rx="8" fill="#130d02" stroke="#f0a030" stroke-width="1"/>
+    <text x="341"  y="213" text-anchor="middle" fill="#f0a030" font-size="12"
+          font-family="Space Grotesk,sans-serif">Stack</text>
+  </g>
+
+  <!-- Queue (cx=463) -->
+  <g class="dnode" onclick="openModal('queue')">
+    <rect x="407"  y="186" width="112" height="44" rx="8" fill="#130d02" stroke="#f0a030" stroke-width="1"/>
+    <text x="463"  y="213" text-anchor="middle" fill="#f0a030" font-size="12"
+          font-family="Space Grotesk,sans-serif">Queue</text>
+  </g>
+
+  <!-- Hash Table (cx=614) -->
+  <g class="dnode" onclick="openModal('hash')">
+    <rect x="558"  y="186" width="112" height="44" rx="8" fill="#021209" stroke="#22c994" stroke-width="1"/>
+    <text x="614"  y="213" text-anchor="middle" fill="#22c994" font-size="12"
+          font-family="Space Grotesk,sans-serif">Hash Table</text>
+  </g>
+
+  <!-- Set (cx=726) -->
+  <g class="dnode" onclick="openModal('hash')">
+    <rect x="670"  y="186" width="112" height="44" rx="8" fill="#021209" stroke="#22c994" stroke-width="1"/>
+    <text x="726"  y="213" text-anchor="middle" fill="#22c994" font-size="12"
+          font-family="Space Grotesk,sans-serif">Set</text>
+  </g>
+
+  <!-- Tree (cx=938) -->
+  <g class="dnode" onclick="openModal('tree')">
+    <rect x="882"  y="186" width="112" height="44" rx="8" fill="#0f081e" stroke="#8b5cf6" stroke-width="1"/>
+    <text x="938"  y="213" text-anchor="middle" fill="#8b5cf6" font-size="12"
+          font-family="Space Grotesk,sans-serif">Tree</text>
+  </g>
+
+  <!-- Heap (cx=1060) -->
+  <g class="dnode" onclick="openModal('tree')">
+    <rect x="1004" y="186" width="112" height="44" rx="8" fill="#0f081e" stroke="#8b5cf6" stroke-width="1"/>
+    <text x="1060" y="213" text-anchor="middle" fill="#8b5cf6" font-size="12"
+          font-family="Space Grotesk,sans-serif">Heap</text>
+  </g>
+
+  <!-- Graph (cx=1182) -->
+  <g class="dnode" onclick="openModal('graph')">
+    <rect x="1126" y="186" width="112" height="44" rx="8" fill="#0f081e" stroke="#8b5cf6" stroke-width="1"/>
+    <text x="1182" y="213" text-anchor="middle" fill="#8b5cf6" font-size="12"
+          font-family="Space Grotesk,sans-serif">Graph</text>
+  </g>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       LEVEL 4 — SUBTYPES  (small tags, font-size 9.5, y=248 h=28)
+       Each subtype column is centered within its L3 parent column.
+       Gap between sibling subtypes: ≥ 8 px guaranteed.
+       ═══════════════════════════════════════════════════════════ -->
+
+  <!-- Array subtypes: Static | Dynamic  (parent cx=97, col 41–153) -->
+  <line x1="70"  y1="230" x2="70"  y2="247" stroke="#f0a030" stroke-width=".6" opacity=".28"/>
+  <line x1="124" y1="230" x2="124" y2="247" stroke="#f0a030" stroke-width=".6" opacity=".28"/>
+  <rect x="44"  y="247" width="52" height="28" rx="5" fill="#0d0901" stroke="#f0a030" stroke-width=".6" opacity=".6"/>
+  <text x="70"  y="266" text-anchor="middle" fill="#a06a15" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Static</text>
+  <rect x="98"  y="247" width="60" height="28" rx="5" fill="#0d0901" stroke="#f0a030" stroke-width=".6" opacity=".6"/>
+  <text x="128" y="266" text-anchor="middle" fill="#a06a15" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Dynamic</text>
+
+  <!-- Linked List subtypes: Singly | Doubly | Circular  (parent cx=219) -->
+  <line x1="186" y1="230" x2="186" y2="247" stroke="#f0a030" stroke-width=".6" opacity=".28"/>
+  <line x1="219" y1="230" x2="219" y2="247" stroke="#f0a030" stroke-width=".6" opacity=".28"/>
+  <line x1="254" y1="230" x2="254" y2="247" stroke="#f0a030" stroke-width=".6" opacity=".28"/>
+  <rect x="163" y="247" width="47" height="28" rx="5" fill="#0d0901" stroke="#f0a030" stroke-width=".6" opacity=".6"/>
+  <text x="186" y="266" text-anchor="middle" fill="#a06a15" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Singly</text>
+  <rect x="196" y="247" width="47" height="28" rx="5" fill="#0d0901" stroke="#f0a030" stroke-width=".6" opacity=".6"/>
+  <text x="219" y="266" text-anchor="middle" fill="#a06a15" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Doubly</text>
+  <rect x="230" y="247" width="56" height="28" rx="5" fill="#0d0901" stroke="#f0a030" stroke-width=".6" opacity=".6"/>
+  <text x="258" y="266" text-anchor="middle" fill="#a06a15" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Circular</text>
+
+  <!-- Stack subtypes: Array-Based | LL-Based  (parent cx=341) -->
+  <line x1="315" y1="230" x2="315" y2="247" stroke="#f0a030" stroke-width=".6" opacity=".28"/>
+  <line x1="371" y1="230" x2="371" y2="247" stroke="#f0a030" stroke-width=".6" opacity=".28"/>
+  <rect x="285" y="247" width="60" height="28" rx="5" fill="#0d0901" stroke="#f0a030" stroke-width=".6" opacity=".6"/>
+  <text x="315" y="266" text-anchor="middle" fill="#a06a15" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Arr-Based</text>
+  <rect x="351" y="247" width="60" height="28" rx="5" fill="#0d0901" stroke="#f0a030" stroke-width=".6" opacity=".6"/>
+  <text x="381" y="266" text-anchor="middle" fill="#a06a15" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">LL-Based</text>
+
+  <!-- Queue subtypes: Simple | Priority | Deque  (parent cx=463) -->
+  <line x1="432" y1="230" x2="432" y2="247" stroke="#f0a030" stroke-width=".6" opacity=".28"/>
+  <line x1="463" y1="230" x2="463" y2="247" stroke="#f0a030" stroke-width=".6" opacity=".28"/>
+  <line x1="496" y1="230" x2="496" y2="247" stroke="#f0a030" stroke-width=".6" opacity=".28"/>
+  <rect x="408" y="247" width="48" height="28" rx="5" fill="#0d0901" stroke="#f0a030" stroke-width=".6" opacity=".6"/>
+  <text x="432" y="266" text-anchor="middle" fill="#a06a15" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Simple</text>
+  <rect x="441" y="247" width="48" height="28" rx="5" fill="#0d0901" stroke="#f0a030" stroke-width=".6" opacity=".6"/>
+  <text x="465" y="266" text-anchor="middle" fill="#a06a15" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Priority</text>
+  <rect x="475" y="247" width="46" height="28" rx="5" fill="#0d0901" stroke="#f0a030" stroke-width=".6" opacity=".6"/>
+  <text x="498" y="266" text-anchor="middle" fill="#a06a15" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Deque</text>
+
+  <!-- Hash Table subtypes: Chaining | Open Addr.  (parent cx=614) -->
+  <line x1="588" y1="230" x2="588" y2="247" stroke="#22c994" stroke-width=".6" opacity=".28"/>
+  <line x1="642" y1="230" x2="642" y2="247" stroke="#22c994" stroke-width=".6" opacity=".28"/>
+  <rect x="558" y="247" width="60" height="28" rx="5" fill="#010d06" stroke="#22c994" stroke-width=".6" opacity=".6"/>
+  <text x="588" y="266" text-anchor="middle" fill="#1a8050" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Chaining</text>
+  <rect x="621" y="247" width="66" height="28" rx="5" fill="#010d06" stroke="#22c994" stroke-width=".6" opacity=".6"/>
+  <text x="654" y="266" text-anchor="middle" fill="#1a8050" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Open Addr.</text>
+
+  <!-- Set subtypes: HashSet  (parent cx=726) -->
+  <line x1="726" y1="230" x2="726" y2="247" stroke="#22c994" stroke-width=".6" opacity=".28"/>
+  <rect x="698" y="247" width="56" height="28" rx="5" fill="#010d06" stroke="#22c994" stroke-width=".6" opacity=".6"/>
+  <text x="726" y="266" text-anchor="middle" fill="#1a8050" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">HashSet</text>
+
+  <!-- Tree subtypes: Binary | BST | AVL  (parent cx=938) -->
+  <line x1="910" y1="230" x2="910" y2="247" stroke="#8b5cf6" stroke-width=".6" opacity=".28"/>
+  <line x1="938" y1="230" x2="938" y2="247" stroke="#8b5cf6" stroke-width=".6" opacity=".28"/>
+  <line x1="968" y1="230" x2="968" y2="247" stroke="#8b5cf6" stroke-width=".6" opacity=".28"/>
+  <rect x="884" y="247" width="52" height="28" rx="5" fill="#0a0516" stroke="#8b5cf6" stroke-width=".6" opacity=".6"/>
+  <text x="910" y="266" text-anchor="middle" fill="#5c3dad" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Binary</text>
+  <rect x="920" y="247" width="36" height="28" rx="5" fill="#0a0516" stroke="#8b5cf6" stroke-width=".6" opacity=".6"/>
+  <text x="938" y="266" text-anchor="middle" fill="#5c3dad" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">BST</text>
+  <rect x="950" y="247" width="38" height="28" rx="5" fill="#0a0516" stroke="#8b5cf6" stroke-width=".6" opacity=".6"/>
+  <text x="969" y="266" text-anchor="middle" fill="#5c3dad" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">AVL</text>
+
+  <!-- Heap subtypes: Min-Heap | Max-Heap  (parent cx=1060) -->
+  <line x1="1034" y1="230" x2="1034" y2="247" stroke="#8b5cf6" stroke-width=".6" opacity=".28"/>
+  <line x1="1086" y1="230" x2="1086" y2="247" stroke="#8b5cf6" stroke-width=".6" opacity=".28"/>
+  <rect x="1004" y="247" width="60" height="28" rx="5" fill="#0a0516" stroke="#8b5cf6" stroke-width=".6" opacity=".6"/>
+  <text x="1034" y="266" text-anchor="middle" fill="#5c3dad" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Min-Heap</text>
+  <rect x="1060" y="247" width="60" height="28" rx="5" fill="#0a0516" stroke="#8b5cf6" stroke-width=".6" opacity=".6"/>
+  <text x="1090" y="266" text-anchor="middle" fill="#5c3dad" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Max-Heap</text>
+
+  <!-- Graph subtypes: Directed | Weighted  (parent cx=1182) -->
+  <line x1="1154" y1="230" x2="1154" y2="247" stroke="#8b5cf6" stroke-width=".6" opacity=".28"/>
+  <line x1="1210" y1="230" x2="1210" y2="247" stroke="#8b5cf6" stroke-width=".6" opacity=".28"/>
+  <rect x="1124" y="247" width="62" height="28" rx="5" fill="#0a0516" stroke="#8b5cf6" stroke-width=".6" opacity=".6"/>
+  <text x="1155" y="266" text-anchor="middle" fill="#5c3dad" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Directed</text>
+  <rect x="1185" y="247" width="66" height="28" rx="5" fill="#0a0516" stroke="#8b5cf6" stroke-width=".6" opacity=".6"/>
+  <text x="1218" y="266" text-anchor="middle" fill="#5c3dad" font-size="9.5"
+        font-family="Space Grotesk,sans-serif">Weighted</text>
+
+  <!-- hint label -->
+  <rect x="2" y="2" width="118" height="18" rx="4" fill="rgba(4,217,200,.03)" stroke="rgba(4,217,200,.07)" stroke-width=".5"/>
+  <text x="7" y="14" fill="#2a3d5e" font-size="8.5" font-family="Fira Code,monospace">↑ click nodes to explore</text>
+
+</svg>
+    </div>
+  </div>
+</section>
+
+<section id="time">
+  <div class="ctr">
+    <p class="slbl rv">// complexity analysis</p>
+    <h2 class="stitle rv">Time &amp; Space <span>Complexity</span></h2>
+    <p class="sdesc rv">Big O describes the <strong>worst-case growth rate</strong>. It shows how your code scales as input n grows to infinity — regardless of constant factors.</p>
+    <div class="tc-grid rv">
+      <div class="chart-card">
+        <div class="cc-title">Big O Growth Curves — Operations vs Input Size</div>
+        <canvas id="bigo" style="width:100%;height:200px"></canvas>
+        <div style="display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.65rem">
+          <span style="font-size:.66rem;color:#22c994;font-family:'Fira Code',monospace">● O(1)</span>
+          <span style="font-size:.66rem;color:#04d9c8;font-family:'Fira Code',monospace">● O(log n)</span>
+          <span style="font-size:.66rem;color:#f0a030;font-family:'Fira Code',monospace">● O(n)</span>
+          <span style="font-size:.66rem;color:#8b5cf6;font-family:'Fira Code',monospace">● O(n log n)</span>
+          <span style="font-size:.66rem;color:#f06060;font-family:'Fira Code',monospace">● O(n²)</span>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="cc-title">Notation Reference</div>
+        <table class="bot">
+          <thead><tr><th>Notation</th><th>Name</th><th>Example</th><th>Rating</th></tr></thead>
+          <tbody>
+            <tr><td>O(1)</td><td>Constant</td><td>Array index</td><td><span class="bdg bg">Best</span></td></tr>
+            <tr><td>O(log n)</td><td>Logarithmic</td><td>Binary search</td><td><span class="bdg bg">Excellent</span></td></tr>
+            <tr><td>O(n)</td><td>Linear</td><td>Linear search</td><td><span class="bdg by">Good</span></td></tr>
+            <tr><td>O(n log n)</td><td>Linearithmic</td><td>Merge sort</td><td><span class="bdg by">Fair</span></td></tr>
+            <tr><td>O(n²)</td><td>Quadratic</td><td>Bubble sort</td><td><span class="bdg br">Poor</span></td></tr>
+            <tr><td>O(2ⁿ)</td><td>Exponential</td><td>Naive fibonacci</td><td><span class="bdg br">Terrible</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ds">
+  <div class="ctr">
+    <p class="slbl rv">// interactive guide</p>
+    <h2 class="stitle rv">Explore Each <span>Structure</span></h2>
+    <p class="sdesc rv">Click <strong>Explore</strong> on any card to open the full guide — definitions, types, real-world use cases &amp; animated operation demos.</p>
+    <div class="ds-grid rv" id="ds-grid"></div>
+  </div>
+</section>
+
+<section id="ops">
+  <div class="ctr">
+    <p class="slbl rv">// quick reference</p>
+    <h2 class="stitle rv">Operations <span>Complexity Table</span></h2>
+    <div class="ot-wrap rv">
+      <table class="ot">
+        <thead><tr><th>Structure</th><th>Access</th><th>Search</th><th>Insert</th><th>Delete</th><th>Space</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td>Array</td><td><span class="bdg bg">O(1)</span></td><td><span class="bdg by">O(n)</span></td><td><span class="bdg by">O(n)</span></td><td><span class="bdg by">O(n)</span></td><td><span class="bdg by">O(n)</span></td><td>Index-based random access</td></tr>
+          <tr><td>Linked List</td><td><span class="bdg by">O(n)</span></td><td><span class="bdg by">O(n)</span></td><td><span class="bdg bg">O(1)</span></td><td><span class="bdg bg">O(1)</span></td><td><span class="bdg by">O(n)</span></td><td>Frequent insert / delete</td></tr>
+          <tr><td>Stack</td><td><span class="bdg by">O(n)</span></td><td><span class="bdg by">O(n)</span></td><td><span class="bdg bg">O(1)</span></td><td><span class="bdg bg">O(1)</span></td><td><span class="bdg by">O(n)</span></td><td>LIFO — undo, call stack</td></tr>
+          <tr><td>Queue</td><td><span class="bdg by">O(n)</span></td><td><span class="bdg by">O(n)</span></td><td><span class="bdg bg">O(1)</span></td><td><span class="bdg bg">O(1)</span></td><td><span class="bdg by">O(n)</span></td><td>FIFO — scheduling, BFS</td></tr>
+          <tr><td>Hash Table</td><td>N/A</td><td><span class="bdg bg">O(1)*</span></td><td><span class="bdg bg">O(1)*</span></td><td><span class="bdg bg">O(1)*</span></td><td><span class="bdg by">O(n)</span></td><td>Key-value lookup, caching</td></tr>
+          <tr><td>BST (balanced)</td><td><span class="bdg bg">O(log n)</span></td><td><span class="bdg bg">O(log n)</span></td><td><span class="bdg bg">O(log n)</span></td><td><span class="bdg bg">O(log n)</span></td><td><span class="bdg by">O(n)</span></td><td>Sorted data, range queries</td></tr>
+          <tr><td>Heap</td><td>N/A</td><td><span class="bdg by">O(n)</span></td><td><span class="bdg bg">O(log n)</span></td><td><span class="bdg bg">O(log n)</span></td><td><span class="bdg by">O(n)</span></td><td>Priority queues</td></tr>
+          <tr><td>Graph</td><td>N/A</td><td><span class="bdg by">O(V+E)</span></td><td><span class="bdg bg">O(1)</span></td><td><span class="bdg by">O(V+E)</span></td><td><span class="bdg br">O(V²)</span></td><td>Networks, paths</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.7rem;color:var(--tx3);margin-top:.65rem" class="rv">* Average case. O(n) worst case when all keys collide. V = vertices, E = edges.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="ctr">
+    <p style="font-family:'Fira Code',monospace;color:var(--c);margin-bottom:.3rem">&lt;/DSA Complete Guide&gt;</p>
+    <p>Data Structures &amp; Algorithms — Visualized, Animated &amp; Explained</p>
+  </div>
+</footer>
+
+<div id="modal-overlay" onclick="closeModal(event)">
+  <div id="modal">
+    <div class="mhdr">
+      <div class="mhdr-icon" id="micon"></div>
+      <div class="mhdr-info">
+        <div class="mhdr-name" id="mname"></div>
+        <div class="mhdr-sub" id="msub"></div>
+      </div>
+      <button class="mclose" onclick="closeModal(null,true)">✕</button>
+    </div>
+    <div class="mtabs">
+      <button class="mtab active" onclick="switchTab('def',this)">Definition</button>
+      <button class="mtab" onclick="switchTab('types',this)">Types</button>
+      <button class="mtab" onclick="switchTab('uc',this)">Use Cases</button>
+      <button class="mtab" onclick="switchTab('ops',this)">Operations</button>
+    </div>
+    <div class="mbody">
+      <div class="tpane active" id="tdef"></div>
+      <div class="tpane" id="ttypes"></div>
+      <div class="tpane" id="tuc"></div>
+      <div class="tpane" id="tops"></div>
+    </div>
+  </div>
+</div>
+<script>
+// Hero canvas
+(()=>{const cv=document.getElementById('hc'),ctx=cv.getContext('2d');let W,H,pts=[];
+const rsz=()=>{W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight};rsz();
+window.addEventListener('resize',()=>{rsz();init()});
+const init=()=>{pts=[];for(let i=0;i<Math.min(75,~~(W*H/13000));i++)pts.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.7+.5})};
+init();
+const draw=()=>{ctx.clearRect(0,0,W,H);
+pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;
+ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(4,217,200,.6)';ctx.fill()});
+pts.forEach((a,i)=>pts.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<105){
+ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(4,217,200,${.15*(1-d/105)})`;ctx.lineWidth=.5;ctx.stroke()}}));
+requestAnimationFrame(draw)};draw()})();
+
+// Big O chart
+(()=>{const cv=document.getElementById('bigo'),ctx=cv.getContext('2d'),dpr=devicePixelRatio||1;
+const P=cv.parentElement,W=P.clientWidth-48,H=200;
+cv.width=W*dpr;cv.height=H*dpr;cv.style.width=W+'px';cv.style.height=H+'px';ctx.scale(dpr,dpr);
+const l=32,r=8,t=8,b=26,pw=W-l-r,ph=H-t-b,N=40;
+ctx.strokeStyle='rgba(26,45,72,.45)';ctx.lineWidth=.5;
+[.25,.5,.75,1].forEach(f=>{ctx.beginPath();ctx.moveTo(l,t+ph*f);ctx.lineTo(l+pw,t+ph*f);ctx.stroke()});
+ctx.strokeStyle='rgba(58,77,110,.4)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(l,t);ctx.lineTo(l,t+ph);ctx.lineTo(l+pw,t+ph);ctx.stroke();
+ctx.fillStyle='rgba(58,77,110,.6)';ctx.font='9px Fira Code,monospace';ctx.textAlign='center';ctx.fillText('n →',l+pw/2,t+ph+18);
+const curves=[{f:()=>0,c:'#22c994'},{f:i=>Math.log2(i+1)/Math.log2(N+1),c:'#04d9c8'},{f:i=>i/N,c:'#f0a030'},{f:i=>Math.min(i/N*Math.log2(i+2)/Math.log2(N),1),c:'#8b5cf6'},{f:i=>Math.min(Math.pow(i/N,2),1),c:'#f06060'}];
+curves.forEach(({f,c})=>{ctx.beginPath();ctx.strokeStyle=c;ctx.lineWidth=1.7;ctx.lineJoin='round';for(let i=0;i<=N;i++){const x=l+i/N*pw,y=t+ph-f(i)*ph;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()})})();
+
+// Scroll reveal
+document.querySelectorAll('.rv').forEach(el=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.08}).observe(el));
+</script>
+<script>
+const DS={
+  array:{name:"Array",icon:"🗂️",color:"#04d9c8",tag:"index-based contiguous storage",
+    brief:"Stores same-type elements in contiguous memory blocks. Direct index access in O(1).",
+    cplx:{access:"O(1)",search:"O(n)",insert:"O(n)",delete:"O(n)"},
+    definition:`<p>An <strong>array</strong> is the most fundamental data structure — a <strong>fixed-size contiguous block of memory</strong> holding elements of the same type. Each element occupies equal memory, so the address of any element is computed instantly: <code>address = base + (index × element_size)</code>.</p><p>This formula is why access is <strong>O(1)</strong> — the CPU jumps directly to the address. However, inserting in the middle requires shifting all subsequent elements right, making it O(n).</p><p><strong>Dynamic arrays</strong> (Python lists, Java ArrayList) solve fixed-size issues by doubling capacity when full — giving amortized O(1) append.</p>`,
+    cplxRows:[["Access by index","O(1)","var(--grn)"],["Search (linear)","O(n)","var(--amb)"],["Insert at end","O(1)","var(--grn)"],["Insert at middle","O(n)","var(--amb)"],["Delete at end","O(1)","var(--grn)"],["Delete at middle","O(n)","var(--amb)"],["Space","O(n)","var(--amb)"]],
+    types:[{name:"Static Array",desc:"Fixed size set at compile time. Stored on the stack. Fast allocation but cannot grow.",tag:"int arr[10]",viz:"static"},{name:"Dynamic Array",desc:"Resizable. Backed by a static array that doubles capacity when full. Amortized O(1) append.",tag:"ArrayList / Python list",viz:"dynamic"},{name:"2D Array",desc:"Matrix form — array of arrays. Rows × Columns. Used in image processing and game boards.",tag:"int grid[M][N]",viz:"2d"},{name:"Multi-dim Array",desc:"3D+ arrays for complex data like video frames (width × height × time × channels).",tag:"arr[w][h][t][c]",viz:"3d"}],
+    usecases:[{icon:"🖼️",title:"Image Pixels",desc:"A 1920×1080 image is a 2D array of pixel values. Any pixel accessed instantly via row-column index.",badge:"Computer Vision"},{icon:"📊",title:"Spreadsheet Cells",desc:"Excel stores grids as 2D arrays. O(1) cell access by row and column index.",badge:"Productivity"},{icon:"🎵",title:"Audio Samples",desc:"Audio files are 1D arrays of amplitude values. PCM at 44.1kHz = 44,100 samples/second.",badge:"Multimedia"},{icon:"🏆",title:"Leaderboard",desc:"Rankings in a sorted array allow binary search for a player rank in O(log n).",badge:"Gaming"},{icon:"🧮",title:"Matrix Operations",desc:"NumPy arrays power all of ML — weight matrices, gradients and activations are 2D arrays.",badge:"ML / AI"},{icon:"📦",title:"Ring Buffer/Cache",desc:"Circular arrays are used in network packet buffers, audio streaming and OS I/O.",badge:"Systems"}],
+    ops:["Access","Insert","Delete","Search"],
+    opData:{Access:{desc:"<strong>Access arr[i]:</strong> Compute address = base + i×size. Jump directly. O(1) — no scanning needed.",steps:[{arr:[15,42,8,23,36],hl:[],msg:"Array: [15,42,8,23,36]. We want to access arr[2]."},{arr:[15,42,8,23,36],hl:[0],scan:0,msg:"We don't scan — we compute the address directly."},{arr:[15,42,8,23,36],hl:[2],msg:"Jump to: base + 2×4 bytes = arr[2]."},{arr:[15,42,8,23,36],found:2,msg:"✅ arr[2] = 8 in <strong>O(1)</strong> — constant time regardless of size!"}]},
+    Insert:{desc:"<strong>Insert at index i:</strong> Shift elements from i rightward to make a gap, then place new value. O(n).",steps:[{arr:[15,42,8,23,36],hl:[],msg:"Array [15,42,8,23,36]. Insert 99 at index 2."},{arr:[15,42,8,23,36],hl:[2,3,4],msg:"Elements at index 2,3,4 must shift right to make space..."},{arr:[15,42,'_',8,23,36],gap:2,msg:"Shifted: 36→idx5, 23→idx4, 8→idx3. Gap at index 2."},{arr:[15,42,99,8,23,36],ins:2,msg:"✅ Placed 99 at index 2. Shifted 3 elements → <strong>O(n)</strong>."}]},
+    Delete:{desc:"<strong>Delete at index i:</strong> Shift all elements after i one step left, reduce size by 1. O(n).",steps:[{arr:[15,42,8,23,36],hl:[],msg:"Array [15,42,8,23,36]. Delete element at index 1 (value 42)."},{arr:[15,42,8,23,36],hl:[1],msg:"Marking index 1 (value 42) for deletion."},{arr:[15,42,8,23,36],del:1,msg:"Removing 42... elements to the right must shift left."},{arr:[15,8,23,36],hl:[],msg:"✅ Array is now [15,8,23,36]. Shifted 3 elements → <strong>O(n)</strong>."}]},
+    Search:{desc:"<strong>Linear Search:</strong> Scan from index 0 until value found or array exhausted. O(n) worst case.",steps:[{arr:[15,42,8,23,36],hl:[],msg:"Array [15,42,8,23,36]. Searching for value 23."},{arr:[15,42,8,23,36],scan:0,msg:"Check index 0: 15 ≠ 23. Keep going..."},{arr:[15,42,8,23,36],scan:1,msg:"Check index 1: 42 ≠ 23. Keep going..."},{arr:[15,42,8,23,36],scan:2,msg:"Check index 2: 8 ≠ 23. Keep going..."},{arr:[15,42,8,23,36],found:3,msg:"✅ index 3: 23 = 23! Found. <strong>O(n)</strong> worst case."}]}}
+  },
+  linkedlist:{name:"Linked List",icon:"🔗",color:"#f0a030",tag:"dynamic nodes connected by pointers",
+    brief:"Nodes scattered in memory, each pointing to the next. O(1) insert/delete, O(n) access.",
+    cplx:{access:"O(n)",search:"O(n)",insert:"O(1)",delete:"O(1)"},
+    definition:`<p>A <strong>linked list</strong> is a sequence of <strong>nodes</strong>, each containing a <strong>data field</strong> and a <strong>pointer</strong> to the next node. Unlike arrays, nodes don't need to be in contiguous memory — they can be scattered anywhere in the heap.</p><p>Trade-off: <strong>insertions and deletions are O(1)</strong> — you only redirect pointers. But <strong>accessing element n requires traversing n nodes</strong> from the head, giving O(n) access.</p><p>Linked lists are the foundation for stacks, queues, hash chaining, and many OS-level structures like free-block lists.</p>`,
+    cplxRows:[["Access by index","O(n)","var(--amb)"],["Search","O(n)","var(--amb)"],["Insert at head","O(1)","var(--grn)"],["Insert at tail","O(n)","var(--amb)"],["Delete (known node)","O(1)","var(--grn)"],["Space","O(n)","var(--amb)"]],
+    types:[{name:"Singly Linked",desc:"Each node has one pointer: next. Forward traversal only. Most memory-efficient variant.",tag:"node→node→null",viz:"singly"},{name:"Doubly Linked",desc:"Each node has next and prev pointers. Traverse both directions. Used in browsers and undo stacks.",tag:"null←node⇄node→null",viz:"doubly"},{name:"Circular Linked",desc:"Last node points back to head. No null terminator. Useful for round-robin scheduling.",tag:"node→node→(head)",viz:"circular"},{name:"Skip List",desc:"Multi-level linked lists for O(log n) search. Used in Redis and LevelDB as probabilistic index.",tag:"multi-layer index",viz:"skip"}],
+    usecases:[{icon:"🌐",title:"Browser History",desc:"Back/Forward navigation is a doubly linked list. Each page is a node — O(1) prev/next.",badge:"Web Browsers"},{icon:"🎵",title:"Music Playlist",desc:"Media players use circular linked lists — next/previous track with seamless looping.",badge:"Media Players"},{icon:"↩️",title:"Undo / Redo",desc:"Text editors maintain a doubly linked list of states. Ctrl+Z walks backward, Ctrl+Y forward.",badge:"Text Editors"},{icon:"🧠",title:"Memory Allocator",desc:"OS free-block lists are linked lists. malloc() removes a node; free() adds one.",badge:"OS / Systems"},{icon:"🔄",title:"Round-Robin Scheduling",desc:"CPU schedulers use circular linked lists to give each process equal time slices.",badge:"Operating Systems"},{icon:"#️⃣",title:"Hash Chaining",desc:"Each hash table bucket is a linked list — collisions resolved by appending to the chain.",badge:"Hash Tables"}],
+    ops:["Traverse","Insert Head","Insert Tail","Delete"],
+    opData:{Traverse:{desc:"<strong>Traverse:</strong> Start at head, follow next pointers until null. Every node visited once → O(n).",steps:[{nodes:["10","25","37","52"],cur:-1,msg:"List: 10→25→37→52→NULL. Starting traversal from head."},{nodes:["10","25","37","52"],cur:0,msg:"Visit node 10. Follow next pointer to 25..."},{nodes:["10","25","37","52"],cur:1,msg:"Visit node 25. Follow next pointer to 37..."},{nodes:["10","25","37","52"],cur:2,msg:"Visit node 37. Follow next pointer to 52..."},{nodes:["10","25","37","52"],cur:3,msg:"Visit node 52. next = NULL — end. ✅ <strong>O(n)</strong> traversal done."}]},
+    "Insert Head":{desc:"<strong>Insert at Head:</strong> Create node, point it to current head, update head. O(1) — no traversal.",steps:[{nodes:["10","25","37"],cur:-1,msg:"List: 10→25→37→NULL. Insert value 5 at head."},{nodes:["10","25","37"],cur:-1,newH:"5",phase:1,msg:"Step 1: Create new node(5)."},{nodes:["10","25","37"],cur:-1,newH:"5",phase:2,msg:"Step 2: new_node.next = head (node 10)."},{nodes:["5","10","25","37"],cur:0,msg:"Step 3: head = new_node. ✅ Inserted in <strong>O(1)</strong>!"}]},
+    "Insert Tail":{desc:"<strong>Insert at Tail:</strong> Traverse to last node (next=null), then append. O(n) — must reach the end.",steps:[{nodes:["10","25","37"],cur:-1,msg:"List: 10→25→37→NULL. Insert 50 at tail."},{nodes:["10","25","37"],cur:0,msg:"Traverse: node 10 has next. Keep going..."},{nodes:["10","25","37"],cur:1,msg:"Node 25 has next. Keep going..."},{nodes:["10","25","37"],cur:2,msg:"Node 37: next = NULL. This is the tail! Append here."},{nodes:["10","25","37","50"],cur:3,isNew:3,msg:"✅ Node 50 appended. Took <strong>O(n)</strong> — that's why tail pointers are kept."}]},
+    Delete:{desc:"<strong>Delete a node:</strong> Find node before it, redirect its next pointer. O(n) to find + O(1) to remove.",steps:[{nodes:["10","25","37","52"],cur:-1,msg:"List: 10→25→37→52. Delete node with value 37."},{nodes:["10","25","37","52"],cur:0,msg:"Check node 10: its next (25) ≠ 37. Move forward..."},{nodes:["10","25","37","52"],cur:1,msg:"Check node 25: its next (37) IS the target! Stop here."},{nodes:["10","25","37","52"],cur:1,del:2,msg:"Set node25.next = node37.next (= node 52). Bypassing 37."},{nodes:["10","25","52"],cur:-1,msg:"✅ Node 37 unlinked. <strong>O(n)</strong> to find, <strong>O(1)</strong> to remove."}]}}
+  },
+  stack:{name:"Stack",icon:"📚",color:"#f0a030",tag:"LIFO — Last In, First Out",
+    brief:"LIFO structure. Push adds to top, Pop removes from top. Both operations are O(1).",
+    cplx:{access:"O(n)",search:"O(n)",insert:"O(1)",delete:"O(1)"},
+    definition:`<p>A <strong>stack</strong> follows the <strong>LIFO (Last In, First Out)</strong> principle — the last element added is the first removed. Imagine a stack of plates: you can only add or remove from the top.</p><p>All three core operations — <strong>push</strong> (add to top), <strong>pop</strong> (remove from top), and <strong>peek</strong> (view top without removing) — run in <strong>O(1)</strong> constant time.</p><p>Stacks are used in <strong>recursion</strong> (the call stack), expression parsing, backtracking algorithms, and undo/redo systems.</p>`,
+    cplxRows:[["Push (add to top)","O(1)","var(--grn)"],["Pop (remove top)","O(1)","var(--grn)"],["Peek (view top)","O(1)","var(--grn)"],["isEmpty","O(1)","var(--grn)"],["Access by index","O(n)","var(--amb)"],["Space","O(n)","var(--amb)"]],
+    types:[{name:"Array-Based Stack",desc:"Implemented with a static or dynamic array. Fast with great cache locality. May need pre-defined size.",tag:"arr[] + top pointer",viz:"arr-stack"},{name:"Linked List Stack",desc:"Each push/pop adds/removes a head node. Never overflows unless memory runs out.",tag:"LL head as top",viz:"ll-stack"},{name:"Min/Max Stack",desc:"Tracks minimum or maximum element in O(1) using an auxiliary stack alongside the main stack.",tag:"getMin() = O(1)",viz:"min-stack"},{name:"Monotonic Stack",desc:"Maintains strictly increasing or decreasing order. Used in 'Next Greater Element' problems.",tag:"sorted invariant",viz:"mono-stack"}],
+    usecases:[{icon:"↩️",title:"Browser Back Button",desc:"Each page visited is pushed onto a stack. Clicking Back pops the current page.",badge:"Web Browsers"},{icon:"🖥️",title:"Function Call Stack",desc:"Every function call pushes a frame (local vars, return address). Return pops it.",badge:"CPU / Runtime"},{icon:"📝",title:"Undo in Word/Photoshop",desc:"Every action is pushed. Ctrl+Z pops and reverses the last action.",badge:"Productivity"},{icon:"🔢",title:"Expression Evaluation",desc:"Compilers use two stacks (operands + operators) to evaluate math expressions.",badge:"Compilers"},{icon:"🧩",title:"Depth-First Search",desc:"DFS uses a stack (or recursion) to explore as deep as possible before backtracking.",badge:"Graph Algorithms"},{icon:"📋",title:"Syntax Checking",desc:"Bracket matching {[()]} uses a stack: push opening, pop and verify on closing.",badge:"Code Editors"}],
+    ops:["Push","Pop","Peek","isEmpty"],
+    opData:{Push:{desc:"<strong>Push(v):</strong> Place new element on top. O(1) always.",steps:[{stk:["10","20","30"],msg:"Stack: [10(bottom),20,30(top)]. Push(40)."},{stk:["10","20","30"],newVal:"40",phase:1,msg:"Creating element 40 above the current top (30)..."},{stk:["10","20","30","40"],phase:2,msg:"✅ 40 is now on top. top pointer incremented. <strong>O(1)</strong>!"}]},
+    Pop:{desc:"<strong>Pop():</strong> Remove and return the top element. Decrement top pointer. O(1).",steps:[{stk:["10","20","30","40"],msg:"Stack: [10,20,30,40(top)]. Pop()."},{stk:["10","20","30","40"],popTop:true,phase:1,msg:"Removing top element 40. Decrementing top pointer..."},{stk:["10","20","30"],phase:2,msg:"✅ Returned 40. Stack now [10,20,30(top)]. <strong>O(1)</strong>!"}]},
+    Peek:{desc:"<strong>Peek():</strong> Read the top element WITHOUT removing it. O(1).",steps:[{stk:["10","20","30","40"],msg:"Stack: [10,20,30,40(top)]. Peek()."},{stk:["10","20","30","40"],peekTop:true,phase:1,msg:"Reading top element: 40. No modification — just reading."},{stk:["10","20","30","40"],peekTop:true,phase:2,msg:"✅ Returned 40. Stack unchanged! <strong>O(1)</strong>."}]},
+    isEmpty:{desc:"<strong>isEmpty():</strong> Check if stack has no elements. O(1).",steps:[{stk:["10","20","30"],msg:"Stack: [10,20,30]. isEmpty()?"},{stk:["10","20","30"],phase:1,msg:"Checking: top pointer = 2 (≥ 0). Stack is NOT empty."},{stk:["10","20","30"],phase:2,msg:"✅ Returns <strong>false</strong>. Stack has 3 elements. <strong>O(1)</strong>."}]}}
+  },
+  queue:{name:"Queue",icon:"🚶",color:"#22c994",tag:"FIFO — First In, First Out",
+    brief:"FIFO structure. Enqueue at rear, Dequeue from front. Both O(1).",
+    cplx:{access:"O(n)",search:"O(n)",insert:"O(1)",delete:"O(1)"},
+    definition:`<p>A <strong>queue</strong> follows <strong>FIFO (First In, First Out)</strong> — the first element added is the first removed. Think of a checkout line: first person in is first to be served.</p><p><strong>Enqueue</strong> (add to rear) and <strong>dequeue</strong> (remove from front) both run in <strong>O(1)</strong>. A <strong>front</strong> pointer tracks where to dequeue; a <strong>rear</strong> pointer tracks where to enqueue.</p><p>Queues are fundamental to <strong>BFS graph traversal</strong>, CPU scheduling, and any system that processes requests in arrival order.</p>`,
+    cplxRows:[["Enqueue (add rear)","O(1)","var(--grn)"],["Dequeue (remove front)","O(1)","var(--grn)"],["Peek (front element)","O(1)","var(--grn)"],["isEmpty","O(1)","var(--grn)"],["Access by index","O(n)","var(--amb)"],["Space","O(n)","var(--amb)"]],
+    types:[{name:"Simple Queue",desc:"Linear FIFO. Enqueue at rear, dequeue at front. May waste space without circular wrapping.",tag:"front→[items]→rear",viz:"simple-q"},{name:"Circular Queue",desc:"Rear wraps to front when it reaches the end. Eliminates wasted space. Used in buffers.",tag:"ring buffer",viz:"circular-q"},{name:"Priority Queue",desc:"Elements dequeued in priority order, not arrival. Usually implemented with a heap.",tag:"min-heap / max-heap",viz:"pq"},{name:"Deque (Double-ended)",desc:"Elements added/removed from BOTH ends. Combines stack and queue functionality.",tag:"both ends",viz:"deque"}],
+    usecases:[{icon:"🖨️",title:"Print Queue",desc:"Documents are queued FIFO. First document sent is first to print.",badge:"OS"},{icon:"⚙️",title:"CPU Scheduling",desc:"Round-robin CPU scheduling uses a circular queue — each process gets a time slice.",badge:"OS Scheduler"},{icon:"📡",title:"Network Packets",desc:"Routers buffer incoming packets in queues, processing them in arrival order.",badge:"Networking"},{icon:"💬",title:"Message Queues",desc:"Kafka, RabbitMQ, SQS — industrial queue systems decoupling producers and consumers.",badge:"Distributed Systems"},{icon:"🗺️",title:"BFS Graph Search",desc:"BFS uses a queue to explore nodes level-by-level — essential for shortest paths.",badge:"Algorithms"},{icon:"📞",title:"Call Center IVR",desc:"Customer calls queued and assigned to agents in FIFO order as they become available.",badge:"Telecom"}],
+    ops:["Enqueue","Dequeue","Peek","isEmpty"],
+    opData:{Enqueue:{desc:"<strong>Enqueue(v):</strong> Add element to rear. Advance rear pointer. O(1).",steps:[{q:["A","B","C","D"],msg:"Queue: [A(front),B,C,D(rear)]. Enqueue('E')."},{q:["A","B","C","D"],phase:1,newVal:"E",msg:"New element 'E' arrives at the rear..."},{q:["A","B","C","D","E"],phase:2,msg:"✅ E joined at rear. rear pointer advanced. <strong>O(1)</strong>!"}]},
+    Dequeue:{desc:"<strong>Dequeue():</strong> Remove and return front element. Advance front pointer. O(1).",steps:[{q:["A","B","C","D","E"],msg:"Queue: [A(front),B,C,D,E(rear)]. Dequeue()."},{q:["A","B","C","D","E"],deqFront:true,phase:1,msg:"Removing front element 'A'... advancing front pointer."},{q:["B","C","D","E"],phase:2,msg:"✅ Returned 'A'. Queue now [B(front),C,D,E]. <strong>O(1)</strong>!"}]},
+    Peek:{desc:"<strong>Peek():</strong> View front element without removing it. O(1).",steps:[{q:["B","C","D","E"],msg:"Queue: [B(front),C,D,E]. Peek()."},{q:["B","C","D","E"],peekFront:true,phase:1,msg:"Reading front element 'B'. No modification."},{q:["B","C","D","E"],peekFront:true,phase:2,msg:"✅ Returns 'B'. Queue unchanged. <strong>O(1)</strong>."}]},
+    isEmpty:{desc:"<strong>isEmpty():</strong> Check if front === rear. O(1).",steps:[{q:["B","C","D"],msg:"Queue: [B,C,D]. isEmpty()?"},{q:["B","C","D"],phase:1,msg:"Checking: front (idx 0) ≠ rear (idx 2). NOT empty."},{q:["B","C","D"],phase:2,msg:"✅ Returns <strong>false</strong>. 3 elements present. <strong>O(1)</strong>."}]}}
+  },
+  tree:{name:"Tree",icon:"🌲",color:"#8b5cf6",tag:"hierarchical parent-child structure",
+    brief:"Nodes with parent-child relationships. BST gives O(log n) search on balanced trees.",
+    cplx:{access:"O(log n)",search:"O(log n)",insert:"O(log n)",delete:"O(log n)"},
+    definition:`<p>A <strong>tree</strong> is a non-linear, hierarchical structure of <strong>nodes</strong> connected by <strong>edges</strong>. Every tree has a <strong>root</strong> at the top, every non-root node has exactly one parent, and there are no cycles.</p><p>A <strong>BST</strong> enforces: all values in the <strong>left subtree are smaller</strong>, all in the <strong>right subtree are larger</strong>. This halves the search space at each step — <strong>O(log n)</strong> for balanced trees.</p><p>When a BST becomes unbalanced (sorted insertion creates a chain), performance degrades to O(n). <strong>AVL and Red-Black trees</strong> self-balance after each operation to guarantee O(log n).</p>`,
+    cplxRows:[["Search (balanced)","O(log n)","var(--grn)"],["Insert (balanced)","O(log n)","var(--grn)"],["Delete (balanced)","O(log n)","var(--grn)"],["Inorder traversal","O(n)","var(--amb)"],["Worst case (unbalanced)","O(n)","var(--amb)"],["Space","O(n)","var(--amb)"]],
+    types:[{name:"Binary Tree",desc:"Each node has at most 2 children. No ordering constraint. Foundation for all binary variants.",tag:"0–2 children",viz:"bt"},{name:"BST",desc:"Left < root < right ordering. Enables O(log n) search on balanced trees.",tag:"sorted ordering",viz:"bst"},{name:"AVL Tree",desc:"Self-balancing BST. Height difference between subtrees ≤ 1. Rotations maintain balance.",tag:"balanced BST",viz:"avl"},{name:"Trie",desc:"Prefix tree where each path from root represents a string prefix. Used for autocomplete.",tag:"string prefixes",viz:"trie"},{name:"B-Tree",desc:"Multi-way tree used in databases. Each node can have many children — reduces disk I/O.",tag:"database indexes",viz:"btree"},{name:"Heap",desc:"Complete binary tree where parent ≥ children (max-heap) or parent ≤ children (min-heap).",tag:"priority queue",viz:"heap"}],
+    usecases:[{icon:"📁",title:"File System",desc:"Directories form a tree. Each folder is a node, its contents are children.",badge:"OS"},{icon:"🌐",title:"HTML DOM",desc:"Every web page's HTML is a tree. The browser traverses it to render and apply CSS.",badge:"Web Browsers"},{icon:"🗄️",title:"Database Indexes",desc:"B-Trees organize table indexes. Range queries like WHERE age > 25 traverse branches.",badge:"Databases"},{icon:"✏️",title:"Autocomplete / Spell Check",desc:"A Trie stores a dictionary — words starting with 'pre' traverse just one path.",badge:"Search / NLP"},{icon:"🤖",title:"Decision Trees in ML",desc:"Random Forests use trees of yes/no decisions to classify data.",badge:"Machine Learning"},{icon:"🔢",title:"Expression Parsing",desc:"Compilers build Abstract Syntax Trees (AST) from code. Each operator is a node.",badge:"Compilers"}],
+    ops:["Search BST","Insert BST","InOrder","PreOrder"],
+    opData:{"Search BST":{desc:"<strong>BST Search(23):</strong> At each node go left if v < node, right if v > node. Halves space → O(log n).",treeSteps:[{path:[],msg:"BST: [root=50, L=30, R=70...]. Searching for 23."},{path:[50],msg:"At root (50): 23 < 50 → go LEFT subtree."},{path:[50,30],msg:"At node 30: 23 < 30 → go LEFT subtree."},{path:[50,30,20],msg:"At node 20: 23 > 20 → go RIGHT subtree."},{path:[50,30,20,23],found:23,msg:"✅ Found 23! Visited 4 of 7 nodes. <strong>O(log n)</strong> = O(log 7) ≈ 3 comparisons."}]},
+    "Insert BST":{desc:"<strong>BST Insert(45):</strong> Traverse like search until null child, attach new node. O(log n).",treeSteps:[{path:[],msg:"BST has 7 nodes. Inserting 45."},{path:[50],msg:"At root 50: 45 < 50 → go LEFT."},{path:[50,30],msg:"At node 30: 45 > 30 → go RIGHT."},{path:[50,30,40],msg:"At node 40: 45 > 40 → go RIGHT. Node 40 has no right child!"},{path:[50,30,40,45],found:45,newNode:true,msg:"✅ Insert 45 as right child of 40. Done in <strong>O(log n)</strong>!"}]},
+    "InOrder":{desc:"<strong>InOrder:</strong> Left → Root → Right. Produces nodes in sorted ascending order!",treeSteps:[{path:[],msg:"InOrder traversal: Left→Root→Right."},{path:[20],msg:"Go all the way left first: visit 20."},{path:[20,23],msg:"Visit 23 (right of 20)."},{path:[20,23,30],msg:"Visit 30 (root of left subtree)."},{path:[20,23,30,40],msg:"Visit 40 (right of 30)."},{path:[20,23,30,40,50],msg:"Visit 50 (overall root)."},{path:[20,23,30,40,50,70],msg:"Visit 70. ✅ Result: 20,23,30,40,50,70 — <strong>sorted ascending!</strong>"}]},
+    "PreOrder":{desc:"<strong>PreOrder:</strong> Root → Left → Right. Useful for cloning a tree.",treeSteps:[{path:[],msg:"PreOrder: Root→Left→Right."},{path:[50],msg:"Visit ROOT 50 first."},{path:[50,30],msg:"Go LEFT: visit 30."},{path:[50,30,20],msg:"Left of 30: visit 20."},{path:[50,30,20,23],msg:"Right of 20: visit 23."},{path:[50,30,20,23,40],msg:"Right of 30: visit 40."},{path:[50,30,20,23,40,70],msg:"✅ Right of 50: visit 70. PreOrder: 50,30,20,23,40,70."}]}}
+  },
+  graph:{name:"Graph",icon:"🕸️",color:"#e879a0",tag:"vertices connected by edges, no hierarchy",
+    brief:"Vertices connected by edges. Models networks, maps and any relationship structure.",
+    cplx:{access:"O(V+E)",search:"O(V+E)",insert:"O(1)",delete:"O(V+E)"},
+    definition:`<p>A <strong>graph</strong> is the most general data structure — a collection of <strong>vertices (nodes)</strong> connected by <strong>edges</strong>. Unlike trees, graphs can have <strong>cycles</strong>, multiple paths, and no required root.</p><p>Represented as an <strong>adjacency matrix</strong> (V×V grid, O(1) edge lookup, O(V²) space) or <strong>adjacency list</strong> (array of lists, O(V+E) space — better for sparse graphs).</p><p><strong>BFS</strong> (uses a queue, finds shortest unweighted path) and <strong>DFS</strong> (uses a stack/recursion, explores depth-first) both run in <strong>O(V+E)</strong>.</p>`,
+    cplxRows:[["Add vertex","O(1)","var(--grn)"],["Add edge","O(1)","var(--grn)"],["BFS / DFS","O(V+E)","var(--amb)"],["Dijkstra's","O((V+E) log V)","var(--amb)"],["Space (adj. list)","O(V+E)","var(--amb)"],["Space (adj. matrix)","O(V²)","var(--red)"]],
+    types:[{name:"Directed Graph",desc:"Edges have direction (one-way). A→B doesn't imply B→A. Web links, task dependencies.",tag:"digraph",viz:"directed"},{name:"Undirected Graph",desc:"Edges are bidirectional. If A connects to B, B connects to A. Friendships, roads.",tag:"bidirectional",viz:"undirected"},{name:"Weighted Graph",desc:"Edges have numeric weights (distance, cost, time). Used in GPS with Dijkstra's.",tag:"edges have cost",viz:"weighted"},{name:"DAG",desc:"Directed Acyclic Graph — directed, no cycles. Build systems, course prerequisites.",tag:"no cycles",viz:"dag"},{name:"Bipartite Graph",desc:"Vertices in two groups; edges only cross between groups. Job matching.",tag:"two-colored",viz:"bipartite"},{name:"Complete Graph",desc:"Every vertex connects to every other. n vertices = n(n-1)/2 edges.",tag:"all-to-all",viz:"complete"}],
+    usecases:[{icon:"🗺️",title:"GPS Navigation",desc:"Google Maps stores roads as a weighted graph. Dijkstra's / A* finds shortest path in real time.",badge:"Maps"},{icon:"👥",title:"Social Networks",desc:"Facebook: undirected (mutual friends). Twitter: directed (followers). Friend suggestions = shortest path.",badge:"Social Media"},{icon:"🌐",title:"Web Crawling",desc:"Web pages are nodes, hyperlinks are directed edges. Google's PageRank traverses this graph.",badge:"Search Engines"},{icon:"📦",title:"Package Dependencies",desc:"npm/pip build a DAG of packages. Topological sort determines install order.",badge:"Build Systems"},{icon:"💡",title:"Recommendations",desc:"Netflix/Amazon model users and items as a bipartite graph for collaborative filtering.",badge:"ML"},{icon:"🔌",title:"Electrical Circuits",desc:"Circuit components are nodes; wires are edges. Kirchhoff's laws solved via graph traversal.",badge:"Electronics"}],
+    ops:["BFS","DFS","Add Edge","Shortest Path"],
+    opData:{BFS:{desc:"<strong>BFS:</strong> Explore all neighbors at current depth before going deeper. Uses a Queue. Finds shortest unweighted path.",graphSteps:[{vis:[],q:[],msg:"Graph: A connects to B,C. B connects to D,E. C connects to F. BFS from A."},{vis:["A"],q:["B","C"],msg:"Visit A. Enqueue neighbors B,C. Queue: [B,C]."},{vis:["A","B"],q:["C","D","E"],msg:"Dequeue B. Visit B. Enqueue D,E. Queue: [C,D,E]."},{vis:["A","B","C"],q:["D","E","F"],msg:"Dequeue C. Visit C. Enqueue F. Queue: [D,E,F]."},{vis:["A","B","C","D"],q:["E","F"],msg:"Dequeue D. Visit D. No new neighbors. Queue: [E,F]."},{vis:["A","B","C","D","E","F"],q:[],msg:"✅ BFS done! Order: A→B→C→D→E→F. Level-by-level. <strong>O(V+E)</strong>."}]},
+    DFS:{desc:"<strong>DFS:</strong> Go as deep as possible before backtracking. Uses Stack or recursion.",graphSteps:[{vis:[],stk:["A"],msg:"DFS from A. Push A onto stack."},{vis:["A"],stk:["C","B"],msg:"Pop A. Visit A. Push neighbors B,C. Stack:[C,B]."},{vis:["A","B"],stk:["C","E","D"],msg:"Pop B. Visit B. Push D,E. Stack:[C,E,D]."},{vis:["A","B","D"],stk:["C","E"],msg:"Pop D. Visit D. No new neighbors. Stack:[C,E]."},{vis:["A","B","D","E"],stk:["C"],msg:"Pop E. Visit E. No new neighbors. Stack:[C]."},{vis:["A","B","D","E","C","F"],stk:[],msg:"✅ DFS done! Order: A→B→D→E→C→F. Goes deep first. <strong>O(V+E)</strong>."}]},
+    "Add Edge":{desc:"<strong>Add Edge(u,v):</strong> Add v to u's adjacency list. O(1) for adjacency list representation.",graphSteps:[{vis:[],msg:"Graph: 4 nodes A,B,C,D. Adding directed edge B→D."},{vis:["B"],msg:"Access B's adjacency list: [A,C]."},{vis:["B","D"],msg:"Append D to B's list: B→[A,C,D]."},{vis:["B","D"],done:true,msg:"✅ Edge B→D added. 1 list update for directed, 2 for undirected. <strong>O(1)</strong>!"}]},
+    "Shortest Path":{desc:"<strong>Dijkstra's:</strong> Greedy algorithm using priority queue to find minimum-cost path. O((V+E)log V).",graphSteps:[{vis:[],msg:"Weighted: A→B(4), A→C(2), B→D(3), C→B(1), C→D(5). Shortest A→D."},{vis:["A"],msg:"Init: dist[A]=0, all others=∞. Priority queue: [(0,A)]."},{vis:["A","C"],msg:"Process A. Update: dist[B]=4, dist[C]=2. PQ:[(2,C),(4,B)]."},{vis:["A","C","B"],msg:"Process C (dist=2). dist[B]=min(4,2+1)=3. dist[D]=7. PQ:[(3,B),(7,D)]."},{vis:["A","C","B","D"],done:true,msg:"✅ Process B (dist=3). dist[D]=min(7,3+3)=6. Path: A→C→B→D, cost=6. <strong>O((V+E)logV)</strong>!"}]}}
+  },
+  hash:{name:"Hash Table",icon:"#️⃣",color:"#22c994",tag:"key-value pairs via hash function",
+    brief:"Maps keys to values using a hash function. Average O(1) for all operations.",
+    cplx:{access:"O(1)",search:"O(1)",insert:"O(1)",delete:"O(1)"},
+    definition:`<p>A <strong>hash table</strong> stores key-value pairs and achieves near-instant lookup using a <strong>hash function</strong> — a function that converts any key into an integer index into an underlying array.</p><p>Instead of scanning to find a key, you <strong>compute its location directly</strong> in O(1). Two keys may hash to the same index — a <strong>collision</strong> — handled by <strong>chaining</strong> (linked list at each bucket) or <strong>open addressing</strong> (probe for next empty slot).</p><p>With a good hash function and low load factor (keys/buckets ≤ 0.75), all operations run in <strong>amortized O(1)</strong>.</p>`,
+    cplxRows:[["Insert (average)","O(1)","var(--grn)"],["Search (average)","O(1)","var(--grn)"],["Delete (average)","O(1)","var(--grn)"],["Worst case (all collide)","O(n)","var(--red)"],["Space","O(n)","var(--amb)"],["Ideal load factor","≤ 0.75","var(--grn)"]],
+    types:[{name:"Separate Chaining",desc:"Each bucket is a linked list. Collisions handled by appending to the list. Never runs out of space.",tag:"buckets = linked lists",viz:"chain"},{name:"Open Addressing",desc:"On collision, probe for next empty slot. Linear probing: check i, i+1, i+2...",tag:"linear probing",viz:"open"},{name:"Double Hashing",desc:"On collision, apply a second hash function to determine the probe step. Reduces clustering.",tag:"two hash functions",viz:"double"},{name:"Robin Hood Hashing",desc:"Minimizes maximum probe length by stealing slots from entries with shorter probes.",tag:"minimizes probe variance",viz:"rh"}],
+    usecases:[{icon:"📘",title:"Python dict / JS Object",desc:"Python's dict and JavaScript's {} are hash tables. {name: 'Alice'} retrieves 'Alice' in O(1).",badge:"Every Language"},{icon:"🔐",title:"Password Verification",desc:"Passwords are hashed (bcrypt/Argon2), never stored as plaintext. Login hashes and compares.",badge:"Security"},{icon:"🚀",title:"Database Indexes",desc:"Hash indexes enable exact-match lookups like WHERE id = 42 in O(1).",badge:"Databases"},{icon:"💾",title:"Memoization / LRU Cache",desc:"CPU caches, browser caches, Redis use hash tables to store results by input key.",badge:"Performance"},{icon:"🔗",title:"Git Commit Hashes",desc:"Every Git commit is identified by a SHA-256 hash. Content-addressable storage.",badge:"Version Control"},{icon:"📊",title:"Word Frequency Count",desc:"Count words in a document: hash each word → increment count. O(n) total, O(1) per word.",badge:"NLP"}],
+    ops:["Insert","Search","Delete","Collision"],
+    opData:{Insert:{desc:"<strong>Insert(key, value):</strong> Hash the key to get an index. Store value at that bucket. O(1) average.",steps:[{buckets:{0:null,1:null,2:null,3:null,4:null,5:null,6:null,7:null},key:"",msg:"Empty hash table, 8 buckets. Inserting key='name', value='Alice'."},{buckets:{0:null,1:null,2:null,3:null,4:null,5:null,6:null,7:null},key:"name",phase:1,msg:"hash('name'): ASCII sum = 110+97+109+101 = 417. 417 mod 8 = <strong>1</strong>."},{buckets:{0:null,1:"Alice",2:null,3:null,4:null,5:null,6:null,7:null},key:"name",hl:1,msg:"✅ Stored 'Alice' at bucket 1. Retrieval: same hash(name)→1. <strong>O(1)</strong>!"}]},
+    Search:{desc:"<strong>Search(key):</strong> Hash the key → jump to bucket → return value. O(1) average.",steps:[{buckets:{0:null,1:"Alice",2:"25",3:null,4:"NYC",5:null,6:null,7:null},key:"",msg:"Table: [1]='Alice',[2]=25,[4]='NYC'. Searching for key='age'."},{buckets:{0:null,1:"Alice",2:"25",3:null,4:"NYC",5:null,6:null,7:null},key:"age",phase:1,msg:"hash('age'): 97+103+101=301. 301 mod 8 = <strong>2</strong>."},{buckets:{0:null,1:"Alice",2:"25",3:null,4:"NYC",5:null,6:null,7:null},key:"age",hl:2,msg:"✅ Jump to bucket 2 — found value 25. <strong>O(1)</strong>!"}]},
+    Delete:{desc:"<strong>Delete(key):</strong> Hash the key → go to bucket → remove value. O(1) average.",steps:[{buckets:{0:null,1:"Alice",2:"25",3:null,4:"NYC",5:null,6:null,7:null},key:"",msg:"Table: [1]='Alice',[2]=25,[4]='NYC'. Deleting key='city'."},{buckets:{0:null,1:"Alice",2:"25",3:null,4:"NYC",5:null,6:null,7:null},key:"city",phase:1,msg:"hash('city'): 99+105+116+121=441. 441 mod 8 = <strong>4</strong>."},{buckets:{0:null,1:"Alice",2:"25",3:null,4:null,5:null,6:null,7:null},key:"city",hl:4,del:true,msg:"✅ Bucket 4 cleared. Key 'city' and value 'NYC' deleted. <strong>O(1)</strong>!"}]},
+    Collision:{desc:"<strong>Collision via Chaining:</strong> Two keys hash to same bucket. Each bucket is a linked list — both coexist.",steps:[{buckets:{0:null,1:null,2:null,3:null,4:null,5:null,6:null,7:null},key:"",msg:"Empty table. Will insert 'dog'→'bark' and 'god'→'holy' — both hash to same bucket!"},{buckets:{0:null,1:null,2:null,3:["dog→bark"],4:null,5:null,6:null,7:null},key:"dog",hl:3,msg:"Insert 'dog': hash=100+111+103=314. 314 mod 8 = <strong>3</strong>. Stored at bucket 3."},{buckets:{0:null,1:null,2:null,3:["dog→bark","god→holy"],4:null,5:null,6:null,7:null},key:"god",hl:3,collision:true,msg:"Insert 'god': hash=103+111+100=314. 314 mod 8 = <strong>3</strong> ← COLLISION! Both in bucket 3 as a chain."},{buckets:{0:null,1:null,2:null,3:["dog→bark","god→holy"],4:null,5:null,6:null,7:null},hl:3,msg:"✅ Chaining resolved! Search 'god': bucket 3 → scan chain → find 'god→holy'. Avg <strong>O(1)</strong>."}]}}
+  }
+};
+</script>
+<script>
+// Render DS cards
+const ORDER=['array','linkedlist','stack','queue','tree','graph','hash'];
+const grid=document.getElementById('ds-grid');
+const cplxColor=v=>v.includes('1)')&&!v.includes('V')?'var(--grn)':v.includes('log')&&!v.includes('V')?'var(--c)':v==='O(n)'?'var(--amb)':'var(--red)';
+ORDER.forEach(id=>{
+  const d=DS[id];
+  const el=document.createElement('div');
+  el.className='dsc';el.style.setProperty('--ac',d.color);
+  el.innerHTML=`<div class="dsc-head"><div class="dsc-icon" style="background:${d.color}18">${d.icon}</div><div><div class="dsc-name">${d.name}</div><div class="dsc-tag">${d.tag}</div></div></div><div class="dsc-def">${d.brief}</div><div class="dsc-cplx"><div class="cc"><div class="cc-lbl">Access</div><div class="cc-val" style="color:${cplxColor(d.cplx.access)}">${d.cplx.access}</div></div><div class="cc"><div class="cc-lbl">Search</div><div class="cc-val" style="color:${cplxColor(d.cplx.search)}">${d.cplx.search}</div></div><div class="cc"><div class="cc-lbl">Insert</div><div class="cc-val" style="color:${cplxColor(d.cplx.insert)}">${d.cplx.insert}</div></div><div class="cc"><div class="cc-lbl">Delete</div><div class="cc-val" style="color:${cplxColor(d.cplx.delete)}">${d.cplx.delete}</div></div></div><button class="dsc-btn" style="background:${d.color}" onclick="openModal('${id}')">Explore ${d.name} →</button>`;
+  grid.appendChild(el);
+});
+
+// Modal
+let curDS=null,curOp=null,curStep=0,autoT=null;
+function openModal(id){
+  curDS=id;clearInterval(autoT);
+  const d=DS[id];
+  document.getElementById('micon').textContent=d.icon;
+  document.getElementById('micon').style.background=d.color+'1e';
+  document.getElementById('mname').textContent=d.name;
+  document.getElementById('mname').style.color=d.color;
+  document.getElementById('msub').textContent=d.tag;
+  document.querySelectorAll('.mtab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  document.querySelectorAll('.tpane').forEach((p,i)=>p.classList.toggle('active',i===0));
+  buildDef(d);buildTypes(d);buildUC(d);buildOps(d,id);
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(e,force){
+  if(force||!e||e.target===document.getElementById('modal-overlay')){
+    document.getElementById('modal-overlay').classList.remove('open');
+    document.body.style.overflow='';
+    clearInterval(autoT);
+  }
+}
+function switchTab(id,el){
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.tpane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('t'+id).classList.add('active');
+}
+
+function buildDef(d){
+  document.getElementById('tdef').innerHTML=`<div class="def-grid"><div class="def-text">${d.definition}</div><div><div class="cplx-card"><div class="cplx-title">Complexity Reference</div>${d.cplxRows.map(([op,val,col])=>`<div class="cplx-row"><span class="cplx-op">${op}</span><span class="cplx-val" style="color:${col}">${val}</span></div>`).join('')}</div></div></div>`;
+}
+function buildTypes(d){
+  const VIZ={
+    'static':`<div class="mini-viz">${'<div class="mc">'+['A','B','C','D'].join('</div><div class="mc">')+'</div>'}<span style="font-size:.6rem;color:var(--tx3);margin-left:3px">fixed[4]</span></div>`,
+    'dynamic':`<div class="mini-viz"><div class="mc">1</div><div class="mc">2</div><div class="mc">3</div><div class="mc" style="border-style:dashed;opacity:.35">?</div><span style="font-size:.6rem;color:var(--grn);margin-left:3px">grows↑</span></div>`,
+    '2d':`<div class="mini-viz" style="display:grid;grid-template-columns:repeat(3,26px);gap:2px"><div class="mc">1</div><div class="mc">2</div><div class="mc">3</div><div class="mc">4</div><div class="mc">5</div><div class="mc">6</div></div>`,
+    '3d':`<div class="mini-viz"><span style="font-size:.62rem;color:var(--c)">[W][H][D][T]...</span></div>`,
+    'singly':`<div class="mini-viz"><div class="mn">10→</div><div class="mn">25→</div><div class="mn">37→</div><span style="font-size:.62rem;color:var(--tx3)">∅</span></div>`,
+    'doubly':`<div class="mini-viz"><span style="font-size:.62rem;color:var(--tx3)">∅←</span><div class="mn">10⇄</div><div class="mn">25⇄</div><div class="mn">37</div><span style="font-size:.62rem;color:var(--tx3)">→∅</span></div>`,
+    'circular':`<div class="mini-viz"><div class="mn">10→</div><div class="mn">25→</div><div class="mn" style="border-color:var(--c)">37↩</div></div>`,
+    'skip':`<div class="mini-viz" style="flex-direction:column;gap:1px;height:auto"><div style="display:flex;gap:2px"><div class="mn">1</div><div class="mn">3</div></div><div style="display:flex;gap:2px"><div class="mn">1</div><div class="mn">2</div><div class="mn">3</div></div></div>`,
+    'arr-stack':`<div class="mini-viz" style="flex-direction:column-reverse;gap:2px;height:auto;align-items:flex-start"><div class="mc">30</div><div class="mc">20</div><div class="mc">10</div></div>`,
+    'll-stack':`<div class="mini-viz"><div class="mn">30→</div><div class="mn">20→</div><div class="mn">10→</div><span style="font-size:.62rem;color:var(--tx3)">∅</span></div>`,
+    'min-stack':`<div class="mini-viz" style="gap:6px"><div style="display:flex;flex-direction:column;gap:2px"><div class="mc">5</div><div class="mc">3</div><div class="mc">1</div></div><div style="font-size:.62rem;color:var(--grn)">min=1<br>O(1)</div></div>`,
+    'mono-stack':`<div class="mini-viz" style="flex-direction:column-reverse;gap:2px;align-items:flex-start;height:auto"><div class="mc" style="border-color:var(--c)">5↑</div><div class="mc">3</div><div class="mc">1</div></div>`,
+    'simple-q':`<div class="mini-viz"><span style="font-size:.6rem;color:var(--grn)">F→</span><div class="mc">A</div><div class="mc">B</div><div class="mc">C</div><span style="font-size:.6rem;color:var(--c)">→R</span></div>`,
+    'circular-q':`<div class="mini-viz"><div class="mc" style="border-radius:50%">1</div><div class="mc" style="border-radius:50%">2</div><div class="mc" style="border-radius:50%;border-color:var(--c)">3↩</div></div>`,
+    'pq':`<div class="mini-viz"><div class="mc" style="border-color:var(--grn)">1</div><div class="mc">3</div><div class="mc">5</div><span style="font-size:.6rem;color:var(--grn)">min=1</span></div>`,
+    'deque':`<div class="mini-viz"><span style="font-size:.6rem;color:var(--c)">⇆</span><div class="mc">A</div><div class="mc">B</div><div class="mc">C</div><span style="font-size:.6rem;color:var(--c)">⇆</span></div>`,
+    'bt':`<div class="mini-viz"><svg viewBox="0 0 76 52" style="width:76px;height:52px"><line x1="38" y1="16" x2="20" y2="36" stroke="#3a4d6e" stroke-width="1"/><line x1="38" y1="16" x2="56" y2="36" stroke="#3a4d6e" stroke-width="1"/><circle cx="38" cy="10" r="8" fill="none" stroke="#8b5cf6" stroke-width="1"/><text x="38" y="13.5" text-anchor="middle" fill="#8b5cf6" font-size="8" font-family="Fira Code">5</text><circle cx="20" cy="42" r="8" fill="none" stroke="#8b5cf6" stroke-width="1"/><text x="20" y="45.5" text-anchor="middle" fill="#8b5cf6" font-size="8" font-family="Fira Code">3</text><circle cx="56" cy="42" r="8" fill="none" stroke="#8b5cf6" stroke-width="1"/><text x="56" y="45.5" text-anchor="middle" fill="#8b5cf6" font-size="8" font-family="Fira Code">8</text></svg></div>`,
+    'bst':`<div class="mini-viz"><svg viewBox="0 0 76 52" style="width:76px;height:52px"><line x1="38" y1="16" x2="20" y2="36" stroke="#3a4d6e" stroke-width="1"/><line x1="38" y1="16" x2="56" y2="36" stroke="#3a4d6e" stroke-width="1"/><circle cx="38" cy="10" r="8" fill="rgba(139,92,246,.15)" stroke="#8b5cf6" stroke-width="1"/><text x="38" y="13.5" text-anchor="middle" fill="#8b5cf6" font-size="7">50</text><circle cx="20" cy="42" r="8" fill="none" stroke="#8b5cf6" stroke-width="1"/><text x="20" y="45.5" text-anchor="middle" fill="#8b5cf6" font-size="7">30</text><circle cx="56" cy="42" r="8" fill="none" stroke="#8b5cf6" stroke-width="1"/><text x="56" y="45.5" text-anchor="middle" fill="#8b5cf6" font-size="7">70</text></svg></div>`,
+    'avl':`<div class="mini-viz"><span style="font-size:.62rem;color:var(--pur)">|h(L)−h(R)| ≤ 1<br>auto-rotate</span></div>`,
+    'trie':`<div class="mini-viz"><span style="font-size:.62rem;color:var(--pur)">c→a→t→✓<br>c→a→r→✓</span></div>`,
+    'btree':`<div class="mini-viz"><span style="font-size:.62rem;color:var(--pur)">[10 | 20 | 30]<br>multi-key nodes</span></div>`,
+    'heap':`<div class="mini-viz"><svg viewBox="0 0 76 52" style="width:76px;height:52px"><line x1="38" y1="16" x2="20" y2="36" stroke="#3a4d6e" stroke-width="1"/><line x1="38" y1="16" x2="56" y2="36" stroke="#3a4d6e" stroke-width="1"/><circle cx="38" cy="10" r="8" fill="rgba(139,92,246,.15)" stroke="#8b5cf6" stroke-width="1"/><text x="38" y="13.5" text-anchor="middle" fill="#8b5cf6" font-size="8" font-family="Fira Code">1</text><circle cx="20" cy="42" r="8" fill="none" stroke="#8b5cf6" stroke-width="1"/><text x="20" y="45.5" text-anchor="middle" fill="#8b5cf6" font-size="8" font-family="Fira Code">3</text><circle cx="56" cy="42" r="8" fill="none" stroke="#8b5cf6" stroke-width="1"/><text x="56" y="45.5" text-anchor="middle" fill="#8b5cf6" font-size="8" font-family="Fira Code">5</text></svg></div>`,
+    'directed':`<div class="mini-viz"><svg viewBox="0 0 76 34" style="width:76px;height:34px"><defs><marker id="ar1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="4" markerHeight="4" orient="auto"><path d="M1 1L7 4L1 7" fill="none" stroke="#e879a0" stroke-width="1.5"/></marker></defs><circle cx="14" cy="17" r="8" fill="none" stroke="#e879a0" stroke-width="1"/><text x="14" y="20.5" text-anchor="middle" fill="#e879a0" font-size="9" font-family="Fira Code">A</text><circle cx="62" cy="17" r="8" fill="none" stroke="#e879a0" stroke-width="1"/><text x="62" y="20.5" text-anchor="middle" fill="#e879a0" font-size="9" font-family="Fira Code">B</text><line x1="22" y1="17" x2="54" y2="17" stroke="#e879a0" stroke-width="1" marker-end="url(#ar1)"/></svg></div>`,
+    'undirected':`<div class="mini-viz"><svg viewBox="0 0 76 34" style="width:76px;height:34px"><circle cx="14" cy="17" r="8" fill="none" stroke="#e879a0" stroke-width="1"/><text x="14" y="20.5" text-anchor="middle" fill="#e879a0" font-size="9" font-family="Fira Code">A</text><circle cx="62" cy="17" r="8" fill="none" stroke="#e879a0" stroke-width="1"/><text x="62" y="20.5" text-anchor="middle" fill="#e879a0" font-size="9" font-family="Fira Code">B</text><line x1="22" y1="17" x2="54" y2="17" stroke="#e879a0" stroke-width="1"/></svg></div>`,
+    'weighted':`<div class="mini-viz"><svg viewBox="0 0 76 34" style="width:76px;height:34px"><circle cx="14" cy="17" r="8" fill="none" stroke="#e879a0" stroke-width="1"/><text x="14" y="20.5" text-anchor="middle" fill="#e879a0" font-size="9" font-family="Fira Code">A</text><circle cx="62" cy="17" r="8" fill="none" stroke="#e879a0" stroke-width="1"/><text x="62" y="20.5" text-anchor="middle" fill="#e879a0" font-size="9" font-family="Fira Code">B</text><line x1="22" y1="17" x2="54" y2="17" stroke="#e879a0" stroke-width="1"/><text x="38" y="12" text-anchor="middle" fill="#f0a030" font-size="9" font-family="Fira Code">4</text></svg></div>`,
+    'dag':`<div class="mini-viz"><span style="font-size:.62rem;color:var(--pnk)">A→B→D<br>A→C→D (no cycles)</span></div>`,
+    'bipartite':`<div class="mini-viz"><span style="font-size:.62rem;color:var(--pnk)">U={A,B}↔V={X,Y}<br>edges cross groups</span></div>`,
+    'complete':`<div class="mini-viz"><svg viewBox="0 0 58 58" style="width:58px;height:58px"><circle cx="29" cy="8" r="6" fill="none" stroke="#e879a0" stroke-width="1"/><circle cx="52" cy="42" r="6" fill="none" stroke="#e879a0" stroke-width="1"/><circle cx="6" cy="42" r="6" fill="none" stroke="#e879a0" stroke-width="1"/><line x1="29" y1="14" x2="46" y2="36" stroke="#e879a0" stroke-width=".8" opacity=".5"/><line x1="29" y1="14" x2="12" y2="36" stroke="#e879a0" stroke-width=".8" opacity=".5"/><line x1="46" y1="42" x2="12" y2="42" stroke="#e879a0" stroke-width=".8" opacity=".5"/></svg></div>`,
+    'chain':`<div class="mini-viz" style="flex-direction:column;gap:2px;height:auto"><div style="display:flex;gap:2px;align-items:center"><div class="mc" style="width:20px;height:20px;font-size:.6rem">3</div><span style="color:var(--tx3);font-size:.7rem">→</span><div class="mn">a</div><span style="color:var(--tx3);font-size:.7rem">→</span><div class="mn">b</div></div><div style="display:flex;gap:2px;align-items:center"><div class="mc" style="width:20px;height:20px;font-size:.6rem">5</div><span style="color:var(--tx3);font-size:.7rem">→</span><div class="mn">x</div></div></div>`,
+    'open':`<div class="mini-viz" style="flex-direction:column;gap:2px;height:auto"><div style="display:flex;gap:2px"><div class="mc" style="width:22px;height:20px;font-size:.58rem">0:_</div><div class="mc" style="width:22px;height:20px;font-size:.58rem">1:a</div><div class="mc" style="width:22px;height:20px;font-size:.58rem;border-color:var(--grn)">2:b</div></div></div>`,
+    'double':`<div class="mini-viz"><span style="font-size:.62rem;color:var(--grn)">h(k)+i·h2(k)<br>two hash fns</span></div>`,
+    'rh':`<div class="mini-viz"><span style="font-size:.62rem;color:var(--grn)">steal slots from<br>rich entries</span></div>`
+  };
+  document.getElementById('ttypes').innerHTML=`<div class="types-grid">${d.types.map(t=>`<div class="type-card"><div class="type-name">${t.name}</div>${VIZ[t.viz]||'<div class="mini-viz"><span style="font-size:.6rem;color:var(--tx3)">—</span></div>'}<div class="type-desc">${t.desc}</div><span class="type-tag">${t.tag}</span></div>`).join('')}</div>`;
+}
+function buildUC(d){
+  document.getElementById('tuc').innerHTML=`<div class="uc-grid">${d.usecases.map(u=>`<div class="uc-card"><div class="uc-icon">${u.icon}</div><div class="uc-title">${u.title}</div><div class="uc-desc">${u.desc}</div><span class="uc-badge" style="background:${DS[curDS].color}18;color:${DS[curDS].color}">${u.badge}</span></div>`).join('')}</div>`;
+}
+function buildOps(d,id){
+  document.getElementById('tops').innerHTML=`<div class="ops-wrap"><div class="ops-btns" id="opbtns">${d.ops.map((op,i)=>`<button class="opbtn${i===0?' active':''}" onclick="selectOp('${op}',this)">${op}</button>`).join('')}</div><div class="ops-vis"><div class="vis-area" id="vis-area"></div><div class="vis-desc" id="vis-desc">Select an operation to begin.</div><div class="vis-ctrl"><button class="vbtn" id="vprev" onclick="stepVis(-1)" disabled>← Prev</button><span class="vstep" id="vstep">—</span><button class="vbtn" id="vnext" onclick="stepVis(1)">Next →</button><button class="vauto" onclick="autoPlay()">▶ Auto</button></div></div></div>`;
+  selectOp(d.ops[0],document.querySelector('.opbtn'));
+}
+function selectOp(op,btn){
+  document.querySelectorAll('.opbtn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  curOp=op;curStep=0;clearInterval(autoT);
+  document.getElementById('vis-desc').innerHTML=DS[curDS].opData[op].desc;
+  drawStep();
+}
+function totalSteps(){const od=DS[curDS].opData[curOp];return(od.steps||od.treeSteps||od.graphSteps||[]).length}
+function stepVis(d){curStep=Math.max(0,Math.min(curStep+d,totalSteps()-1));drawStep()}
+function autoPlay(){
+  clearInterval(autoT);curStep=0;drawStep();
+  autoT=setInterval(()=>{if(curStep<totalSteps()-1){curStep++;drawStep()}else clearInterval(autoT)},1450);
+}
+function drawStep(){
+  const n=totalSteps();
+  document.getElementById('vstep').textContent=`Step ${curStep+1}/${n}`;
+  document.getElementById('vprev').disabled=curStep===0;
+  document.getElementById('vnext').disabled=curStep===n-1;
+  const od=DS[curDS].opData[curOp];
+  const area=document.getElementById('vis-area');
+  const msg=document.getElementById('vis-desc');
+  if(curDS==='array')drawArr(area,msg,od.steps[curStep]);
+  else if(curDS==='linkedlist')drawLL(area,msg,od.steps[curStep]);
+  else if(curDS==='stack')drawStk(area,msg,od.steps[curStep]);
+  else if(curDS==='queue')drawQ(area,msg,od.steps[curStep]);
+  else if(curDS==='tree')drawTree(area,msg,od.treeSteps[curStep]);
+  else if(curDS==='graph')drawGraph(area,msg,(od.graphSteps||od.steps)[curStep]);
+  else if(curDS==='hash')drawHash(area,msg,od.steps[curStep]);
+}
+
+function drawArr(area,msg,s){
+  if(!s)return;msg.innerHTML=s.msg;
+  const arr=s.arr||[15,42,8,23,36];
+  area.innerHTML=`<div class="varr">${arr.map((v,i)=>{
+    let c='vc';
+    if(s.found===i)c+=' found';
+    else if(s.scan===i)c+=' scan';
+    else if(s.ins===i)c+=' ins';
+    else if(s.del===i)c+=' del';
+    else if(s.hl&&s.hl.includes(i))c+=' ch';
+    else if(s.gap===i)c+=' del';
+    const val=v==='_'?'_':v;
+    return`<div class="${c}"><span class="vi">${i}</span>${val}</div>`;
+  }).join('')}</div>`;
+}
+function drawLL(area,msg,s){
+  if(!s)return;msg.innerHTML=s.msg;
+  const nodes=s.nodes||[];
+  let h='<div class="vll">';
+  if(s.newH&&s.phase>=1)h+=`<div class="vn new">[${s.newH}]</div><span class="varrow" style="color:var(--grn)">?→</span>`;
+  nodes.forEach((v,i)=>{
+    const c=`vn${s.cur===i?' ch':''}${s.del===i?' del':''}${s.isNew===i?' new':''}`;
+    h+=`<div class="${c}">[${v}]</div>`;
+    if(i<nodes.length-1)h+='<span class="varrow">→</span>';
+  });
+  h+='<span class="vnull">→∅</span></div>';
+  area.innerHTML=h;
+}
+function drawStk(area,msg,s){
+  if(!s)return;msg.innerHTML=s.msg;
+  const stk=s.stk||[];
+  const rev=[...stk].reverse();
+  area.innerHTML=`<div style="display:flex;flex-direction:column;align-items:center;gap:5px"><span class="vstk-lbl">TOP ↓</span><div class="vstk">${rev.map((v,i)=>{
+    const isTop=i===0;
+    const isPop=s.popTop&&isTop&&s.phase===1;
+    const isNew=s.newVal&&isTop&&s.phase>=1&&v==s.newVal;
+    const isPeek=s.peekTop&&isTop;
+    let c=`vsi${isTop?' top':''}${isPop?' pop':''}${isNew?' new':''}${isPeek?' peek':''}`;
+    return`<div class="${c}">${v}</div>`;
+  }).join('')}</div><span class="vstk-lbl">BOTTOM ↑</span></div>`;
+}
+function drawQ(area,msg,s){
+  if(!s)return;msg.innerHTML=s.msg;
+  const q=s.q||[];
+  let h=`<div style="display:flex;flex-direction:column;align-items:center;gap:7px"><div style="display:flex;align-items:center;gap:2px">`;
+  if(s.phase>=1&&s.newVal)h+=`<div class="vqi new">${s.newVal}</div><span style="color:var(--tx3);font-size:.65rem;margin:0 2px">→</span>`;
+  q.forEach((v,i)=>{
+    const isFront=i===0;
+    const isDeq=s.deqFront&&isFront&&s.phase===1;
+    const isPeek=s.peekFront&&isFront;
+    const c=`vqi${isFront?' front':''}${isDeq?' deq':''}${isPeek?' peek':''}`;
+    h+=`<div class="${c}">${v}</div>`;
+    if(i<q.length-1)h+=`<span style="color:var(--tx3);font-size:.65rem;margin:0 1px">│</span>`;
+  });
+  h+=`</div><div style="display:flex;width:100%;max-width:260px;justify-content:space-between;font-family:'Fira Code',monospace;font-size:.62rem;color:var(--tx3)"><span>FRONT↑</span><span>REAR↑</span></div></div>`;
+  area.innerHTML=h;
+}
+
+const TN={50:{x:230,y:22},30:{x:115,y:86},70:{x:345,y:86},20:{x:56,y:152},40:{x:175,y:152},23:{x:88,y:218},45:{x:208,y:218}};
+const TE=[[50,30],[50,70],[30,20],[30,40],[20,23],[40,45]];
+function drawTree(area,msg,s){
+  if(!s)return;msg.innerHTML=s.msg;
+  const path=s.path||[],found=s.found;
+  let svg=`<svg viewBox="0 0 430 250" style="width:100%;max-width:360px;height:230px">`;
+  TE.forEach(([p,c])=>{
+    const pn=TN[p],cn=TN[c];
+    const on=path.includes(p)&&path.includes(c)&&path.indexOf(c)===path.indexOf(p)+1;
+    svg+=`<line x1="${pn.x}" y1="${pn.y+14}" x2="${cn.x}" y2="${cn.y-14}" stroke="${on?'#8b5cf6':'#1a2d48'}" stroke-width="${on?2:.8}" opacity="${on?1:.55}"/>`;
+  });
+  Object.entries(TN).forEach(([v,n])=>{
+    const inPath=path.includes(+v),isFound=found===+v,isNew=s.newNode&&+v===45&&path.includes(45);
+    const fill=isFound?'rgba(34,201,148,.28)':inPath?'rgba(139,92,246,.22)':'rgba(15,8,30,.9)';
+    const stroke=isFound?'#22c994':inPath?'#8b5cf6':'#2a3d5e';
+    svg+=`<circle cx="${n.x}" cy="${n.y}" r="14" fill="${fill}" stroke="${stroke}" stroke-width="${inPath||isFound?2:1}"/>`;
+    svg+=`<text x="${n.x}" y="${n.y+4}" text-anchor="middle" fill="${isFound?'#22c994':inPath?'#a488e8':'#5a7090'}" font-size="11" font-family="Fira Code,monospace" font-weight="${inPath?600:400}">${v}</text>`;
+  });
+  svg+='</svg>';area.innerHTML=svg;
+}
+
+const GN={A:{x:190,y:30},B:{x:75,y:105},C:{x:305,y:105},D:{x:75,y:180},E:{x:190,y:180},F:{x:305,y:180}};
+const GE=[['A','B'],['A','C'],['B','D'],['B','E'],['C','E'],['C','F']];
+function drawGraph(area,msg,s){
+  if(!s)return;msg.innerHTML=s.msg;
+  const vis=s.vis||[],q=s.q||[],stk=s.stk||[];
+  let svg=`<svg viewBox="0 0 385 215" style="width:100%;max-width:340px;height:205px">`;
+  GE.forEach(([a,b])=>{
+    const an=GN[a],bn=GN[b],both=vis.includes(a)&&vis.includes(b);
+    svg+=`<line x1="${an.x}" y1="${an.y}" x2="${bn.x}" y2="${bn.y}" stroke="${both?'#e879a0':'#1a2d48'}" stroke-width="${both?1.5:.8}" opacity="${both?1:.5}"/>`;
+  });
+  Object.entries(GN).forEach(([v,n])=>{
+    const isV=vis.includes(v),isLast=vis[vis.length-1]===v;
+    svg+=`<circle cx="${n.x}" cy="${n.y}" r="16" fill="${isLast?'rgba(232,121,160,.3)':isV?'rgba(232,121,160,.14)':'rgba(15,8,30,.9)'}" stroke="${isLast?'#e879a0':isV?'#b04882':'#2a3d5e'}" stroke-width="${isLast?2:1}"/>`;
+    svg+=`<text x="${n.x}" y="${n.y+4.5}" text-anchor="middle" fill="${isV?'#e879a0':'#5a7090'}" font-size="12" font-family="Fira Code,monospace" font-weight="${isV?600:400}">${v}</text>`;
+  });
+  if(q.length)svg+=`<text x="5" y="210" fill="#22c994" font-size="9" font-family="Fira Code,monospace">Queue:[${q.join(',')}]</text>`;
+  if(stk.length)svg+=`<text x="5" y="210" fill="#f0a030" font-size="9" font-family="Fira Code,monospace">Stack:[${stk.join(',')}]</text>`;
+  if(s.done)svg+=`<text x="192" y="210" text-anchor="middle" fill="#22c994" font-size="9" font-family="Fira Code,monospace">✅ Complete</text>`;
+  svg+='</svg>';area.innerHTML=svg;
+}
+
+function drawHash(area,msg,s){
+  if(!s)return;msg.innerHTML=s.msg;
+  const B=s.buckets||{};
+  let h='<div style="width:100%;max-width:320px">';
+  if(s.key&&s.phase>=1)h+=`<div style="display:flex;align-items:center;gap:.45rem;margin-bottom:.75rem;flex-wrap:wrap"><div class="vhk">key:"${s.key}"</div><span style="color:var(--tx3)">→</span><div class="vhfn">hash()%8</div><span style="color:var(--tx3)">→</span><span style="font-family:'Fira Code',monospace;font-size:.8rem;color:var(--c)">bucket[${s.hl}]</span></div>`;
+  h+='<div style="display:flex;flex-direction:column;gap:2px">';
+  for(let i=0;i<8;i++){
+    const val=B[i];const isHl=s.hl===i;
+    if(Array.isArray(val))h+=`<div class="vhslot${isHl?' hl':' chain'}">[${i}]&nbsp;${val.join(' → ')}${s.collision?' ← collision!':''}</div>`;
+    else if(val)h+=`<div class="vhslot${isHl?' hl':' filled'}">[${i}]&nbsp;${val}${s.del?' ✕':''}</div>`;
+    else h+=`<div class="vhslot empty">[${i}]&nbsp;—</div>`;
+  }
+  h+='</div></div>';area.innerHTML=h;
+}
+</script></body></html>

@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python File Handling — Practical Training</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg:        #0f1117;
+    --surface:   #181c27;
+    --card:      #1e2235;
+    --border:    #2a2f45;
+    --accent:    #7c6af7;
+    --accent2:   #4fc3f7;
+    --green:     #4ade80;
+    --red:       #f87171;
+    --yellow:    #fbbf24;
+    --text:      #e2e6f3;
+    --muted:     #8892b0;
+    --code-bg:   #111827;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: linear-gradient(135deg, #12102a 0%, #1a1535 50%, #0d1a2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(124,106,247,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(124,106,247,.4);
+    border-radius: 100px;
+    padding: 4px 14px;
+    margin-bottom: 20px;
+  }
+  header h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  header h1 span { color: var(--accent); }
+  header p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 540px;
+    margin: 0 auto 32px;
+  }
+  .module-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .pill {
+    font-size: .8rem;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 100px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all .2s;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .pill:hover, .pill.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 20px 80px; }
+
+  /* ── SECTION ── */
+  .section {
+    margin-top: 60px;
+    scroll-margin-top: 80px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(124,106,247,.12);
+    border: 1px solid rgba(124,106,247,.3);
+    border-radius: 6px;
+    padding: 4px 10px;
+    white-space: nowrap;
+  }
+  .section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+  }
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+    margin-bottom: 28px;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--accent2);
+  }
+  .card p, .card li { color: var(--muted); font-size: .95rem; }
+  .card ul { padding-left: 20px; }
+  .card ul li { margin-bottom: 6px; }
+
+  /* ── CODE BLOCKS ── */
+  .code-block {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 16px 0;
+    font-size: .88rem;
+  }
+  .code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: rgba(255,255,255,.03);
+    border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .75rem;
+    color: var(--muted);
+  }
+  .code-dots { display: flex; gap: 6px; }
+  .code-dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .copy-btn {
+    background: rgba(124,106,247,.15);
+    border: 1px solid rgba(124,106,247,.3);
+    color: var(--accent);
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: .72rem;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all .2s;
+  }
+  .copy-btn:hover { background: var(--accent); color: #fff; }
+  pre {
+    padding: 18px 20px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.7;
+    color: #c9d1d9;
+    margin: 0;
+  }
+  .kw  { color: #c792ea; }
+  .fn  { color: #82aaff; }
+  .str { color: #c3e88d; }
+  .cm  { color: #546e7a; font-style: italic; }
+  .num { color: #f78c6c; }
+  .out { color: #4ade80; }
+  .err { color: #f87171; }
+
+  /* ── OUTPUT BOX ── */
+  .output-box {
+    background: rgba(74,222,128,.05);
+    border: 1px solid rgba(74,222,128,.2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .output-box .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: .1em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .output-box pre {
+    padding: 0;
+    color: var(--green);
+    font-size: .87rem;
+  }
+
+  /* ── ERROR BOX ── */
+  .error-box {
+    background: rgba(248,113,113,.06);
+    border: 1px solid rgba(248,113,113,.25);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .error-box .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: .1em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .error-box pre { padding: 0; color: var(--red); font-size: .87rem; }
+
+  /* ── TWO-COL ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ── TABLE ── */
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: .87rem; }
+  th {
+    background: rgba(124,106,247,.12);
+    color: var(--accent);
+    font-weight: 600;
+    padding: 10px 14px;
+    text-align: left;
+    border: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .8rem;
+  }
+  td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    vertical-align: top;
+  }
+  tr:hover td { background: rgba(255,255,255,.025); }
+  .yes { color: var(--green); font-weight: 600; }
+  .no  { color: var(--red);   font-weight: 600; }
+
+  /* ── CURSOR VIZ ── */
+  .cursor-viz {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .85rem;
+    margin: 14px 0;
+    overflow-x: auto;
+    white-space: pre;
+    line-height: 1.8;
+    color: #cdd5e0;
+  }
+  .cursor-viz .ptr { color: var(--yellow); font-weight: 700; }
+
+  /* ── EXERCISE CARDS ── */
+  .exercise-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+  .ex-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    position: relative;
+    transition: border-color .2s;
+  }
+  .ex-card:hover { border-color: var(--accent); }
+  .ex-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .68rem;
+    font-weight: 700;
+    color: var(--accent);
+    background: rgba(124,106,247,.12);
+    border-radius: 5px;
+    padding: 2px 8px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .ex-card p { font-size: .88rem; color: var(--muted); }
+  .ex-check {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 20px; height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all .2s;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem;
+    color: transparent;
+  }
+  .ex-check.done {
+    background: var(--green);
+    border-color: var(--green);
+    color: #000;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border-radius: 9px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: .9rem;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout.tip  { background: rgba(79,195,247,.07); border-left: 3px solid var(--accent2); }
+  .callout.warn { background: rgba(251,191,36,.07);  border-left: 3px solid var(--yellow); }
+  .callout.err  { background: rgba(248,113,113,.07); border-left: 3px solid var(--red); }
+  .callout .icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .callout p { color: var(--muted); margin: 0; }
+  .callout strong { color: var(--text); }
+
+  /* ── PROGRESS BAR ── */
+  .progress-bar-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15,17,23,.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .progress-label { font-size: .78rem; color: var(--muted); white-space: nowrap; font-family: 'JetBrains Mono', monospace; }
+  .progress-track { flex: 1; height: 5px; background: var(--border); border-radius: 100px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 100px; transition: width .5s ease; }
+  .progress-pct { font-family: 'JetBrains Mono', monospace; font-size: .78rem; color: var(--accent); min-width: 32px; text-align: right; }
+
+  /* ── COMPARISON ── */
+  .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  @media (max-width: 560px) { .comparison { grid-template-columns: 1fr; } }
+  .cmp-block { border-radius: 9px; overflow: hidden; }
+  .cmp-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    padding: 7px 14px;
+    text-transform: uppercase;
+  }
+  .cmp-block.bad .cmp-label  { background: rgba(248,113,113,.15); color: var(--red); }
+  .cmp-block.good .cmp-label { background: rgba(74,222,128,.12);  color: var(--green); }
+  .cmp-block pre { margin: 0; font-size: .84rem; padding: 14px; }
+
+  /* ── NAV DOTS ── */
+  .nav-dots {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .nav-dot.active { background: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: .85rem;
+  }
+  footer span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">Module 1 – 5 • Practical Training</div>
+  <h1>Python <span>File Handling</span><br>Hands-On Guide</h1>
+  <p>Work through every concept interactively — read the lesson, study the code, then complete the exercises to track your progress.</p>
+  <div class="module-pills">
+    <a class="pill active" href="#m1">Basics</a>
+    <a class="pill" href="#m2">Reading</a>
+    <a class="pill" href="#m3">Writing</a>
+    <a class="pill" href="#m4">File Pointer</a>
+    <a class="pill" href="#m5">File Modes</a>
+  </div>
+</header>
+
+<div class="progress-bar-wrap">
+  <span class="progress-label">Progress</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <span class="progress-pct" id="progressPct">0%</span>
+</div>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════════ MODULE 1 ═══ -->
+  <div class="section" id="m1">
+    <div class="section-header">
+      <span class="section-num">Module 1</span>
+      <h2>Basics of File Handling</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="card">
+      <h3>What is a File?</h3>
+      <p>A file is a named collection of data stored on disk. Without file handling, data exists only while your program is running. Files let you save information permanently.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+          <span>project structure</span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre>project/
+│
+├── main.py          <span class="cm"># Python code</span>
+├── data.txt         <span class="cm"># Plain text</span>
+├── students.csv     <span class="cm"># Tabular data</span>
+├── config.json      <span class="cm"># Configuration data</span>
+└── image.png        <span class="cm"># Binary image data</span></pre>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Opening a File — open()</h3>
+      <p>Python provides the built-in <code style="color:var(--accent2)">open()</code> function. The variable <code style="color:var(--accent2)">file</code> is a file object that lets you read or write.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+          <span>opening a file</span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="cm"># Syntax</span>
+file = <span class="fn">open</span>(filename, mode)
+
+<span class="cm"># Example — read mode</span>
+file = <span class="fn">open</span>(<span class="str">"data.txt"</span>, <span class="str">"r"</span>)</pre>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>Closing a File</h3>
+        <p>After finishing with a file, close it to flush buffered data and release OS resources.</p>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+            <span>manual close</span>
+            <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          </div>
+          <pre>file = <span class="fn">open</span>(<span class="str">"data.txt"</span>, <span class="str">"r"</span>)
+
+<span class="cm"># ... work with file ...</span>
+
+file.close()</pre>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Using with ✅ Recommended</h3>
+        <p>Python automatically closes the file when the <code style="color:var(--accent2)">with</code> block ends — even if an exception occurs.</p>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+            <span>context manager</span>
+            <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          </div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"data.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> file:
+    data = file.read()
+
+<span class="fn">print</span>(data)</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <span class="icon">⚠️</span>
+      <p><strong>Common mistakes:</strong> forgetting to close the file, using <code>"w"</code> when you only want to read (erases the file!), or opening a non-existent file in <code>"r"</code> mode — raises <strong>FileNotFoundError</strong>.</p>
+    </div>
+
+    <h3 style="margin:28px 0 14px;font-size:1rem;color:var(--accent2)">Module 1 — Practice Exercises</h3>
+    <div class="exercise-grid">
+      <div class="ex-card"><span class="ex-num">Exercise 1</span><p>Create a file named <code>hello.txt</code> and write <code>"Hello Python"</code> into it.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 2</span><p>Read and print the contents of <code>hello.txt</code> using the <code>with</code> statement.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 3</span><p>Append <code>"Welcome to File Handling"</code> to the same file.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 4</span><p>Print the updated contents of the file.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 5</span><p>Try opening a file that doesn't exist in <code>"r"</code> mode and observe the <code>FileNotFoundError</code>.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ MODULE 2 ═══ -->
+  <div class="section" id="m2">
+    <div class="section-header">
+      <span class="section-num">Module 2</span>
+      <h2>Reading Files</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="callout tip">
+      <span class="icon">💡</span>
+      <p>Think of the file as a long sequence of characters. Python keeps an invisible <strong>cursor</strong> (file pointer) that moves forward as you read.</p>
+    </div>
+
+    <div class="card">
+      <h3>read() — Read Entire File</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+          <span>read entire file</span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"students.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> file:
+    data = file.read()
+    <span class="fn">print</span>(data)</pre>
+      </div>
+      <div class="output-box"><div class="label">Output</div><pre>Alice
+Bob
+Charlie
+David
+Emma</pre></div>
+      <div class="callout warn" style="margin-top:12px">
+        <span class="icon">⚠️</span>
+        <p>Calling <code>read()</code> a second time returns an empty string <code>''</code> — the cursor is already at EOF.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>read(size) — Read N Characters</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+          <span>read in chunks</span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"students.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> file:
+    <span class="fn">print</span>(file.read(<span class="num">5</span>))   <span class="cm"># → "Alice"</span>
+    <span class="fn">print</span>(file.read(<span class="num">5</span>))   <span class="cm"># → "\nBob\n"</span>
+    <span class="fn">print</span>(file.read(<span class="num">5</span>))   <span class="cm"># → "Charl"</span></pre>
+      </div>
+      <p style="font-size:.88rem;color:var(--muted);margin-top:8px">Notice: <code>\n</code> is also a character — <code>read(size)</code> crosses line boundaries.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>readline() — One Line</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+            <span>readline</span>
+            <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          </div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"students.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> f:
+    <span class="fn">print</span>(f.readline().strip())
+    <span class="fn">print</span>(f.readline().strip())</pre>
+        </div>
+        <div class="output-box"><div class="label">Output</div><pre>Alice
+Bob</pre></div>
+      </div>
+      <div class="card">
+        <h3>readlines() — List of Lines</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+            <span>readlines</span>
+            <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          </div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"students.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> f:
+    lines = f.readlines()
+    <span class="fn">print</span>(lines)</pre>
+        </div>
+        <div class="output-box"><div class="label">Output</div><pre>['Alice\n', 'Bob\n', 'Charlie\n',
+ 'David\n', 'Emma']</pre></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>for loop ✅ Best for Large Files</h3>
+      <p style="margin-bottom:12px">Processes one line at a time — does not load the whole file into memory.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+          <span>for loop iteration</span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"students.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> file:
+    <span class="kw">for</span> line <span class="kw">in</span> file:
+        <span class="fn">print</span>(line.strip())</pre>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Method</th><th>Returns</th><th>Reads Whole File?</th><th>Memory Efficient?</th></tr>
+        <tr><td><code>read()</code></td><td>String</td><td class="yes">Yes</td><td class="no">❌ No</td></tr>
+        <tr><td><code>read(size)</code></td><td>String (chunk)</td><td class="no">No</td><td class="yes">✅ Better</td></tr>
+        <tr><td><code>readline()</code></td><td>String (1 line)</td><td class="no">No</td><td class="yes">✅ Yes</td></tr>
+        <tr><td><code>readlines()</code></td><td>List of strings</td><td class="yes">Yes</td><td class="no">❌ No</td></tr>
+        <tr><td><code>for line in file</code></td><td>One line at a time</td><td class="no">No</td><td class="yes">✅ Best</td></tr>
+      </table>
+    </div>
+
+    <h3 style="margin:28px 0 14px;font-size:1rem;color:var(--accent2)">Module 2 — Practice Exercises</h3>
+    <div class="exercise-grid">
+      <div class="ex-card"><span class="ex-num">Exercise 6</span><p>Create a file with 5 lines and print the entire file using <code>read()</code>.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 7</span><p>Read only the first 10 characters of the file using <code>read(10)</code>.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 8</span><p>Read the first two lines using two calls to <code>readline()</code>.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 9</span><p>Store all lines in a list with <code>readlines()</code> and print the third line.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 10</span><p>Print all lines using a <code>for</code> loop without loading the whole file into memory.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ MODULE 3 ═══ -->
+  <div class="section" id="m3">
+    <div class="section-header">
+      <span class="section-num">Module 3</span>
+      <h2>Writing Files</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="card">
+      <h3>write() — Write a String</h3>
+      <p style="margin-bottom:12px">Opening in <code>"w"</code> mode <strong>immediately empties</strong> the file before you write anything.</p>
+      <div class="comparison">
+        <div class="cmp-block bad">
+          <div class="cmp-label">⚠️ Loses newlines</div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"f.txt"</span>, <span class="str">"w"</span>) <span class="kw">as</span> f:
+    f.write(<span class="str">"Alice"</span>)
+    f.write(<span class="str">"Bob"</span>)
+<span class="cm"># Result: AliceBob</span></pre>
+        </div>
+        <div class="cmp-block good">
+          <div class="cmp-label">✅ Correct</div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"f.txt"</span>, <span class="str">"w"</span>) <span class="kw">as</span> f:
+    f.write(<span class="str">"Alice\n"</span>)
+    f.write(<span class="str">"Bob\n"</span>)
+<span class="cm"># Result: Alice / Bob</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>writelines() — Write a List</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+            <span>writelines</span>
+            <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          </div>
+          <pre>students = [
+    <span class="str">"Alice\n"</span>,
+    <span class="str">"Bob\n"</span>,
+    <span class="str">"Charlie\n"</span>
+]
+
+<span class="kw">with</span> <span class="fn">open</span>(<span class="str">"s.txt"</span>, <span class="str">"w"</span>) <span class="kw">as</span> f:
+    f.writelines(students)</pre>
+        </div>
+        <div class="callout warn" style="margin:8px 0 0">
+          <span class="icon">⚠️</span>
+          <p><code>writelines()</code> does <strong>not</strong> add <code>\n</code> automatically. You must include it yourself.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Append Mode (a)</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+            <span>append</span>
+            <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          </div>
+          <pre><span class="cm"># Adds to end, nothing deleted</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="str">"s.txt"</span>, <span class="str">"a"</span>) <span class="kw">as</span> f:
+    f.write(<span class="str">"David\n"</span>)
+    f.write(<span class="str">"Emma\n"</span>)</pre>
+        </div>
+        <div class="cursor-viz">Alice
+Bob
+Charlie
+David    <span class="ptr">← cursor</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Create Mode (x) — Exclusive Create</h3>
+      <p style="margin-bottom:12px">Creates a new file. Raises <code>FileExistsError</code> if the file already exists — protects you from accidental overwrites.</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+          <span>exclusive create</span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"report.txt"</span>, <span class="str">"x"</span>) <span class="kw">as</span> f:
+    f.write(<span class="str">"Python"</span>)
+
+<span class="cm"># Running again → FileExistsError</span></pre>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Mode</th><th>File Exists</th><th>Doesn't Exist</th><th>Old Data</th></tr>
+        <tr><td><code>"r"</code></td><td>Opens</td><td class="no">Error</td><td>Kept</td></tr>
+        <tr><td><code>"w"</code></td><td>Overwrites</td><td class="yes">Creates</td><td class="no">Deleted</td></tr>
+        <tr><td><code>"a"</code></td><td>Appends</td><td class="yes">Creates</td><td class="yes">Kept</td></tr>
+        <tr><td><code>"x"</code></td><td class="no">Error</td><td class="yes">Creates</td><td>N/A</td></tr>
+      </table>
+    </div>
+
+    <h3 style="margin:28px 0 14px;font-size:1rem;color:var(--accent2)">Module 3 — Practice Exercises</h3>
+    <div class="exercise-grid">
+      <div class="ex-card"><span class="ex-num">Exercise 11</span><p>Create <code>numbers.txt</code> and write the numbers 1–10, each on a new line.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 12</span><p>Append the numbers 11–15 to the same file.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 13</span><p>Use <code>writelines()</code> to create a file containing five fruit names.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 14</span><p>Try creating the same file twice using <code>"x"</code> and observe the exception.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 15</span><p>Read the file back and verify the contents are correct.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ MODULE 4 ═══ -->
+  <div class="section" id="m4">
+    <div class="section-header">
+      <span class="section-num">Module 4</span>
+      <h2>File Pointer (Cursor)</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="callout tip">
+      <span class="icon">🎯</span>
+      <p><strong>Memory Trick:</strong> Think of the file pointer like a YouTube progress bar. <code>tell()</code> asks "where are we?" and <code>seek(0)</code> drags it back to the beginning.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>tell() — Current Position</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+            <span>tell()</span>
+            <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          </div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"students.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> f:
+    <span class="fn">print</span>(f.tell())   <span class="cm"># 0</span>
+    f.read(<span class="num">5</span>)
+    <span class="fn">print</span>(f.tell())   <span class="cm"># 5</span></pre>
+        </div>
+        <div class="output-box"><div class="label">Output</div><pre>0
+5</pre></div>
+      </div>
+      <div class="card">
+        <h3>seek() — Move Cursor</h3>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+            <span>seek()</span>
+            <button class="copy-btn" onclick="copyCode(this)">copy</button>
+          </div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"students.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> f:
+    f.read()         <span class="cm"># read all</span>
+    f.seek(<span class="num">0</span>)        <span class="cm"># reset cursor</span>
+    <span class="fn">print</span>(f.read())  <span class="cm"># reads again!</span></pre>
+        </div>
+        <div class="callout tip" style="margin:8px 0 0">
+          <span class="icon">💡</span>
+          <p><code>seek(n)</code> moves to <strong>absolute</strong> position n from start — not relative.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Reading After Writing — the Classic Trap</h3>
+      <div class="comparison">
+        <div class="cmp-block bad">
+          <div class="cmp-label">❌ Returns empty string</div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"f.txt"</span>, <span class="str">"w+"</span>) <span class="kw">as</span> f:
+    f.write(<span class="str">"Python"</span>)
+    <span class="fn">print</span>(f.read())   <span class="cm"># ''</span></pre>
+        </div>
+        <div class="cmp-block good">
+          <div class="cmp-label">✅ Correct — seek first</div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"f.txt"</span>, <span class="str">"w+"</span>) <span class="kw">as</span> f:
+    f.write(<span class="str">"Python"</span>)
+    f.seek(<span class="num">0</span>)
+    <span class="fn">print</span>(f.read())   <span class="cm"># Python</span></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Complete Example — tell() + seek() + write()</h3>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+          <span>combined example</span>
+          <button class="copy-btn" onclick="copyCode(this)">copy</button>
+        </div>
+        <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"sample.txt"</span>, <span class="str">"w+"</span>) <span class="kw">as</span> f:
+
+    f.write(<span class="str">"Hello"</span>)
+    <span class="fn">print</span>(f.tell())    <span class="cm"># → 5</span>
+
+    f.write(<span class="str">" World"</span>)
+    <span class="fn">print</span>(f.tell())    <span class="cm"># → 11</span>
+
+    f.seek(<span class="num">0</span>)
+    <span class="fn">print</span>(f.read())    <span class="cm"># → Hello World</span></pre>
+      </div>
+      <div class="output-box"><div class="label">Output</div><pre>5
+11
+Hello World</pre></div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Method</th><th>Purpose</th></tr>
+        <tr><td><code>tell()</code></td><td>Returns the current cursor position (integer)</td></tr>
+        <tr><td><code>seek(pos)</code></td><td>Moves cursor to absolute position <code>pos</code></td></tr>
+        <tr><td><code>read()</code></td><td>Reads from the current cursor position</td></tr>
+        <tr><td><code>write()</code></td><td>Writes at the current cursor position</td></tr>
+      </table>
+    </div>
+
+    <h3 style="margin:28px 0 14px;font-size:1rem;color:var(--accent2)">Module 4 — Practice Exercises</h3>
+    <div class="exercise-grid">
+      <div class="ex-card"><span class="ex-num">Exercise 16</span><p>Create a file containing <code>"Python Programming"</code> and check the cursor position after opening.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 17</span><p>Read the first 6 characters and print the cursor position using <code>tell()</code>.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 18</span><p>Use <code>seek(0)</code> and read the file again from the beginning.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 19</span><p>Move the cursor to position 7 and print the remaining content.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 20</span><p>Open a file in <code>"w+"</code>, write <code>"Hello World"</code>, then use <code>seek(0)</code> to read it back.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ MODULE 5 ═══ -->
+  <div class="section" id="m5">
+    <div class="section-header">
+      <span class="section-num">Module 5</span>
+      <h2>File Modes — Complete Guide</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="callout tip">
+      <span class="icon">🧠</span>
+      <p><strong>Memory trick:</strong> <code>r</code> = Read · <code>w</code> = Wipe &amp; Write · <code>a</code> = Append · <code>x</code> = eXclusive create · <code>+</code> = also allow the other operation · <code>b</code> = Binary</p>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>r — Read Only</h3>
+        <div class="code-block">
+          <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>r mode</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"s.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> f:
+    <span class="fn">print</span>(f.read())</pre>
+        </div>
+        <ul style="font-size:.85rem;color:var(--muted);padding-left:18px;margin-top:8px">
+          <li>File must already exist</li>
+          <li>Writing raises <code>io.UnsupportedOperation</code></li>
+          <li>Cursor starts at position 0</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>w — Write (Wipe)</h3>
+        <div class="code-block">
+          <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>w mode</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"s.txt"</span>, <span class="str">"w"</span>) <span class="kw">as</span> f:
+    f.write(<span class="str">"David"</span>)</pre>
+        </div>
+        <ul style="font-size:.85rem;color:var(--muted);padding-left:18px;margin-top:8px">
+          <li>Creates file if missing</li>
+          <li class="no" style="color:var(--red)">Deletes all existing content immediately</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h3>r+ — Read &amp; Overwrite</h3>
+        <div class="code-block">
+          <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>r+ mode</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre><span class="cm"># File: "Python"</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="str">"f.txt"</span>, <span class="str">"r+"</span>) <span class="kw">as</span> f:
+    f.seek(<span class="num">0</span>)
+    f.write(<span class="str">"Hi"</span>)
+<span class="cm"># Result: "Hithon" (overwrites)</span></pre>
+        </div>
+        <ul style="font-size:.85rem;color:var(--muted);padding-left:18px;margin-top:8px">
+          <li>File must exist</li>
+          <li>Overwrites bytes at cursor position</li>
+          <li>Does NOT delete existing content</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>a+ — Append &amp; Read</h3>
+        <div class="code-block">
+          <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>a+ mode</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+          <pre><span class="kw">with</span> <span class="fn">open</span>(<span class="str">"s.txt"</span>, <span class="str">"a+"</span>) <span class="kw">as</span> f:
+    f.write(<span class="str">"\nCharlie"</span>)
+    f.seek(<span class="num">0</span>)
+    <span class="fn">print</span>(f.read())</pre>
+        </div>
+        <ul style="font-size:.85rem;color:var(--muted);padding-left:18px;margin-top:8px">
+          <li>Writes always go to the end</li>
+          <li>You can <code>seek()</code> to read anywhere</li>
+          <li>Creates file if missing</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Binary Modes</h3>
+      <p style="margin-bottom:12px">Used for non-text files — images, PDFs, videos, ZIP files. Returns <code>bytes</code> instead of <code>str</code>.</p>
+      <div class="code-block">
+        <div class="code-header"><div class="code-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div><span>binary modes</span><button class="copy-btn" onclick="copyCode(this)">copy</button></div>
+        <pre><span class="cm"># Read an image</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="str">"photo.png"</span>, <span class="str">"rb"</span>) <span class="kw">as</span> f:
+    data = f.read()   <span class="cm"># type: bytes</span>
+
+<span class="cm"># Copy a file</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="str">"src.png"</span>, <span class="str">"rb"</span>) <span class="kw">as</span> src:
+    <span class="kw">with</span> <span class="fn">open</span>(<span class="str">"dst.png"</span>, <span class="str">"wb"</span>) <span class="kw">as</span> dst:
+        dst.write(src.read())</pre>
+      </div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <tr><th>Mode</th><th>Read</th><th>Write</th><th>Create if Missing</th><th>Deletes Existing</th><th>Write Position</th></tr>
+        <tr><td><code>r</code></td><td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td>—</td></tr>
+        <tr><td><code>w</code></td><td class="no">❌</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td>Beginning (empty)</td></tr>
+        <tr><td><code>a</code></td><td class="no">❌</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">❌</td><td>End</td></tr>
+        <tr><td><code>x</code></td><td class="no">❌</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">❌</td><td>Beginning (new file)</td></tr>
+        <tr><td><code>r+</code></td><td class="yes">✅</td><td class="yes">✅</td><td class="no">❌</td><td class="no">❌</td><td>Current cursor</td></tr>
+        <tr><td><code>w+</code></td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td>Beginning (empty)</td></tr>
+        <tr><td><code>a+</code></td><td class="yes">✅</td><td class="yes">✅</td><td class="yes">✅</td><td class="no">❌</td><td>End (always)</td></tr>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3>Interview Q&amp;A</h3>
+      <div style="display:grid;gap:12px;margin-top:4px">
+        <div style="border-left:3px solid var(--accent);padding-left:14px">
+          <p style="font-size:.88rem;color:var(--text);font-weight:500">Q: Which mode is safest if you don't want to accidentally overwrite an existing file?</p>
+          <p style="font-size:.85rem;color:var(--green);margin-top:4px">→ <code>"x"</code> — raises FileExistsError if the file already exists.</p>
+        </div>
+        <div style="border-left:3px solid var(--accent);padding-left:14px">
+          <p style="font-size:.88rem;color:var(--text);font-weight:500">Q: Which mode should you use for log files?</p>
+          <p style="font-size:.85rem;color:var(--green);margin-top:4px">→ <code>"a"</code> — adds new entries without deleting old ones.</p>
+        </div>
+        <div style="border-left:3px solid var(--accent);padding-left:14px">
+          <p style="font-size:.88rem;color:var(--text);font-weight:500">Q: Which mode deletes file contents immediately when opened?</p>
+          <p style="font-size:.85rem;color:var(--green);margin-top:4px">→ <code>"w"</code> and <code>"w+"</code></p>
+        </div>
+        <div style="border-left:3px solid var(--accent);padding-left:14px">
+          <p style="font-size:.88rem;color:var(--text);font-weight:500">Q: Which mode lets you read and always append to the end?</p>
+          <p style="font-size:.85rem;color:var(--green);margin-top:4px">→ <code>"a+"</code></p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin:28px 0 14px;font-size:1rem;color:var(--accent2)">Module 5 — Practice Exercises</h3>
+    <div class="exercise-grid">
+      <div class="ex-card"><span class="ex-num">Exercise 21</span><p>Open a file with <code>"r+"</code>, overwrite only the first two characters, and print the result.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 22</span><p>Open a file with <code>"w+"</code>, write some text, seek to position 0, and read it back.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 23</span><p>Use <code>"a+"</code> to append a line, then seek to 0 and print the entire file.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 24</span><p>Copy a text file by reading in <code>"rb"</code> mode and writing in <code>"wb"</code> mode.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+      <div class="ex-card"><span class="ex-num">Exercise 25</span><p>Write a program that logs each run with a timestamp to a file using append mode.</p><div class="ex-check" onclick="toggleCheck(this)">✓</div></div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  Python File Handling · Modules 1–5 · <span>25 hands-on exercises</span>
+</footer>
+
+<script>
+  // ── Copy code ──
+  function copyCode(btn) {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    const text = pre.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'copied!';
+      btn.style.background = 'var(--green)';
+      btn.style.color = '#000';
+      btn.style.borderColor = 'var(--green)';
+      setTimeout(() => {
+        btn.textContent = 'copy';
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 1800);
+    });
+  }
+
+  // ── Exercise checkboxes ──
+  const TOTAL = 25;
+  function toggleCheck(el) {
+    el.classList.toggle('done');
+    updateProgress();
+  }
+  function updateProgress() {
+    const done = document.querySelectorAll('.ex-check.done').length;
+    const pct  = Math.round((done / TOTAL) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressPct').textContent = pct + '%';
+  }
+
+  // ── Smooth pill nav ──
+  document.querySelectorAll('.pill').forEach(pill => {
+    pill.addEventListener('click', e => {
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+
+  // ── Highlight active pill on scroll ──
+  const sections = document.querySelectorAll('.section');
+  const pills = document.querySelectorAll('.pill');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        pills.forEach(p => {
+          p.classList.toggle('active', p.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

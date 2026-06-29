@@ -1,0 +1,485 @@
+	ATM MANAGEMENT SYSTEM
+
+Problem Statement:
+Create an ATM system that validates a PIN before allowing transactions.
+The system should support Deposit, Withdrawal, Balance Inquiry, Transaction History, and Exit.
+
+Input:
+PIN and transaction options
+
+Output:
+Transaction results and updated balance
+
+Test Case 1:
+Input:
+PIN=1234
+Deposit=500
+Balance Inquiry
+Output:
+Deposit Successful
+Balance = 500
+
+Test Case 2:
+Input:
+PIN=1234
+Withdraw=200
+History
+Output:
+Withdrawal Successful
+Transaction History:
+Withdraw - 200
+
+
+
+
+
+
+
+
+note = "   Hello FRIENDS, my name is Robo123. I LOVE coding, learning, and FUN! Code123 is my secret code. 456789   "
+Your Mission
+The note has extra spaces at the beginning and end. Clean it using a string method.  #note.strip()
+Robo is shouting! Convert the entire note to lowercase.     #note.lower()   
+Create a poster version of the note by converting everything to uppercase.       #note.upper()
+Replace the word "FUN" with "adventure". #note.replace("FUN","adventure")
+Split the note into a list of words. #note.split()
+Join all the words using "*" as a separator.
+# ("*").join(note.split())
+Find the position where the word "coding" first appears.#note.find("coding")
+Check whether the cleaned note starts with "Hello".#(note.strip()).startswith("Hello")
+Check whether the cleaned note ends with "456789".#(note.strip()).endswith("456789")
+Is "456789" purely numeric? Use an appropriate string method."456789".isdigit()
+Is "FRIENDS" alphabetic only?"".isalph()
+Is "Robo123" alphanumeric?"".isalnum()
+Is "LOVE" written completely in uppercase?
+#"".isupper()
+Count how many times the letter "o" appears in the cleaned note. note.count("o")
+Extract only the first 15 characters of the cleaned note.note.strip()[0:15]
+
+
+
+
+
+REMOVE DUPLICATE CHARACTERS FROM A STRING
+
+Problem Statement:
+Write a program to remove duplicate characters from a string while preserving the order of their first occurrence.
+Test Case 
+Input:programming
+Output:progamin
+Test Case 2:
+Input:banana
+Output:ban
+
+
+
+
+MERGE TWO STRINGS WITHOUT DUPLICATE CHARACTERS
+
+Problem Statement:
+Write a program to combine two strings and remove duplicate characters while maintaining the order of their first appearance.
+Test Case 1:
+Input:
+abc
+cde
+Output:abcde
+Test Case 2:
+Input:
+hello
+world
+Output:helowrd
+
+
+ROTATE A STRING LEFT BY N POSITIONS
+
+Problem Statement:
+Write a program to rotate the characters of a string to the left by N positions.
+
+Test Case 1:
+Input:
+String = abcde
+N = 2
+Output:cdeab
+Test Case 2:
+Input:
+String = python
+N = 1
+Output:ythonp
+
+
+
+
+
+SUM OF DIGITS FOR EACH NUMBER IN A STRING
+
+Problem Statement:
+Given a string containing numbers separated by spaces, create a new string containing the sum of digits of each number.
+
+Test Case 1:
+Input:123 45 67
+Output:6 9 13
+Test Case 2:
+Input:10 20
+Output:1 2
+
+
+CHARACTER FREQUENCY COUNTER
+
+Problem Statement:
+Write a program to count the frequency of each character in a string.
+
+Test Case 1:
+
+Input:
+Hello
+
+Output:
+H-1
+e-1
+l-2
+o-1
+Test Case 2:
+
+Input:
+Apple
+
+Output:
+A-1
+p-2
+l-1
+e-1
+
+
+
+
+
+
+
+CHECK WHETHER ALL CHARACTERS ARE SAME
+
+Problem Statement:
+Write a program to check whether all characters in a string are identical.
+
+Test Case 1:
+
+Input:aaaa
+Output:True
+Test Case 2:
+Input:aaab
+Output:False
+
+
+
+
+
+
+REVERSE EACH WORD IN A STRING
+
+Problem Statement:
+Write a program to reverse every word in a string while keeping the word order unchanged.
+
+Test Case 1:
+
+Input:hello world
+Output:olleh dlrow
+Test Case 2:
+Input:python programming
+Output:nohtyp gnimmargorp
+
+
+
+FIND THE LONGEST WORD IN A STRING
+
+Problem Statement:
+Write a program to find the longest word present in a string.
+
+Test Case 1:
+Input:I love programming
+Output:programming
+Test Case 2:
+Input:Python is awesome
+Output:awesome
+
+
+
+
+COUNT VOWELS AND CONSONANTS IN A STRING
+
+Problem Statement:
+Write a program to count the number of vowels and consonants in a string.
+Test Case 1:
+Input:hello
+Output:
+Vowels = 2
+Consonants = 3
+Test Case 2:
+Input:
+python
+Output:
+Vowels = 1
+Consonants = 5
+
+
+
+
+
+
+CHECK WHETHER TWO STRINGS ARE ANAGRAMS
+
+Problem Statement:
+Write a program to check whether two strings are anagrams of each other. Two strings are anagrams if they contain the same characters with the same frequencies.
+
+Test Case 1:
+
+Input:listen
+silent
+Output:True
+
+Test Case 2:
+
+Input:
+hello
+world
+Output:False
+
+
+
+
+
+Write a program to find the first character that appears only once in a string.
+Test Case 1:
+Input:aabbcdde
+Output:c
+Test Case 2:
+Input:swiss
+Output:w
+
+
+
+
+
+REPLACE ALL VOWELS WITH '*'
+Problem Statement:
+Write a program to replace every vowel in a string with '*'.
+Test Case 1:
+Input:hello
+Output:h*ll*
+Test Case 2:
+Input:python
+Output:pyth*n
+
+
+
+
+
+
+
+EXTRACT ONLY DIGITS FROM A STRING
+Problem Statement:
+Write a program to extract all digits from a string.
+Test Case 1:
+Input:abc123xyz
+Output:123
+Test Case 2:
+Input:A1B2C3
+Output:123
+
+
+
+FIND THE SHORTEST WORD IN A STRING
+Problem Statement:
+Write a program to find the shortest word in a string.
+Test Case 1:
+Input:I love Python programming
+Output:I
+Test Case 2:
+Input:Coding is fun
+Output:is
+
+
+
+VALIDATE VOWEL SANDWICH
+The is_vowel_sandwich function validates,whether a 3-character string is a vowel sandwich.
+input: bab
+o/p: Yes
+inpu:kii
+o/p:No
+
+
+
+
+spELL OUT A WORD
+input:example
+ Output: e, ex, exa, exam, examp, exampl, example   
+
+
+
+
+
+------------------------------
+
+
+FIND MISSING NUMBERS USING SETS
+
+Problem Statement:
+Given numbers from 1 to N and a set containing some of them, find the missing numbers.
+Test Case 1:
+Input:
+N = 5
+Set = {1, 2, 4}
+Output:{3, 5}
+Test Case 2:
+Input:
+N = 10
+Set = {1, 2, 3, 4, 5, 7, 9}
+Output:{6, 8, 10}
+
+
+
+
+
+
+Scenario:
+You are managing a music playlist where each playlist is represented as a set of song IDs.
+
+Task:
+Write a function manage_playlist(playlist, operation, song=None, another_playlist=None) 
+that performs the following operations based on the method name provided in the operation argument:
+
+Use add() to add a song to the playlist.
+Use remove() to remove a specific song from the playlist.
+Use discard() to remove a song only if it exists in the playlist.
+Use pop() to remove and return a random song.
+Use clear() to remove all songs from the playlist.
+Use union() to combine the current playlist with another playlist.
+Use intersection() to find common songs between two playlists.
+Use difference() to find songs unique to the current playlist compared to another playlist.
+
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: add
+Enter the song ID: 101
+
+Result: Song 101 added to the playlist.
+Updated Playlist: {101}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: add
+Enter the song ID: 102
+
+Result: Song 102 added to the playlist.
+Updated Playlist: {101, 102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: union
+Enter another playlist as comma-separated song IDs (e.g., 101,102,103): 102,103,104
+
+Result: {101, 102, 103, 104}
+Updated Playlist: {101, 102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: intersection
+Enter another playlist as comma-separated song IDs (e.g., 101,102,103): 102,103
+
+Result: {102}
+Updated Playlist: {101, 102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: pop
+
+Result: Randomly removed song: 101
+Updated Playlist: {102}
+
+Operations: add, remove, discard, pop, clear, union, intersection, difference, exit
+Enter the operation you want to perform: exit
+Exiting the playlist manager.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------
+
+Scenario:
+You are building a product catalog system for an online store. The catalog is stored as a 
+dictionary where keys are product IDs and values are product names.
+
+Task:
+Write a function manage_catalog(catalog, operation, key=None, value=None) that performs
+the following operations based on the method name provided in the operation argument:
+
+Use get() to retrieve a product name by its ID.
+Use keys() to get a list of all product IDs.
+Use values() to get a list of all product names.
+Use items() to get all product ID-name pairs.
+Use update() to add or update a product in the catalog.
+Use pop() to remove a product by its ID and return its name.
+Use popitem() to remove the last added product.
+Use clear() to empty the catalog.
+ 
+catalog = {
+    101: "Laptop",
+    102: "Smartphone",
+    103: "Tablet",
+    104: "Headphones"
+}
+
+operation = "get"
+key = 102
+print(manage_catalog(catalog, operation, key))  # Output: Smartphone
+
+
+Operations: get, keys, values, items, update, pop, popitem, clear, exit
+Enter the operation you want to perform: keys
+
+Result: [101, 102, 103, 104]
+Updated Catalog: {101: 'Laptop', 102: 'Smartphone', 103: 'Tablet', 104: 'Headphones'}
+
+Operations: get, keys, values, items, update, pop, popitem, clear, exit
+Enter the operation you want to perform: get
+Enter the product ID (key): 102
+
+Result: Smartphone
+Updated Catalog: {101: 'Laptop', 102: 'Smartphone', 103: 'Tablet', 104: 'Headphones'}
+
+Operations: get, keys, values, items, update, pop, popitem, clear, exit
+Enter the operation you want to perform: update
+Enter the product ID (key): 105
+Enter the product name (value): Smartwatch
+
+Result: Product 105 updated/added successfully.
+Updated Catalog: {101: 'Laptop', 102: 'Smartphone', 103: 'Tablet', 104: 'Headphones', 105: 'Smartwatch'}
+
+Operations: get, keys, values, items, update, pop, popitem, clear, exit
+Enter the operation you want to perform: popitem
+
+Result: (105, 'Smartwatch')
+Updated Catalog: {101: 'Laptop', 102: 'Smartphone', 103: 'Tablet', 104: 'Headphones'}
+
+Operations: get, keys, values, items, update, pop, popitem, clear, exit
+Enter the operation you want to perform: exit
+Exiting the catalog manager.
+
+
+

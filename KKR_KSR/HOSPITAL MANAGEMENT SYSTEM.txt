@@ -1,0 +1,677 @@
+HOSPITAL MANAGEMENT SYSTEM
+
+SOFTWARE REQUIREMENTS SPECIFICATION (SRS)
+
+Document Version: 1.0
+
+Project Name: Hospital Management System
+
+Document Type: Software Requirements Specification (SRS)
+
+Prepared For: Development Team
+
+Prepared By: Project Management Office
+
+---
+
+1. INTRODUCTION
+
+1.1 Purpose
+
+The purpose of this document is to define the functional and non-functional requirements for the Hospital Management System.
+
+The system will enable hospital administrators, doctors, and staff to manage patient records, doctor records, appointments, treatments, billing, and reporting operations efficiently.
+
+This document serves as the primary reference for developers, testers, architects, and stakeholders.
+
+1.2 Scope
+
+The Hospital Management System shall provide the following modules:
+
+* Doctor Management
+* Patient Management
+* Appointment Management
+* Treatment Management
+* Billing Management
+* Reporting and Analytics
+* Data Validation
+* Exception Handling
+
+The application shall be implemented using Python and Object-Oriented Programming principles.
+
+1.3 Objectives
+
+The objectives of the system are:
+
+* Eliminate manual record maintenance
+* Maintain centralized patient records
+* Prevent duplicate appointments
+* Automate billing calculations
+* Improve data accuracy
+* Generate operational reports
+
+---
+
+2. SYSTEM OVERVIEW
+
+2.1 Actors
+
+Administrator
+
+Responsibilities:
+
+* Register doctors
+* Register patients
+* Manage appointments
+* Generate bills
+* Generate reports
+
+Doctor
+
+Responsibilities:
+
+* View patient records
+* Add treatment records
+* View appointments
+
+Patient
+
+Responsibilities:
+
+* Book appointments
+* View treatment history
+* Access billing information
+
+---
+
+3. BUSINESS REQUIREMENTS
+
+BR-001 Doctor Management
+
+The system shall allow administrators to:
+
+* Add doctors
+* Update doctor information
+* Search doctors
+* View doctors
+* Remove doctors
+
+BR-002 Patient Management
+
+The system shall allow administrators to:
+
+* Register patients
+* Update patient details
+* Search patients
+* View patient records
+
+BR-003 Appointment Management
+
+The system shall allow:
+
+* Appointment booking
+* Appointment cancellation
+* Appointment viewing
+* Appointment conflict detection
+
+BR-004 Treatment Management
+
+The system shall allow doctors to:
+
+* Add treatment records
+* Update treatment records
+* View treatment history
+
+BR-005 Billing Management
+
+The system shall:
+
+* Generate patient bills
+* Calculate charges
+* Maintain billing records
+
+BR-006 Reporting
+
+The system shall generate:
+
+* Doctor Reports
+* Patient Reports
+* Appointment Reports
+* Revenue Reports
+
+---
+
+4. FUNCTIONAL REQUIREMENTS
+
+FR-001 Add Doctor
+
+Description
+
+The system shall allow administrators to register a doctor.
+
+Input Fields
+
+Doctor ID
+Name
+Age
+Phone Number
+Specialization
+Consultation Fee
+
+Validation Rules
+
+* Doctor ID must be unique
+* Age must be greater than zero
+* Consultation fee must be greater than zero
+* Phone number must contain ten digits
+
+Output
+
+Doctor registered successfully.
+
+---
+
+FR-002 Search Doctor
+
+Input
+
+Doctor ID
+
+Process
+
+Search doctor records using Doctor ID.
+
+Output
+
+Display doctor information.
+
+Exception
+
+DoctorNotFoundException
+
+---
+
+FR-003 Register Patient
+
+Input Fields
+
+Patient ID
+Name
+Age
+Phone Number
+Disease
+
+Validation Rules
+
+* Patient ID must be unique
+* Age must be greater than zero
+* Phone number must be valid
+
+Output
+
+Patient registered successfully.
+
+---
+
+FR-004 Search Patient
+
+Input
+
+Patient ID
+
+Output
+
+Display patient information.
+
+Exception
+
+PatientNotFoundException
+
+---
+
+FR-005 Book Appointment
+
+Input
+
+Appointment ID
+Doctor ID
+Patient ID
+Appointment Date
+Appointment Time
+
+Validation Rules
+
+* Doctor must exist
+* Patient must exist
+* Appointment slot must not be booked already
+
+Output
+
+Appointment booked successfully.
+
+Exceptions
+
+DoctorNotFoundException
+PatientNotFoundException
+AppointmentAlreadyExistsException
+
+---
+
+FR-006 View Appointments
+
+Display Fields
+
+Appointment ID
+Doctor Name
+Patient Name
+Date
+Time
+
+---
+
+FR-007 Add Treatment Record
+
+Input
+
+Patient ID
+Treatment Description
+
+Output
+
+Treatment record added successfully.
+
+---
+
+FR-008 View Treatment History
+
+Input
+
+Patient ID
+
+Output
+
+Display complete treatment history.
+
+---
+
+FR-009 Generate Bill
+
+Input
+
+Patient ID
+Consultation Fee
+Medicine Charges
+Lab Charges
+
+Billing Formula
+
+Total Bill =
+Consultation Fee +
+Medicine Charges +
+Lab Charges
+
+Output
+
+Billing summary and total amount.
+
+---
+
+FR-010 Discharge Patient
+
+Input
+
+Patient ID
+
+Process
+
+Update patient status from Admitted to Discharged.
+
+Output
+
+Patient discharged successfully.
+
+---
+
+FR-011 Reports
+
+Report Types
+
+1. Total Doctors
+2. Total Patients
+3. Total Appointments
+4. Unique Diseases Treated
+5. Total Revenue Generated
+
+---
+
+5. DATA MODEL
+
+Doctor Entity
+
+Attributes
+
+doctor_id
+name
+age
+phone
+specialization
+consultation_fee
+
+Patient Entity
+
+Attributes
+
+patient_id
+name
+age
+phone
+disease
+admission_status
+medical_history
+
+Appointment Entity
+
+Attributes
+
+appointment_id
+doctor_id
+patient_id
+date
+time
+
+Bill Entity
+
+Attributes
+
+bill_id
+patient_id
+consultation_fee
+medicine_charges
+lab_charges
+total_amount
+
+---
+
+6. OBJECT ORIENTED DESIGN
+
+6.1 Abstraction
+
+Abstract Class
+
+Person
+
+Attributes
+
+id
+name
+age
+phone
+
+Abstract Method
+
+display_details()
+
+---
+
+6.2 Inheritance
+
+Person
+
+Derived Classes
+
+Doctor
+Patient
+
+Doctor and Patient must inherit from Person.
+
+---
+
+6.3 Encapsulation
+
+Private Attributes
+
+Doctor
+
+__consultation_fee
+
+Patient
+
+__medical_history
+
+Access Methods
+
+get_consultation_fee()
+set_consultation_fee()
+
+get_medical_history()
+add_medical_history()
+
+---
+
+6.4 Polymorphism
+
+Method
+
+display_details()
+
+Doctor and Patient classes shall implement this method differently.
+
+Doctor Example
+
+Doctor ID
+Name
+Specialization
+Consultation Fee
+
+Patient Example
+
+Patient ID
+Name
+Disease
+Admission Status
+
+---
+
+7. COLLECTION FRAMEWORK REQUIREMENTS
+
+List Usage
+
+Purpose
+
+Store appointments.
+
+Example
+
+appointments = []
+
+Dictionary Usage
+
+Purpose
+
+Store doctors and patients.
+
+Example
+
+doctors = {}
+
+patients = {}
+
+Key
+
+Doctor ID
+Patient ID
+
+Set Usage
+
+Purpose
+
+Store unique diseases.
+
+Example
+
+diseases = set()
+
+Benefits
+
+* No duplicates
+* Fast lookup
+* Useful for reporting
+
+---
+
+8. CUSTOM EXCEPTION REQUIREMENTS
+
+DoctorNotFoundException
+
+Raised when a doctor record does not exist.
+
+PatientNotFoundException
+
+Raised when a patient record does not exist.
+
+AppointmentAlreadyExistsException
+
+Raised when an appointment slot is already booked.
+
+InvalidAgeException
+
+Raised when age is less than or equal to zero.
+
+InvalidFeeException
+
+Raised when consultation fee is invalid.
+
+BillingException
+
+Raised when billing generation fails.
+
+---
+
+9. NON-FUNCTIONAL REQUIREMENTS
+
+Performance
+
+* Search operations should complete within one second.
+* Support at least ten thousand patient records.
+
+Reliability
+
+* No data corruption.
+* Proper exception handling.
+
+Maintainability
+
+* Modular design.
+* Reusable classes.
+* Separation of concerns.
+
+Scalability
+
+* Support future database integration.
+* Support multiple hospital branches.
+
+---
+
+10. PROJECT MODULES
+
+Module 1
+
+Doctor Management
+
+Responsibilities
+
+* Add Doctor
+* Search Doctor
+* View Doctors
+* Update Doctor
+
+Module 2
+
+Patient Management
+
+Responsibilities
+
+* Add Patient
+* Search Patient
+* View Patients
+* Update Patient
+
+Module 3
+
+Appointment Management
+
+Responsibilities
+
+* Book Appointment
+* Cancel Appointment
+* View Appointments
+
+Module 4
+
+Treatment Management
+
+Responsibilities
+
+* Add Treatment
+* View Treatment History
+
+Module 5
+
+Billing Management
+
+Responsibilities
+
+* Generate Bills
+* View Bills
+
+Module 6
+
+Reporting Module
+
+Responsibilities
+
+* Generate Reports
+* Revenue Reports
+* Disease Reports
+
+---
+
+11. SUGGESTED PROJECT STRUCTURE
+
+hospital_management
+
+models
+
+person.py
+doctor.py
+patient.py
+appointment.py
+bill.py
+
+services
+
+doctor_service.py
+patient_service.py
+appointment_service.py
+billing_service.py
+
+exceptions
+
+doctor_exception.py
+patient_exception.py
+billing_exception.py
+
+reports
+
+report_service.py
+
+utils
+
+validators.py
+
+main.py
+
+---
+
+
+END OF DOCUMENT

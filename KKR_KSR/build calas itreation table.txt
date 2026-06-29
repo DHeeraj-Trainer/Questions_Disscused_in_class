@@ -1,0 +1,14 @@
+| i     | ch | num before processing | sign used | Operation on stack       | Stack after operation | New sign |
+| ----- | -- | --------------------- | --------- | ------------------------ | --------------------- | -------- |
+| Start | -  | 0                     | +         | -                        | []                    | +        |
+| 0     | 5  | 5                     | -         | Building number only     | []                    | +        |
+| 1     | -  | 5                     | +         | append(5)                | [5]                   | -        |
+| 2     | 3  | 3                     | -         | Building number only     | [5]                   | -        |
+| 3     | 3  | 33                    | -         | Building number only     | [5]                   | -        |
+| 4     | +  | 33                    | -         | append(-33)              | [5, -33]              | +        |
+| 5     | 2  | 2                     | +         | Building number only     | [5, -33]              | +        |
+| 6     | *  | 2                     | +         | append(2)                | [5, -33, 2]           | *        |
+| 7     | 2  | 2                     | *         | Building number only     | [5, -33, 2]           | *        |
+| 8     | /  | 2                     | *         | pop(2), push(2×2=4)      | [5, -33, 4]           | /        |
+| 9     | 5  | 5                     | /         | Building number only     | [5, -33, 4]           | /        |
+| End   | -  | 5                     | /         | pop(4), push(int(4/5)=0) | [5, -33, 0]           | -        |

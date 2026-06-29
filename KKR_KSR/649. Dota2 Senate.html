@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dota2 Senate Visualizer</title>
+
+<style>
+:root{
+    --radiant:#2ecc71;
+    --radiant-dark:#1f9d55;
+    --dire:#e74c3c;
+    --dire-dark:#c0392b;
+
+    --bg:#0f172a;
+    --panel:#111827;
+    --panel2:#1f2937;
+    --text:#f3f4f6;
+    --muted:#94a3b8;
+    --gold:#f59e0b;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:linear-gradient(135deg,#020617,#0f172a);
+    color:var(--text);
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+}
+
+header{
+    text-align:center;
+    padding:25px;
+}
+
+h1{
+    margin:0;
+    font-size:2rem;
+}
+
+.subtitle{
+    color:var(--muted);
+    margin-top:10px;
+}
+
+.container{
+    width:min(1400px,95%);
+    margin:auto;
+}
+
+.controls{
+    background:var(--panel);
+    border:1px solid #334155;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+input{
+    padding:12px;
+    width:260px;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+}
+
+button{
+    padding:12px 16px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin:4px;
+    font-weight:bold;
+}
+
+.primary{
+    background:var(--gold);
+}
+
+.secondary{
+    background:#334155;
+    color:white;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:var(--panel);
+    border:1px solid #334155;
+    border-radius:16px;
+    padding:18px;
+}
+
+.panel h2{
+    margin-top:0;
+}
+
+.battlefield{
+    min-height:400px;
+}
+
+.arena{
+    border:1px solid #334155;
+    border-radius:12px;
+    margin-bottom:20px;
+    padding:20px;
+    min-height:150px;
+}
+
+.radiantArena{
+    background:rgba(46,204,113,0.08);
+}
+
+.direArena{
+    background:rgba(231,76,60,0.08);
+}
+
+.senatorRow{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:70px;
+    height:90px;
+    border-radius:12px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    transition:all .7s ease;
+    position:relative;
+}
+
+.card.r{
+    background:linear-gradient(135deg,var(--radiant),var(--radiant-dark));
+}
+
+.card.d{
+    background:linear-gradient(135deg,var(--dire),var(--dire-dark));
+}
+
+.card.active{
+    transform:scale(1.15);
+    box-shadow:0 0 25px white;
+}
+
+.card.banned{
+    animation:ban .9s forwards;
+}
+
+@keyframes ban{
+    0%{transform:scale(1);}
+    40%{transform:translateX(10px) rotate(10deg);}
+    100%{
+        opacity:0;
+        transform:scale(0);
+    }
+}
+
+.explanation{
+    background:var(--panel2);
+    border-radius:12px;
+    padding:15px;
+    line-height:1.7;
+    min-height:160px;
+}
+
+.brain{
+    background:#172033;
+    border-left:5px solid var(--gold);
+    border-radius:10px;
+    padding:15px;
+    margin-top:15px;
+}
+
+.timeline{
+    overflow-x:auto;
+    margin-top:20px;
+}
+
+.timelineTrack{
+    display:flex;
+    gap:12px;
+    padding:10px;
+}
+
+.tick{
+    min-width:50px;
+    text-align:center;
+    padding:10px;
+    border-radius:8px;
+    background:#1e293b;
+}
+
+.code{
+    background:#0b1220;
+    border-radius:10px;
+    padding:15px;
+    overflow:auto;
+    white-space:pre;
+    font-family:monospace;
+    line-height:1.6;
+}
+
+.highlight{
+    background:#f59e0b33;
+    display:block;
+}
+
+.log{
+    background:#0b1220;
+    border-radius:10px;
+    padding:15px;
+    max-height:300px;
+    overflow:auto;
+    white-space:pre-wrap;
+}
+
+.victory{
+    text-align:center;
+    font-size:42px;
+    margin-top:20px;
+    font-weight:bold;
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse{
+    50%{
+        transform:scale(1.08);
+    }
+}
+
+.stepBox{
+    background:#172033;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:999px;
+    background:var(--gold);
+    color:black;
+    font-weight:bold;
+}
+
+.compare{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    margin-top:15px;
+    font-size:24px;
+    min-height:80px;
+}
+
+.compareCard{
+    padding:12px 20px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+.green{
+    background:var(--radiant);
+}
+
+.red{
+    background:var(--dire);
+}
+
+footer{
+    text-align:center;
+    color:#94a3b8;
+    padding:30px;
+}
+
+@media(max-width:1000px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>⚔️ Dota2 Senate Algorithm Visualizer</h1>
+<div class="subtitle">
+Learn WHY the queue solution works through animations.
+</div>
+</header>
+
+<div class="container">
+
+<div class="controls">
+<input id="senateInput" value="RDDRRD">
+
+<button class="primary" onclick="startSimulation()">
+Start
+</button>
+
+<button class="secondary" onclick="prevStep()">
+◀ Previous
+</button>
+
+<button class="secondary" onclick="nextStep()">
+Next ▶
+</button>
+
+<button class="secondary" onclick="autoPlay()">
+▶ Auto Play
+</button>
+
+<button class="secondary" onclick="pausePlay()">
+⏸ Pause
+</button>
+
+<button class="secondary" onclick="randomCase()">
+🎲 Random
+</button>
+
+<select id="speed">
+<option value="1500">Slow</option>
+<option value="800" selected>Normal</option>
+<option value="300">Fast</option>
+</select>
+</div>
+
+<div class="grid">
+
+<div class="panel battlefield">
+
+<h2>🎮 Battlefield</h2>
+
+<div class="stepBox">
+<span class="badge">Algorithm Rule</span>
+<p>
+Compare the front senator from both queues.
+The smaller index acts first, bans the opponent,
+and returns as <b>index + n</b>.
+</p>
+</div>
+
+<div class="arena radiantArena">
+<h3>☀️ Radiant Queue</h3>
+<div id="radiantRow" class="senatorRow"></div>
+</div>
+
+<div class="arena direArena">
+<h3>🌙 Dire Queue</h3>
+<div id="direRow" class="senatorRow"></div>
+</div>
+
+<div id="compareArea" class="compare"></div>
+
+<div class="timeline">
+<h3>📈 Timeline</h3>
+<div id="timelineTrack" class="timelineTrack"></div>
+</div>
+
+<div id="victory"></div>
+
+</div>
+
+<div>
+
+<div class="panel">
+
+<h2>📖 Live Explanation</h2>
+
+<div id="explanation" class="explanation">
+Press Start to begin.
+</div>
+
+<div class="brain">
+<h3>🧠 Algorithm Brain</h3>
+<div id="brain">
+Waiting...
+</div>
+</div>
+
+</div>
+
+<div class="panel">
+
+<h2>💻 Python Code</h2>
+
+<div id="codePanel" class="code"></div>
+
+</div>
+
+<div class="panel">
+
+<h2>📜 Event Log</h2>
+
+<div id="log" class="log"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+Queue-Based Solution • LeetCode 649
+</footer>
+
+<script>
+
+let senate="";
+let n=0;
+
+let radiant=[];
+let dire=[];
+
+let history=[];
+let currentStep=-1;
+let auto=null;
+
+const CODE_LINES=[
+"while radiant and dire:",
+"    r = radiant.popleft()",
+"    d = dire.popleft()",
+"",
+"    if r < d:",
+"        radiant.append(r+n)",
+"    else:",
+"        dire.append(d+n)",
+"",
+"return winner"
+];
+
+function renderCode(active=-1){
+
+let html="";
+
+CODE_LINES.forEach((line,index)=>{
+
+if(index===active){
+html+=`<span class="highlight">${line}</span>\n`;
+}else{
+html+=line+"\n";
+}
+
+});
+
+document.getElementById("codePanel").innerHTML=html;
+}
+
+renderCode();
+
+function log(msg){
+const box=document.getElementById("log");
+box.innerHTML+=msg+"\n";
+box.scrollTop=box.scrollHeight;
+}
+
+function randomCase(){
+
+let len=5+Math.floor(Math.random()*8);
+let s="";
+
+for(let i=0;i<len;i++){
+s+=Math.random()>0.5?"R":"D";
+}
+
+document.getElementById("senateInput").value=s;
+}
+
+function renderQueues(){
+
+const rr=document.getElementById("radiantRow");
+const dr=document.getElementById("direRow");
+
+rr.innerHTML="";
+dr.innerHTML="";
+
+radiant.forEach(x=>{
+rr.innerHTML+=`
+<div class="card r">
+<div>R</div>
+<div>${x}</div>
+</div>`;
+});
+
+dire.forEach(x=>{
+dr.innerHTML+=`
+<div class="card d">
+<div>D</div>
+<div>${x}</div>
+</div>`;
+});
+
+renderTimeline();
+}
+
+function renderTimeline(){
+
+const track=document.getElementById("timelineTrack");
+track.innerHTML="";
+
+const all=[...radiant,...dire].sort((a,b)=>a-b);
+
+all.forEach(v=>{
+track.innerHTML+=`
+<div class="tick">${v}</div>
+`;
+});
+
+}
+
+function startSimulation(){
+
+senate=document.getElementById("senateInput")
+.value.toUpperCase();
+
+n=senate.length;
+
+radiant=[];
+dire=[];
+
+history=[];
+currentStep=-1;
+
+document.getElementById("victory").innerHTML="";
+document.getElementById("log").innerHTML="";
+
+for(let i=0;i<n;i++){
+
+if(senate[i]==="R"){
+radiant.push(i);
+}else{
+dire.push(i);
+}
+
+}
+
+renderQueues();
+
+document.getElementById("explanation").innerHTML=
+`
+<b>Step 1:</b> Build two queues.<br><br>
+Radiant Queue = [${radiant.join(", ")}]<br>
+Dire Queue = [${dire.join(", ")}]
+`;
+
+document.getElementById("brain").innerHTML=
+"Ready to compare the front senator from each queue.";
+
+log("Simulation started");
+}
+
+function saveState(){
+
+history.push({
+radiant:[...radiant],
+dire:[...dire]
+});
+
+}
+
+function nextStep(){
+
+if(radiant.length===0 || dire.length===0){
+return;
+}
+
+saveState();
+
+renderCode(1);
+
+let r=radiant.shift();
+let d=dire.shift();
+
+const compare=document.getElementById("compareArea");
+
+compare.innerHTML=
+`
+<div class="compareCard green">R${r}</div>
+⚔️
+<div class="compareCard red">D${d}</div>
+`;
+
+let winnerText="";
+
+if(r<d){
+
+renderCode(5);
+
+radiant.push(r+n);
+
+winnerText=`
+<b>Compare:</b> ${r} &lt; ${d}<br><br>
+R${r} acts first.<br>
+R${r} bans D${d}.<br>
+R${r} survives and returns as ${r+n}.
+`;
+
+document.getElementById("brain").innerHTML=
+`
+Front Radiant = ${r}<br>
+Front Dire = ${d}<br><br>
+
+${r} is smaller.<br>
+
+Therefore Radiant gets the turn first.
+`;
+
+log(`R${r} banned D${d}`);
+log(`R${r} returned as R${r+n}`);
+
+}else{
+
+renderCode(7);
+
+dire.push(d+n);
+
+winnerText=`
+<b>Compare:</b> ${d} &lt; ${r}<br><br>
+D${d} acts first.<br>
+D${d} bans R${r}.<br>
+D${d} survives and returns as ${d+n}.
+`;
+
+document.getElementById("brain").innerHTML=
+`
+Front Radiant = ${r}<br>
+Front Dire = ${d}<br><br>
+
+${d} is smaller.<br>
+
+Therefore Dire gets the turn first.
+`;
+
+log(`D${d} banned R${r}`);
+log(`D${d} returned as D${d+n}`);
+}
+
+document.getElementById("explanation").innerHTML=
+winnerText;
+
+renderQueues();
+
+checkWinner();
+}
+
+function prevStep(){
+
+if(history.length===0) return;
+
+const state=history.pop();
+
+radiant=[...state.radiant];
+dire=[...state.dire];
+
+renderQueues();
+
+document.getElementById("victory").innerHTML="";
+}
+
+function checkWinner(){
+
+if(radiant.length===0){
+
+document.getElementById("victory").innerHTML=
+`
+<div class="victory" style="color:#ff6b6b">
+🌙 DIRE WINS 🌙
+</div>
+`;
+
+document.getElementById("brain").innerHTML=
+`
+Radiant queue is empty.<br>
+No Radiant senator can vote anymore.
+`;
+
+pausePlay();
+
+}
+
+if(dire.length===0){
+
+document.getElementById("victory").innerHTML=
+`
+<div class="victory" style="color:#4ade80">
+☀️ RADIANT WINS ☀️
+</div>
+`;
+
+document.getElementById("brain").innerHTML=
+`
+Dire queue is empty.<br>
+No Dire senator can vote anymore.
+`;
+
+pausePlay();
+}
+
+}
+
+function autoPlay(){
+
+pausePlay();
+
+let speed=
+parseInt(
+document.getElementById("speed").value
+);
+
+auto=setInterval(()=>{
+
+if(radiant.length===0 || dire.length===0){
+pausePlay();
+return;
+}
+
+nextStep();
+
+},speed);
+}
+
+function pausePlay(){
+
+if(auto){
+clearInterval(auto);
+auto=null;
+}
+
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>RecentCounter Visualizer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0f172a;
+color:white;
+padding:20px;
+}
+
+h1{
+text-align:center;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.card{
+background:#1e293b;
+padding:20px;
+border-radius:12px;
+}
+
+.controls{
+display:flex;
+gap:10px;
+margin-bottom:10px;
+}
+
+input{
+padding:10px;
+border-radius:8px;
+border:none;
+width:120px;
+}
+
+button{
+padding:10px 15px;
+border:none;
+border-radius:8px;
+background:#38bdf8;
+cursor:pointer;
+font-weight:bold;
+}
+
+.queue-container{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+min-height:60px;
+}
+
+.queue-item{
+background:#22c55e;
+color:black;
+padding:10px;
+border-radius:8px;
+font-weight:bold;
+animation:pop .3s ease;
+}
+
+@keyframes pop{
+from{transform:scale(0);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+
+.code{
+background:#0b1220;
+padding:10px;
+border-radius:8px;
+font-family:monospace;
+}
+
+table{
+width:100%;
+margin-top:10px;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #334155;
+padding:8px;
+text-align:center;
+}
+
+th{
+background:#0b1220;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🚀 RecentCounter Visualizer</h1>
+<p class="subtitle">
+Understand how queue cleanup works in [t-3000, t]
+</p>
+
+<div class="grid">
+
+<!-- LEFT PANEL -->
+<div class="card">
+
+<h2>Interactive Simulator</h2>
+
+<div class="controls">
+<input id="timeInput" type="number" placeholder="Enter t">
+<button onclick="runPing()">Ping</button>
+<button onclick="resetCounter()">Reset</button>
+</div>
+
+<h3>Queue</h3>
+<div id="queue" class="queue-container"></div>
+
+<h3>Validation</h3>
+<div id="validation" class="code">Waiting...</div>
+
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="card">
+
+<h2>Explanation</h2>
+
+<div class="code">
+while q[0] < t - 3000:
+    q.popleft()
+</div>
+
+<p class="explanation">
+Queue always stores sorted timestamps. Old values are removed from front.
+</p>
+
+</div>
+
+</div>
+
+<!-- LOG -->
+<div class="card">
+<h2>Execution Log</h2>
+<div id="log"></div>
+</div>
+
+<!-- HISTORY -->
+<div class="card">
+<h2>History Table</h2>
+<table>
+<thead>
+<tr>
+<th>t</th>
+<th>Range</th>
+<th>Queue</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody id="history"></tbody>
+</table>
+</div>
+
+<!-- PART 3 (JS) -->
+<script>
+let q = [];
+
+function renderQueue(){
+const box = document.getElementById("queue");
+box.innerHTML = "";
+
+q.forEach(v=>{
+let div = document.createElement("div");
+div.className = "queue-item";
+div.innerText = v;
+box.appendChild(div);
+});
+}
+
+function runPing(custom=null){
+
+let t = custom ?? parseInt(document.getElementById("timeInput").value);
+if(isNaN(t)) return;
+
+q.push(t);
+
+let before = [...q];
+let threshold = t - 3000;
+
+let removed = [];
+
+while(q.length && q[0] < threshold){
+removed.push(q.shift());
+}
+
+renderQueue();
+
+document.getElementById("validation").innerHTML = `
+t = ${t}<br>
+Range = [${threshold}, ${t}]<br>
+Removed = ${removed.join(", ") || "None"}<br>
+Count = ${q.length}
+`;
+
+let row = document.createElement("tr");
+row.innerHTML = `
+<td>${t}</td>
+<td>[${threshold}, ${t}]</td>
+<td>[${q.join(", ")}]</td>
+<td>${q.length}</td>
+`;
+
+document.getElementById("history").appendChild(row);
+
+let log = document.getElementById("log");
+let entry = document.createElement("div");
+entry.innerHTML = `<b>ping(${t})</b> → removed: ${removed.join(", ") || "none"}`;
+log.prepend(entry);
+}
+
+function resetCounter(){
+q = [];
+document.getElementById("queue").innerHTML = "";
+document.getElementById("history").innerHTML = "";
+document.getElementById("log").innerHTML = "";
+document.getElementById("validation").innerHTML = "Waiting...";
+}
+
+renderQueue();
+</script>
+
+</body>
+</html>
